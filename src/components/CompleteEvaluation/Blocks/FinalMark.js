@@ -2,19 +2,19 @@ import React, {useEffect, useState} from "react";
 import StupniceService from "../../../services/stupnice.service";
 const FinalMark = props => {
 
-    const [finalMark, setFinalMark] = useState(undefined);
+    const [mark, setFinalMark] = useState(undefined);
     const [prevMark, setPrevMark] = useState(undefined);
     const [increment, setIncrement] = useState(undefined);
 
 
     useEffect(()=>{
-        if (props.blocksEvaluation==="marks"&&finalMark===undefined){
+        if (props.blocksEvaluation==="marks"&&mark===undefined){
             const tmp = (parseInt(props.activityMark)+parseInt(props.professionalLevelMark)
                 +parseInt(props.languageLevelMark)+parseInt(props.citationMark))/4;
             setFinalMark(Math.round(tmp));
             setPrevMark(Math.round(tmp));
         }
-        if (props.blocksEvaluation==="percent"&&finalMark===undefined){
+        if (props.blocksEvaluation==="percent"&&mark===undefined){
             let tmp = (parseInt(props.activityMark)+parseInt(props.professionalLevelMark)
                 +parseInt(props.languageLevelMark)+parseInt(props.citationMark));
             if(props.fulfilmentEvaluation==="percent")
@@ -26,7 +26,7 @@ const FinalMark = props => {
         if (props.finalMarkPattern==="avgIncr"){
             setIncrement(StupniceService.getIncr(props.assignmentMark, props.fulfilmentMark));
         }
-    }, [props.blocksEvaluation, props.activityMark, props.professionalLevelMark, props.languageLevelMark, props.citationMark, finalMark])
+    }, [props.blocksEvaluation, props.activityMark, props.professionalLevelMark, props.languageLevelMark, props.citationMark, mark])
 
 
     function increaseMark(event){
@@ -42,7 +42,7 @@ const FinalMark = props => {
         <div className="container bg-white rounded">
             <div className="modal-header row ">
                 <div className="col-3"><h5>Výsledná známka - </h5></div>
-                <div className="col-9 pt-2 pb-2"><span className="border rounded p-3 h4 text-danger finalMark">{StupniceService.convertValueToMark(finalMark)}</span></div>
+                <div className="col-9 pt-2 pb-2"><span className="border rounded p-3 h4 text-danger finalMark">{StupniceService.convertValueToMark(mark)}</span></div>
             </div>
             <div className="modal-body">
                 <table className="table-sm table-bordered border-light">
@@ -131,8 +131,9 @@ const FinalMark = props => {
                 <div className="container text-center pt-3">
                     <button className="btn btn-primary" onClick={()=> {
                         const finalMarkValue = {
-                            value: finalMark,
-                            comment: document.getElementById("finalMarkComment").value
+                            studentId: null,
+                            finalMark: mark,
+                            finalComment: document.getElementById("finalMarkComment").value
                         }
                         props.saveEvaluation(finalMarkValue);
                     }}>Uložit hodnocení</button>

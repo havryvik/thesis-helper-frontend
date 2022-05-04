@@ -13,7 +13,7 @@ const CompleteEvaluation = () => {
 
     const {studentIdParam} = useParams();
     const [currentFrame, setCurrentFrame]=useState("assignment");
-    const [evaluationID, setEvaluationId] = useState(undefined);
+    const [evaluationId, setEvaluationId] = useState(undefined);
 
     const [studentApproach, setStudentApproach] = useState();
     const [weights, setWeights] = useState(undefined);
@@ -91,12 +91,18 @@ const CompleteEvaluation = () => {
     }
 
     function saveEvaluation(){
-        const evaluationDto = {
-            studentId: parseInt(studentIdParam),
-            finalMark: finalMark.value,
-            finalComment: finalMark.comment
+        EvaluationService.updateEvaluation(evaluationId, finalMark).then(
+            (response)=>{console.log(response.status)},
+            (error)=>{console.log(error)}
+        )
+        const blocks = [assignment, fulfilment, activity, professionalLevel, languageLevel, citation];
+        for (const block of blocks){
+            EvaluationService.updateBlockEvaluation(evaluationId, block).then(
+                (response)=>{console.log(response.status)},
+                (error)=>{console.log(error)}
+            )
         }
-        EvaluationService.updateEvaluation(evaluationDto).then(
+        EvaluationService.updateRequirements(evaluationId, extraReq).then(
             (response)=>{console.log(response.status)},
             (error)=>{console.log(error)}
         )
@@ -108,6 +114,7 @@ const CompleteEvaluation = () => {
                 {currentFrame==="assignment"&&(<Assignment onSubmit={(selectedItem, comment)=>{
                     const result = {
                         value: selectedItem,
+                        number: 1,
                         comment: comment
                     }
                     setAssignment(result);
@@ -117,6 +124,7 @@ const CompleteEvaluation = () => {
                     onSubmit={(selectedItem, comment)=>{
                     const result = {
                         value: selectedItem,
+                        number: 2,
                         comment: comment
                     }
                     setFulfilment(result);
@@ -133,13 +141,13 @@ const CompleteEvaluation = () => {
                         blockWeight={getBlockWeight}
                         extraRequirements = {requirements}
 
-                        onSubmit={(blockResult)=>{
+                        onSubmit={(blockResult, extraReq)=>{
                            console.log(blockResult);
                            saveBlockResult(blockResult);
                            setDescription(BasicBlocksService.getBlockDescription(description.nextFrame));
                            setCurrentFrame(description.nextFrame);
-                           if (blockResult.extraReq.length!==0)
-                               setExtraReq(blockResult.extraReq);
+                           if (extraReq.length!==0)
+                               setExtraReq(extraReq);
                         }}
                     />)}
                 {currentFrame==="finalMark"&&(
@@ -155,7 +163,12 @@ const CompleteEvaluation = () => {
                         languageLevelMark={languageLevel.blockMark.value}
                         citationMark={citation.blockMark.value}
 
-                        saveEvaluation={(finalMarkValue)=>{setFinalMark(finalMarkValue); saveEvaluation()}}
+                        saveEvaluation={(finalMarkValue)=>{
+                            finalMarkValue.studentId = studentIdParam;
+                            setFinalMark(finalMarkValue);
+                            saveEvaluation();
+                        }
+                    }
                     />
                 )}
             </div>

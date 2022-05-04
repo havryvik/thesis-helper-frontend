@@ -30,8 +30,8 @@ const getEvaluation = (evaluationId) => {
             user?{"Authorization": `Bearer_${user.token}`}:{}});
 }
 
-const updateBlockEvaluation = (evaluationId, blockNumber, evalPerBlockDto) =>{
-    return axios.put(API_URL+`/${evaluationId}/block/${blockNumber}`, evalPerBlockDto, {headers:
+const updateBlockEvaluation = (evaluationId, evalPerBlockDto) =>{
+    return axios.put(API_URL+`/${evaluationId}/block/${evalPerBlockDto.number}`, evalPerBlockDto, {headers:
             user?{"Authorization": `Bearer_${user.token}`}:{}});
 }
 

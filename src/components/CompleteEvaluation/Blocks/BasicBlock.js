@@ -37,29 +37,28 @@ const BasicBlock = props => {
         const blockComment = document.getElementById("blockComment");
 
         const blockResult = {
-            criterions: [],
-            extraReq: [],
-            blockMark: {
-                value: blockMark.value,
-                comment: blockComment.value
-            }
+            value: blockMark.value,
+            blockNumber:props.description.id,
+            comment: blockComment.value,
+            criterionDtos: []
         }
 
         const criterionsEl = document.getElementsByClassName("criterion");
         if (criterionsEl!==undefined){
             for (const criterion of criterionsEl){
                 const newCr = {
-                    id: criterion.id,
                     value: criterion.children[0].children[1].value,
+                    number: criterion.id,
                     comment: criterion.children[1].children[1].value
                 }
-                blockResult.criterions.push(newCr);
+                blockResult.criterionDtos.push(newCr);
                 criterion.children[0].children[1].value = "";
                 criterion.children[1].children[1].value = "";
             }
         }
 
         const extraReqs = document.getElementsByClassName("extra");
+        const requirements = [];
         if (extraReqs!==undefined){
             for (const extraReq of extraReqs){
                 const req = {
@@ -67,7 +66,7 @@ const BasicBlock = props => {
                     value: extraReq.children[0].children[1].value,
                     comment: extraReq.children[1].children[1].value
                 }
-                blockResult.extraReq.push(req);
+                requirements.push(req);
                 extraReq.children[0].children[1].value = "";
                 extraReq.children[1].children[1].value = "";
             }
@@ -75,8 +74,7 @@ const BasicBlock = props => {
 
         blockMark.value = "";
         blockComment.value = "";
-
-        props.onSubmit(blockResult);
+        props.onSubmit(blockResult, requirements);
     }
 
     return (

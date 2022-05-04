@@ -108,7 +108,7 @@ const App = () => {
                     <Route path="/students" element={<Students />} />
                     <Route path="/students/configurator/:approachId" element={<Configurator  />} />
                     <Route path="/:studentId/evaluation" element={<CompleteEvaluation />} />
-                    <Route path="/students/:studentId/evaluation" element={<CompleteEvaluation />} />
+                    <Route path="/students/:studentIdParam/evaluation" element={<CompleteEvaluation />} />
                     <Route path="/login" element={<Login />} />
                     <Route path="/register" element={<Register />} />
                     <Route path="/summary/:approachId" element={<Summary />} />

@@ -11,6 +11,7 @@ const getBlockDescription = (name) => {
 
 const getActivity = () => {
     return {
+        blockNumber: 3,
         name: "Aktivita a samostatnost",
         defaultRequirements: [
             {id: 1, name: "Dodržení domluvených termínů", max: "", min: ""},
@@ -26,6 +27,7 @@ const getActivity = () => {
 const getProfessionalLevel = () => {
 
     return {
+        blockNumber: 4,
         name: "Odborná úroveň",
         defaultRequirements: [
             {id: 1, name: "Použitelnost, aplikovatelnost v praxi", max: "", min: ""},
@@ -39,6 +41,7 @@ const getProfessionalLevel = () => {
 
 const getLanguageLevel = () => {
     return {
+        blockNumber: 5,
         name: "Formální a jazyková úroveň, rozsah práce",
         defaultRequirements: [
             {id: 1, name: "Adekvatnost rozsáhu", max: "", min: ""},
@@ -55,6 +58,7 @@ const getLanguageLevel = () => {
 
 const getCitation = () => {
     return {
+        blockNumber: 6,
         name: "Výběr zdrojů, korektnost citace",
         defaultRequirements: [
             {id: 1, name: "Dodržování konvenci", max: "", min: ""},
