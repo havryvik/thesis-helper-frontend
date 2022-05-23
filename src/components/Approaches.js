@@ -289,20 +289,13 @@ const Approaches = () => {
                             </table>
                             <div className="container">
                                 <p><strong>1. dle zorce (Avg+Incr)</strong>, kde Avg - průměr hodnocení základních bloků
-                                    a Incr - možnost navýšení známky. V případě zvolení jiného než slovního hodnocení
-                                    bloku "Splnění zadání", jeho hodnocení bude převedeno do slovního hodnocení dle
-                                    Stupnice (viz. <a onClick={(event)=>showCollapseBySectionId(event,'collapseTwo')} href="/approach#fulfilment">Splnění zadání</a>) </p>
+                                    a Incr - možnost navýšení známky.  </p>
                                 <p><strong>2. dle vzorce (Sum+Incr)</strong>, kde Sum - součet dosažených studentem bodů
-                                    za základní bloky a Incr - možnost navýšení známky. V případě zvolení jiného než slovního hodnocení
-                                    bloku "Splnění zadání", jeho hodnocení bude převedeno do slovního hodnocení dle
-                                    Stupnice (viz. <a onClick={(event)=>showCollapseBySectionId(event,'collapseTwo')} href="/approach#fulfilment">Splnění zadání</a>)</p>
+                                    za základní bloky a Incr - možnost navýšení známky. </p>
                                 <p><strong>3. dle vzorce (Sum*K)</strong>, kde Sum - součet dosažených studentem bodů
                                     za základní bloky a K - koeficient umožňující navýšení známky, vypočítaný pomocí
                                     matematického vzorce s respektováním dosažených bodů za základní bloky a průniku
-                                    Splnění zadání a Náročnosti zadání. V případě zvolení jiného než slovního hodnocení
-                                    bloku "Splnění zadání", jeho hodnocení bude převedeno do slovního hodnocení dle
-                                    Stupnice (viz. <a onClick={(event)=>showCollapseBySectionId(event,'collapseTwo')} href="/approach#fulfilment">Splnění zadání</a>).
-                                    Vedoucí vždy má možnost upravit výslednou známku
+                                    Splnění zadání a Náročnosti zadání. Vedoucí vždy má možnost upravit výslednou známku
                                     přidáním komentáře s odůvodněním.</p>
                                 <p><strong>4. dle vzorce (Sum+AP)</strong>, kde Sum - součet dosažených studentem bodů
                                     za základní bloky a AP - počet bodů za náročnost zadání dle stupnice (viz.

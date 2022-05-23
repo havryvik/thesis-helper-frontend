@@ -1,8 +1,10 @@
 import React, {useEffect, useState} from "react";
 import AuthService from "../services/auth.service";
+import {useNavigate} from "react-router-dom";
 const Profile = () => {
     const [profile, setProfile] = useState(undefined);
     const [editable, setEditable] = useState(false);
+    const navigate = useNavigate();
     const [nameSurnameInput, setNameSurname] = useState(undefined);
     const [thesisFieldInput, setThesisField] = useState(undefined);
     const [thesisThemeInput, setThesisTheme] = useState(undefined);
@@ -20,12 +22,12 @@ const Profile = () => {
             },
             (error) => {
                 console.log("Private page", error);
-                // Invalid token
-                // if (error.response && error.response.status === 403) {
-                //     AuthService.logout();
-                //     navigate("/login");
-                //     window.location.reload();
-                // }
+                if (error.response && error.response.status === 403) {
+                    AuthService.logout();
+                    localStorage.clear();
+                    navigate("/login");
+                    window.location.reload();
+                }
             }
         );
     }, []);

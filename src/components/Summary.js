@@ -4,12 +4,12 @@ import ApproachService from "../services/approach.service";
 import {faTrashCan} from "@fortawesome/free-regular-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import RequirementService from "../services/requirement.service";
+import app from "../App";
 const Summary = () => {
 
-    const {approachId} = useParams();
-
+    const {studentId, approachId} = useParams();
     const [studentApproach, setStudentApproach] = useState(undefined);
-    const [columnsAmount, setColumnsAmount] = useState(2);
+    const [columnsAmount, setColumnsAmount] = useState(undefined);
     const [approachFulfilment, setApproachFulfilment] = useState(undefined);
     const [approachBasicBlocks, setBasicBlocksFulfilment] = useState(undefined);
     const [weights, setWeights] = useState(undefined);
@@ -21,12 +21,12 @@ const Summary = () => {
             (response) => {
                 const approach = response.data;
                 setStudentApproach(approach);
-                if(approach.basicBlocksEvaluation==="points" || approach.basicBlocksEvaluation==="percent")
+                if(approach.basicBlocksEvaluation!=="marks")
                     setColumnsAmount(3);
                 else setColumnsAmount(2);
-                console.log(columnsAmount);
+               // console.log(columnsAmount);
                 setApproachFulfilment(ApproachService.getFulfilmentDescription(approach.fulfilmentEvaluation));
-                console.log(ApproachService.getFulfilmentDescription(approach.fulfilmentEvaluation));
+               // console.log(ApproachService.getFulfilmentDescription(approach.fulfilmentEvaluation));
                 setBasicBlocksFulfilment(ApproachService.getBlocksDescription(approach.basicBlocksEvaluation, approach.criterionEvaluation));
             },
             (error) => {
@@ -46,10 +46,11 @@ const Summary = () => {
     useEffect(()=>{
         console.log(studentApproach);
         if(studentApproach!==undefined){
-        if(studentApproach.basicBlocksEvaluation==="weights"||studentApproach.basicBlocksEvaluation==="points"){
+        if(studentApproach.basicBlocksEvaluation==="weight"||studentApproach.basicBlocksEvaluation==="points"){
             ApproachService.getWeights(approachId).then(
                 (response)=>{
                     setWeights(response.data);
+                    console.log(response.data)
                 },
                 (error) => {console.log(error)}
             );
@@ -98,8 +99,8 @@ const Summary = () => {
                     )}
                 </tr>
                 <tr><td><strong>1. Zadání</strong></td>
-                    <td colSpan={columnsAmount===3?2:1}>Slovní hodnocení. Možností: Mimořádně náročné, Náročné, Průměrně náročné, Lehké, Nedosatecne náročné</td>
-
+                    <td>Slovní hodnocení. Možností: Mimořádně náročné, Náročné, Průměrně náročné, Lehké, Nedosatecne náročné</td>
+                    {columnsAmount===3&&(<td/>)}
                 </tr>
                 <tr><td><strong>2. Splnění zadání</strong></td><td>{approachFulfilment.text}</td>
                     {approachFulfilment.max!==""&&(<td>{approachFulfilment.max}</td>)}
@@ -161,7 +162,7 @@ const Summary = () => {
             </div>
                 <div className="container text-center pb-3">
                     <div className="d-inline-block mx-2">
-                        <Link to={`/students/configurator/${approachId}`}>
+                        <Link to={`/students/${studentId}/configurator`}>
                             <button className="btn btn-secondary btnSummary" >Nakonfigurovat znovu</button>
                         </Link>
                     </div>

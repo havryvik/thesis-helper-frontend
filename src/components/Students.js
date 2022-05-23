@@ -79,7 +79,7 @@ const Students = () => {
                     <td>{student.thesisField}</td>
                     <td>{student.thesisTheme}</td>
                     <td>
-                        <Link className="text-dark text-decoration-none" to={`/students/configurator/${student.approachId}`}>
+                        <Link className="text-dark text-decoration-none" to={`/students/${student.id}/configurator`}>
                             Upravit <FontAwesomeIcon icon={faPenToSquare}/>  </Link>
                         <Link className="text-dark text-decoration-none" to={`/summary/${student.approachId}`}>Ukazat <FontAwesomeIcon icon={faEye}/></Link>
                     </td>

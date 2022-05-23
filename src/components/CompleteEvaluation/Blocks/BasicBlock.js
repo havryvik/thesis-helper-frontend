@@ -38,7 +38,7 @@ const BasicBlock = props => {
 
         const blockResult = {
             value: blockMark.value,
-            blockNumber:props.description.id,
+            blockNumber:props.description.blockNumber,
             comment: blockComment.value,
             criterionDtos: []
         }

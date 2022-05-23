@@ -56,4 +56,4 @@ const Requirements = () => {
     )
 
 }
-export default Requirements
+export default Requirements;

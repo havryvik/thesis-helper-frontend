@@ -5,21 +5,26 @@ import Weights from "./Weights";
 import {useNavigate, useParams} from "react-router-dom";
 import ApproachService from "../../services/approach.service";
 import EvaluationService from "../../services/evaluation.service";
+import SupervisorService from "../../services/supervisor.service";
+import StudentService from "../../services/student.service";
+import fulfilment from "../CompleteEvaluation/Blocks/Fulfilment";
 
 
 const Configurator = () => {
 
     const navigate = useNavigate();
-    const {approachId} = useParams();
+    const {studentId} = useParams();
     const [currentForm , setCurrentForm] = useState('basicSelect');
     const [approach, setApproach] = useState(undefined);
+    const [approachDto, setApproachDto] = useState(undefined);
     const [weights, setWeights] = useState(undefined);
     const [requirements, setRequirements] = useState([]);
 
     function showCurrentForm(){
+        console.log(currentForm);
         if(currentForm==='basicSelect') return (<BasicSelect/>)
-        else if (currentForm === 'requirements') return (<Requirements/>)
-        else if (currentForm === 'weights') return (<Weights fulfilmentEvaluation={approach.fulfilmentEvaluation}/>)
+        if (currentForm === 'requirements') return (<Requirements/>)
+        if (currentForm === 'weights') return (<Weights fulfilmentEvaluation={approach.fulfilmentEvaluation}/>)
     }
 
     function handleSubmit(event){
@@ -35,7 +40,7 @@ const Configurator = () => {
     function updateApproach(){
         //updateApproach(approachId, approachDto)
         console.log(approach);
-        ApproachService.updateApproach(approachId, approach).then(
+        ApproachService.updateApproach(approach.id, approachDto).then(
             (response)=>{
                 console.log(response.status);
             },
@@ -46,7 +51,7 @@ const Configurator = () => {
         console.log(weights);
         //addWeights(approachId, weights) if not null
         if (weights!==undefined){
-            ApproachService.addWeights(approachId,weights).then(
+            ApproachService.addWeights(approach.id,weights).then(
                 (response)=>{
                     console.log(response.status);
                 },
@@ -58,7 +63,7 @@ const Configurator = () => {
         console.log(requirements);
         //addRequirements(approachId, requirements) if not null
         if (requirements.length!==0){
-            EvaluationService.addRequirements(requirements,approachId).then(
+            EvaluationService.addRequirements(requirements,approach.id).then(
                 (response)=>{
                     console.log(response.status);
                 },
@@ -67,11 +72,22 @@ const Configurator = () => {
                 }
             )
         }
-        navigate(`/summary/${approachId}`);
+        navigate(`/students/${studentId}/summary/${approach.id}`);
     }
 
     function handleSubmitAfterSelect(event){
         //When DB will be connected send there a request to save an evaluation approach instead of saving to a local storage
+
+        let validation = true;
+        const selects = document.querySelectorAll("select");
+        for (const select of selects){
+            if (select.value==="null"){
+                select.classList.add("is-invalid");
+                validation = false;
+            }
+        }
+        if (!validation) return;
+
         const approachDto  = {
             fulfilmentEvaluation: document.getElementById("fulfilmentEvaluation").value,
             basicBlocksEvaluation: document.getElementById("basicBlocksEvaluation").value,
@@ -79,7 +95,7 @@ const Configurator = () => {
             coefficient: document.getElementById("coefficient").value,
             autoFulfilment: document.getElementById("autoFulfilment").value,
         };
-        setApproach(approachDto);
+        setApproachDto(approachDto);
 
         let weight = null;
         if(approachDto.basicBlocksEvaluation==="points"){
@@ -99,8 +115,14 @@ const Configurator = () => {
 
     useEffect(() => {
         //console.log(requirements);
-        if(approach!==undefined){
-        if (approach.basicBlocksEvaluation === "weight"){
+        if(approach===undefined){
+            StudentService.getApproachByStudent(studentId).then(
+                (response)=>{setApproach(response.data)},
+                (error)=>{console.log(error)}
+            )
+        }
+        if(approachDto!==undefined && currentForm==="requirements"){
+        if (approachDto.basicBlocksEvaluation === "weight"){
             setCurrentForm('weights');
         } else {
             updateApproach()
@@ -110,7 +132,7 @@ const Configurator = () => {
 
     useEffect(() => {
         //console.log(requirements);
-        if(approach!==undefined&&requirements!==undefined){
+        if(approachDto!==undefined&&requirements!==undefined&&currentForm==="weights"){
             updateApproach();
         }
     }, [weights]);
@@ -169,6 +191,7 @@ const Configurator = () => {
                     {showButton()}
                     <h4>Konfigurátor modelu</h4>
                     <div className="container">Přizpůsobte si model hodnocení poskytnutím odpovědi na následující otázky.</div>
+                    <span className="small"><span className="text-danger ">*<strong> ! IMPORTANT </strong></span>Vždy začínejte první otázkou (i při úpravě), formulář se pak prispusobi na základě odpovědí na předchozí otázku.</span>
                 </div>
                 <form onSubmit={(event) => handleSubmit(event)} className={currentForm}>
                     {showCurrentForm()}

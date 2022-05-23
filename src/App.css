@@ -1,41 +1,111 @@
-/*.App {*/
-/*  text-align: center;*/
-/*}*/
+.App {
+  text-align: center;
+}
 
-/*.App-logo {*/
-/*  height: 40vmin;*/
-/*  pointer-events: none;*/
-/*}*/
+.App-logo {
+  height: 20vmin;
+  pointer-events: none;
+}
 
-/*@media (prefers-reduced-motion: no-preference) {*/
-/*  .App-logo {*/
-/*    animation: App-logo-spin infinite 20s linear;*/
-/*  }*/
-/*}*/
+.logoName{
+  font-size:  calc(30px + 5vmin);
+  margin-left: 10px;
+  background: linear-gradient(to right,#282c34,#282c34,#282c34, #282c34, #404454, #92a2b6, #e3e6f3, #e3e6f3, #e3e6f3,#e3e6f3);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-size: 300% 300%;
+}
 
-/*.App-header {*/
-/*  background-color: #282c34;*/
-/*  min-height: 100vh;*/
-/*  display: flex;*/
-/*  flex-direction: column;*/
-/*  align-items: center;*/
-/*  justify-content: center;*/
-/*  font-size: calc(10px + 2vmin);*/
-/*  color: white;*/
-/*}*/
+.wrapper{
+  background-color: rgba(40,44,52,100);
+  overflow: hidden;
+}
 
-/*.App-link {*/
-/*  color: #61dafb;*/
-/*}*/
+.welcomeText{
+  margin-top: 5%;
 
-/*@keyframes App-logo-spin {*/
-/*  from {*/
-/*    transform: rotate(0deg);*/
-/*  }*/
-/*  to {*/
-/*    transform: rotate(360deg);*/
-/*  }*/
-/*}*/
+}
+
+.logoSection{
+  display: flex;
+  flex-direction: row;
+  align-items: baseline;
+  justify-content: normal;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin 2s linear forwards;
+  }
+  .logoName{
+    animation: Text-gradient 3s ease forwards;
+  }
+}
+
+@keyframes Text-gradient {
+  0%, 50% {
+    background-position: 0% 200%;
+  }
+  100% {
+    background-position: 100% 0%;
+  }
+}
+
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: scale3d(0,0,0) translate(600px);
+    -ms-transform: scale3d(0,0,0) translate(600px);
+  }
+  50% {
+    transform: scale3d(1,1,1) translate(200px);
+    -ms-transform: scale3d(1,1,1) translate(200px);
+  }
+  to {
+    transform: scale3d(1,1,1) translate(0px);
+    -ms-transform: scale3d(1,1,1) translate(0px);
+  }
+}
+
+@-moz-keyframes App-logo-spin {
+  from {
+    transform: scale3d(0.2,0.2,0.2) translate(200px);
+  }
+  50% {
+    transform: scale3d(1,1,1) translate(200px);
+  }
+  to {
+    transform: scale3d(1,1,1) translate(0px);
+  }
+}
+
+@-webkit-keyframes App-logo-spin {
+  from {
+    transform: scale3d(0.2,0.2,0.2) translate(0px);
+  }
+  50% {
+    transform: scale3d(1,1,1) translate(0px);
+  }
+  to {
+    transform: scale3d(1,1,1) translate(-200px);
+  }
+}
+
 .background {
   background-image: url("background.png");
   background-repeat: no-repeat;

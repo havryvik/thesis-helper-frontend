@@ -17,7 +17,7 @@ const CompleteEvaluation = () => {
 
     const [studentApproach, setStudentApproach] = useState();
     const [weights, setWeights] = useState(undefined);
-    const [description, setDescription] = useState(BasicBlocksService.getBlockDescription("activity", null));
+    const [description, setDescription] = useState(BasicBlocksService.getBlockDescription("activity"));
     const [requirements, setRequirements] = useState(undefined);
 
     const [assignment, setAssignment] = useState(undefined);
@@ -80,7 +80,7 @@ const CompleteEvaluation = () => {
     }
 
     function calculateFulfilment(){
-        const crArray = professionalLevel.criterions;
+        const crArray = professionalLevel.criterionDtos;
         let sum = 0;
         for (const criterion of crArray){
             if (criterion.id==="1"||criterion.id==="3"||parseInt(criterion.id)>=5)
