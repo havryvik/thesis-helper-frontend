@@ -7,6 +7,7 @@
   pointer-events: none;
 }
 
+
 .logoName{
   font-size:  calc(30px + 5vmin);
   margin-left: 10px;
@@ -16,14 +17,16 @@
   background-size: 300% 300%;
 }
 
-.wrapper{
-  background-color: rgba(40,44,52,100);
-  overflow: hidden;
-}
+/*.navbar{*/
+/*  display: none;*/
+/*}*/
 
 .welcomeText{
   margin-top: 5%;
-
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 .logoSection{
@@ -43,14 +46,19 @@
 }
 
 @keyframes Text-gradient {
-  0%, 50% {
-    background-position: 0% 200%;
-  }
-  100% {
-    background-position: 100% 0%;
-  }
+  0%, 50% {background-position: 0% 200%;}
+  100% {background-position: 100% 0%;}
 }
 
+@-moz-keyframes Text-gradient {
+  0%, 50% {background-position: 0% 200%;}
+  100% {background-position: 100% 0%;}
+}
+
+@-webkit-keyframes Text-gradient {
+  0%, 50% {background-position: 0% 200%;}
+  100% {background-position: 100% 0%;}
+}
 
 .App-header {
   background-color: #282c34;
@@ -65,6 +73,49 @@
 
 .App-link {
   color: #61dafb;
+  background-color: #282c34;
+  outline: none;
+  border: none;
+  width: 300px;
+  height: 50px;
+  font-weight:bold;
+  font-size: 20px;
+  transition-property:width,height,transform,font-size;
+  -moz-transition-property:width,height,transform,font-size;
+  -webkit-transition-property:width,height,transform,font-size;
+  transition-duration:1s,1s,1s,1s;
+  -moz-transition-duration:1s,1s,1s,1s;
+  -webkit-transition-duration:1s,1s,1s,1s;
+}
+
+.Button-container{
+  height: 80px;
+  padding-top: 40px;
+}
+
+.App-link:hover{
+  color: #61dafb;
+  width: 400px;
+  height: 70px;
+  font-size: 30px;
+}
+
+.App-link:active{
+  outline: none;
+  border: none;
+  color: #61dafb;
+  width: 400px;
+  height: 70px;
+  font-size: 30px;
+}
+.Section-button{
+  text-decoration: none;
+  outline: none;
+  border: none;
+  background-color: #212529;
+  font-size: 16px;
+  color: white;
+  margin: 5px 0 5px 5px;
 }
 
 @keyframes App-logo-spin {
@@ -109,12 +160,77 @@
 .background {
   background-image: url("background.png");
   background-repeat: no-repeat;
-  background-size: 100%;
+  background-size: 100% 100%;
   background-attachment: fixed;
   min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
-.myContainer{
-  min-height: 100vh;
+
+.Button-with-icon{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.custom-link{
+  text-decoration: none;
+}
+
+.Logo-img{
+  width: 30px;
+  height: 30px;
+}
+
+.width-25{
+  width:25%
+}
+.width-50{
+  width:50%
+}
+.width-16{
+  width:16%
+}
+.width-33{
+  width:33%
+}
+.width-15{
+  width:15%
+}
+.width-5{
+  width:5%
+}
+.width-10{
+  width:10%
+}
+.width-20{
+  width:20%
+}
+.width-12{
+  width:12%
+}
+
+.custom-link:hover{
+  text-decoration: underline;
+}
+
+.myContainer {
+  min-height: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.Students-container {
+  display: flex;
+  flex-direction: column;
+  align-self: flex-start;
+  min-height: 800px;
+}
+
+.Footer{
+  justify-self: flex-end;
 }
 .registerContainer {
   max-width: 40%;
@@ -160,3 +276,35 @@
 .btnSummary{
   width: 250px;
 }
+.navbar-header{
+  display: none;
+}
+@media only screen and (max-width : 768px) {
+  .navbar{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .navbar > ul{
+    display: none;
+  }
+  .ms-auto{
+    padding-left: 10px !important;
+    margin-left: 2px !important;
+  }
+  .navbar-brand{
+    align-self: start;
+  }
+  .nav-head{
+    padding-left: 10px;
+    padding-right: 10px;
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+  .navbar-header{
+    display: inline;
+  }
+}
+

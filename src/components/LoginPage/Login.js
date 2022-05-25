@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import AuthService from "../services/auth.service";
+import AuthService from "../../services/auth.service";
 import {useForm} from "react-hook-form";
 
 const Login = () => {
@@ -52,6 +52,7 @@ const Login = () => {
                             id="email"
                             type="text"
                             placeholder="Emailová adresa"
+                            autoFocus
                         />
                         <div className="text-danger font-weight-light font-italic">
                             {errors.email && "Toto pole je povinné"}

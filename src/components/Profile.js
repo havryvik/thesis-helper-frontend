@@ -23,10 +23,9 @@ const Profile = () => {
             (error) => {
                 console.log("Private page", error);
                 if (error.response && error.response.status === 403) {
-                    AuthService.logout();
                     localStorage.clear();
-                    navigate("/login");
                     window.location.reload();
+                    navigate("/login");
                 }
             }
         );

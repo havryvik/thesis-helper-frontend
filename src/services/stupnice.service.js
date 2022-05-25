@@ -15,6 +15,8 @@ const getSelectValueByPercent=(percent)=>{
 }
 
 const getPointsForBlock = (percent, maxForBlock) => {
+    console.log(percent);
+    console.log(maxForBlock);
     return maxForBlock*percent/100;
 }
 

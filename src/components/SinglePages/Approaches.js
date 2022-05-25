@@ -20,14 +20,14 @@ const Approaches = () => {
     return (
         <div className="myContainer p-3 container">
             <div id="accordion">
-                <div className="card bg-dark">
-                    <div className="card-header badge-dark" id="headingOne">
+                <section className="card bg-dark">
+                    <header className="card-header badge-dark" id="headingOne">
                         <h5 className="mb-0">
-                            <button onClick={(event)=>{showCollapse(event)}} id="collapseOne" className="btn btn-dark border-0 bg-transparent text-light" >
+                            <button onClick={(event)=>{showCollapse(event)}} id="collapseOne" className="Section-button" >
                                Zadání
                             </button>
                         </h5>
-                    </div>
+                    </header>
                     <div className="collapseOne panel-collapse bg-light collapse"  >
                         <div className="card-body">
                             <div className="container">
@@ -44,8 +44,8 @@ const Approaches = () => {
                                 </thead>
                                 <tbody>
                                 <tr className="bg-light text-center">
-                                    <th scope="col" width="50%"> Slovní hodnocení</th>
-                                    <th scope="col" width="50%">Odpovídající počet bodů <small>(dále <strong>AP</strong> = assignment points)</small></th>
+                                    <th scope="col" className="width-50"> Slovní hodnocení</th>
+                                    <th scope="col" className="width-50">Odpovídající počet bodů <small>(dále <strong>AP</strong> = assignment points)</small></th>
                                 </tr>
                                 <tr><td>Mimořádně náročné</td><td>od +10 do +6</td></tr>
                                 <tr><td>Náročné</td><td>od +5 do +1</td></tr>
@@ -69,27 +69,27 @@ const Approaches = () => {
                                 </thead>
                                 <tbody>
                                 <tr className="bg-light text-center">
-                                    <th scope="col" width="16%"></th>
-                                    <th scope="col" width="16%">Mimořádně náročné</th>
-                                    <th scope="col" width="16%">Náročné</th>
-                                    <th scope="col" width="16%">Průměrně náročné</th>
-                                    <th scope="col" width="16%">Lehké</th>
-                                    <th scope="col" width="16%">Nedosatecne náročné</th>
+                                    <th scope="col" className="width-16"/>
+                                    <th scope="col" className="width-16">Mimořádně náročné</th>
+                                    <th scope="col" className="width-16">Náročné</th>
+                                    <th scope="col" className="width-16">Průměrně náročné</th>
+                                    <th scope="col" className="width-16">Lehké</th>
+                                    <th scope="col" className="width-16">Nedosatecne náročné</th>
                                 </tr>
                                 <tr>
-                                    <th scope="col" width="16%" className="bg-light">Splněno</th>
+                                    <th scope="col" className="bg-light width-16">Splněno</th>
                                     <td>o 1 nebo 2 stupně výš</td><td>o 1 stupeň výš</td><td>nemění se</td><td>nemění se nebo o 1 stupeň níž</td><td>(F)</td>
                                 </tr>
                                 <tr>
-                                    <th scope="col" width="16%" className="bg-light">Splněno s menšími výhradami</th>
+                                    <th scope="col"  className="bg-light width-16">Splněno s menšími výhradami</th>
                                     <td>o 1 stupeň výš</td><td>nemění se nebo o 1 stupeň výš</td><td>o 1 stupeň níž</td><td>o 1 nebo 2 stupně níž</td><td>(F)</td>
                                 </tr>
                                 <tr>
-                                    <th scope="col" width="16%" className="bg-light">Splněno s většími výhradami</th>
+                                    <th scope="col" className="bg-light width-16">Splněno s většími výhradami</th>
                                     <td>nemění se nebo o 1 stupeň níž</td><td>o 1 stupeň níž</td><td>o 1 nebo 2 stupně níž</td><td>o 1 nebo 2 stupně níž</td><td>(F)</td>
                                 </tr>
                                 <tr>
-                                    <th scope="col" width="16%" className="bg-light">Nesplněno</th>
+                                    <th scope="col" className="bg-light width-16">Nesplněno</th>
                                     <td>(F)</td><td>(F)</td><td>(F)</td><td>(F)</td><td>-</td>
                                 </tr>
                                 </tbody>
@@ -102,15 +102,15 @@ const Approaches = () => {
                             </div>
                         </div>
                     </div>
-                </div>
-                <div className="card bg-dark">
-                    <div className="card-header badge-dark" id="headingTwo">
+                </section>
+                <section className="card bg-dark">
+                    <header className="card-header badge-dark" id="headingTwo">
                         <h5 className="mb-0">
-                            <button onClick={(event)=>{showCollapse(event)}} id="collapseTwo" className="btn btn-dark border-0 bg-transparent text-light" >
+                            <button onClick={(event)=>{showCollapse(event)}} id="collapseTwo" className="Section-button" >
                                 Splnění zadání
                             </button>
                         </h5>
-                    </div>
+                    </header>
                     <div className="collapseTwo panel-collapse bg-light collapse" >
                         <div className="card-body">
                             <div className="container">
@@ -128,9 +128,9 @@ const Approaches = () => {
                                 </thead>
                                 <tbody>
                                 <tr className="bg-light text-center">
-                                    <th scope="col" width="33%"> Slovní hodnocení</th>
-                                    <th scope="col" width="33%">Bodové hodnocení </th>
-                                    <th scope="col" width="33%">Procento </th>
+                                    <th scope="col" className="width-33"> Slovní hodnocení</th>
+                                    <th scope="col" className="width-33">Bodové hodnocení </th>
+                                    <th scope="col" className="width-33">Procento </th>
                                 </tr>
                                 <tr><td>Splněno</td><td>od 20 do 18 </td><td>100-90%</td></tr>
                                 <tr><td>Splněno s menšími výhradami</td><td>od 17 do 14</td><td>89-70%</td></tr>
@@ -157,15 +157,15 @@ const Approaches = () => {
                             </div>
                         </div>
                     </div>
-                </div>
-                <div className="card bg-dark" >
-                    <div className="card-header badge-dark" id="headingThree collapse">
+                </section>
+                <section className="card bg-dark" >
+                    <header className="card-header badge-dark" id="headingThree">
                         <h5 className="mb-0">
-                            <button onClick={(event)=>{showCollapse(event)}} id="collapseThree" className="btn btn-dark border-0 bg-transparent text-light" >
+                            <button onClick={(event)=>{showCollapse(event)}} id="collapseThree" className="Section-button" >
                                 Základní bloky
                             </button>
                         </h5>
-                    </div>
+                    </header>
                     <div className="collapseThree panel-collapse bg-light collapse" >
                         <div className="card-body ">
                             <div className="card">
@@ -174,7 +174,7 @@ const Approaches = () => {
                                     <table className="table text-justify">
                                         <tbody>
                                         <tr>
-                                            <td width="15%"><strong>Základní bloky</strong></td>
+                                            <td className="width-15"><strong>Základní bloky</strong></td>
                                             <td>koncept definující sjednocené označení pro čtyři samostatné bloky:
                                                 "Aktivita a samostatnost", "Odborná úroveň", "Formální a jazyková úroveň,
                                                 rozsah práce", "Výběr zdrojů, korektnost citace"</td>
@@ -209,10 +209,10 @@ const Approaches = () => {
                                 </thead>
                                 <tbody>
                                 <tr className="bg-light text-center">
-                                    <th scope="col" width="25%">Známka</th>
-                                    <th scope="col" width="25%">Fixní bodové hodnocení</th>
-                                    <th scope="col" width="25%">Nástavitelné váhy</th>
-                                    <th scope="col" width="25%">Procento</th>
+                                    <th scope="col" className="width-25">Známka</th>
+                                    <th scope="col" className="width-25">Fixní bodové hodnocení</th>
+                                    <th scope="col" className="width-25">Nástavitelné váhy</th>
+                                    <th scope="col" className="width-25">Procento</th>
                                 </tr>
                                 <tr><td>A</td><td>od 20 do 18 </td><td rowSpan="6">Dle vzorce<span className="text-danger ">**</span>: <br/>
                                     od (max * upperPercent / 100) do (max * lowerPercent / 100)</td><td>100-90%</td></tr>
@@ -245,15 +245,15 @@ const Approaches = () => {
                             </div>
                         </div>
                     </div>
-                </div>
-                <div className="card bg-dark">
-                    <div className="card-header badge-dark" id="headingThree">
+                </section>
+                <section className="card bg-dark">
+                    <header className="card-header badge-dark" id="headingFour">
                         <h5 className="mb-0">
-                            <button onClick={(event)=>{showCollapse(event)}} id="collapseFour" className="btn btn-dark border-0 bg-transparent text-light" >
+                            <button onClick={(event)=>{showCollapse(event)}} id="collapseFour" className="Section-button" >
                                 Výsledná známka
                             </button>
                         </h5>
-                    </div>
+                    </header>
                     <div className="collapseFour panel-collapse bg-light" >
                         <div className="card-body">
                             <table className="table table-sm table-bordered bg-white ">
@@ -264,7 +264,7 @@ const Approaches = () => {
                                 </thead>
                                 <tbody>
                                 <tr className="bg-light text-center">
-                                    <th scope="col" width="15%">   </th><th scope="col" colSpan="6">Základní bloky</th>
+                                    <th scope="col" className="width-15">   </th><th scope="col" colSpan="6">Základní bloky</th>
                                 </tr>
                                 <tr>
                                     <td className="bg-light">  </td><td>  </td><td><strong>Známka</strong></td>
@@ -308,7 +308,7 @@ const Approaches = () => {
                             </div>
                         </div>
                     </div>
-                </div>
+                </section>
             </div>
         </div>
     )

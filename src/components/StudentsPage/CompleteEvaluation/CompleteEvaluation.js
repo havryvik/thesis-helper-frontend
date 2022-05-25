@@ -1,14 +1,14 @@
 import React, {useDeferredValue, useEffect, useState} from "react";
 import {useParams} from "react-router-dom";
-import StudentService from "../../services/student.service";
+import StudentService from "../../../services/student.service";
 import Assignment from "./Blocks/Assignment";
 import Fulfilment from "./Blocks/Fulfilment";
-import ApproachService from "../../services/approach.service";
+import ApproachService from "../../../services/approach.service";
 import BasicBlock from "./Blocks/BasicBlock";
-import BasicBlocksService from "../../services/basicBlocks.service";
-import SupervisorService from "../../services/supervisor.service";
+import BasicBlocksService from "../../../services/basicBlocks.service";
+import SupervisorService from "../../../services/supervisor.service";
 import FinalMark from "./Blocks/FinalMark";
-import EvaluationService from "../../services/evaluation.service";
+import EvaluationService from "../../../services/evaluation.service";
 const CompleteEvaluation = () => {
 
     const {studentIdParam} = useParams();
@@ -35,6 +35,12 @@ const CompleteEvaluation = () => {
         StudentService.getApproachByStudent(studentIdParam).then(
             (response)=>{
                 setStudentApproach(response.data);
+                if(response.data.basicBlocksEvaluation==="weight") {
+                    ApproachService.getWeights(response.data.id).then(
+                        (response)=>{setWeights(response.data)},
+                        (error)=>{console.log(error)}
+                    )
+                }
             },
             (error)=>{console.log(error);}
         )
@@ -44,12 +50,7 @@ const CompleteEvaluation = () => {
                 setRequirements(response.data)},
             (error)=>{console.log(error);}
         )
-        if(studentApproach!==undefined && studentApproach.basicBlocksEvaluation==="weight") {
-            ApproachService.getWeights(studentApproach.id).then(
-                (response)=>{setWeights(response.data)},
-                (error)=>{console.log(error)}
-            )
-        }
+
         StudentService.getStudentEvaluation(studentIdParam).then(
             (response)=>{setEvaluationId(response.data.studentId)},
             (error)=>{console.log(error)}
@@ -58,7 +59,8 @@ const CompleteEvaluation = () => {
 
 
     function getBlockWeight(){
-        if (weights!==undefined || weights!==null){
+        console.log(weights);
+        if (weights!==undefined){
             switch (currentFrame) {
                 case "activity": return weights.activity;
                 case "professionalLevel": return weights.professionalLevel;
@@ -71,6 +73,7 @@ const CompleteEvaluation = () => {
     }
 
     function saveBlockResult(blockResult){
+        console.log(activity);
         switch (currentFrame) {
             case "activity": setActivity(blockResult); break;
             case "professionalLevel": setProfessionalLevel(blockResult); break;
@@ -138,7 +141,7 @@ const CompleteEvaluation = () => {
                         type={studentApproach.basicBlocksEvaluation}
                         criterionEvaluation={studentApproach.criterionEvaluation}
                         fulfilmentEvaluation={studentApproach.fulfilmentEvaluation}
-                        blockWeight={getBlockWeight}
+                        blockWeight={getBlockWeight()}
                         extraRequirements = {requirements}
 
                         onSubmit={(blockResult, extraReq)=>{
@@ -158,10 +161,10 @@ const CompleteEvaluation = () => {
                         assignmentMark={assignment.value}
                         fulfilmentEvaluation={studentApproach.fulfilmentEvaluation}
                         fulfilmentMark={fulfilment?(fulfilment.value):(calculateFulfilment())}
-                        activityMark={activity.blockMark.value}
-                        professionalLevelMark={professionalLevel.blockMark.value}
-                        languageLevelMark={languageLevel.blockMark.value}
-                        citationMark={citation.blockMark.value}
+                        activityMark={activity.value}
+                        professionalLevelMark={professionalLevel.value}
+                        languageLevelMark={languageLevel.value}
+                        citationMark={citation.value}
 
                         saveEvaluation={(finalMarkValue)=>{
                             finalMarkValue.studentId = studentIdParam;

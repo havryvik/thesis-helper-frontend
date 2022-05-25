@@ -2,11 +2,11 @@ import React from "react";
 
 const Model = () => {
     return (
-        <div className="container shadow pt-3 mb-5 bg-light rounded">
+        <article className="container shadow mt-4 mb-5 bg-light rounded">
             <div className="card border-0">
-                <div className="card-header text-center bg-light">
+                <header className="card-header text-center bg-light pt-3">
                     <h5 className="card-title " >Model hodnocení závěrečných prácí</h5>
-                </div>
+                </header>
                 <table className="table">
                     <thead>
                     <tr className="text-center">
@@ -74,13 +74,13 @@ const Model = () => {
                     </tbody>
                 </table>
                 <br/>
-                <div className="card-footer text-muted text-center">
+                <footer className="card-footer text-muted text-center">
                     Model je vytvořen na základě zpětné vazby od vyučujících. Přesný popis jednotlivých kritérií a
                     způsob jejich ohodnocení najdete přímo ve formuláři pro hodnocení prací po definici vhodného
                     přístupu hodnocení.
-                </div>
+                </footer>
             </div>
-        </div>
+        </article>
     )
 }
 export default Model;

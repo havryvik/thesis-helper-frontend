@@ -3,10 +3,10 @@ import BasicSelect from "./BasicSelect";
 import Requirements from "./Requirements";
 import Weights from "./Weights";
 import {useNavigate, useParams} from "react-router-dom";
-import ApproachService from "../../services/approach.service";
-import EvaluationService from "../../services/evaluation.service";
-import SupervisorService from "../../services/supervisor.service";
-import StudentService from "../../services/student.service";
+import ApproachService from "../../../services/approach.service";
+import EvaluationService from "../../../services/evaluation.service";
+import SupervisorService from "../../../services/supervisor.service";
+import StudentService from "../../../services/student.service";
 import fulfilment from "../CompleteEvaluation/Blocks/Fulfilment";
 
 
@@ -81,9 +81,10 @@ const Configurator = () => {
         let validation = true;
         const selects = document.querySelectorAll("select");
         for (const select of selects){
-            if (select.value==="null"){
+            if ((select.id==="fulfilmentEvaluation")||(select.id==="basicBlocksEvaluation")||(select.id==="criterionEvaluation")){
+                if(select.value==="null"){
                 select.classList.add("is-invalid");
-                validation = false;
+                validation = false;}
             }
         }
         if (!validation) return;
@@ -185,13 +186,13 @@ const Configurator = () => {
     }
 
     return (
-        <div className="myContainer pb-3 ">
+        <div className="pb-3 pt-3 ">
             <div className="container bg-white p-3 rounded">
                 <div className="card-header text-center">
                     {showButton()}
                     <h4>Konfigurátor modelu</h4>
                     <div className="container">Přizpůsobte si model hodnocení poskytnutím odpovědi na následující otázky.</div>
-                    <span className="small"><span className="text-danger ">*<strong> ! IMPORTANT </strong></span>Vždy začínejte první otázkou (i při úpravě), formulář se pak prispusobi na základě odpovědí na předchozí otázku.</span>
+                    <span className="small"><span className="text-danger ">*<strong> ! IMPORTANT </strong></span>Vždy začínejte první otázkou (i při úpravě), formulář se pak přizpůsobí na základě odpovědí na předchozí otázku.</span>
                 </div>
                 <form onSubmit={(event) => handleSubmit(event)} className={currentForm}>
                     {showCurrentForm()}

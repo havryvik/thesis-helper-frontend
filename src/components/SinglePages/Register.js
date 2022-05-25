@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import {useForm} from "react-hook-form";
 import axios from "axios";
-import AuthService from "../services/auth.service";
+import AuthService from "../../services/auth.service";
 import {useNavigate} from "react-router-dom";
 
 const Register = () => {
@@ -84,7 +84,7 @@ const Register = () => {
                     <div className="form-group">
                         <label htmlFor="role">Zvolte příslušnou roli:</label>
                         <select id="role" className="form-control form-select" name="role" onChange={(event)=>
-                        {handleChange(event)}}>
+                        {handleChange(event)}} >
                             <option value="STUDENT">Student</option>
                             <option value="SUPERVISOR">Vedoucí</option>
                         </select>
@@ -95,7 +95,7 @@ const Register = () => {
                                 {...register("nameSurname", {required: true})}
                                 type="text"
                                 className={getInputClassName("nameSurname")}
-                                id="nameSurname" placeholder="Petr Novák" />
+                                id="nameSurname" placeholder="Petr Novák" autoFocus/>
                             <div className="text-danger font-weight-light font-italic">
                                 {errors.nameSurname?.type === 'required' && "Jméno a příjmení nemohou být prazdné!"}</div>
                         </div>

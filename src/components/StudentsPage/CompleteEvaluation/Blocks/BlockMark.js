@@ -9,7 +9,7 @@ const BlockMark = props =>{
                     <select
                             className="d-inline-block form-control form-select"
                             name="finalMark" id="blockMark" disabled={props.criterionEvaluation}>
-                            <option value="none"/>
+                            <option value="none" disabled="disabled">--select mark--</option>
                             <option value="1">A</option>
                             <option value="2">B</option>
                             <option value="3">C</option>
@@ -31,6 +31,7 @@ const BlockMark = props =>{
                     <input type="number"
                            min="0"
                            max={props.blockWeight}
+                           step=".01"
                            className={props.criterionEvaluation?("d-inline-block form-control-plaintext"):("d-inline-block form-control")}
                            id="blockMark"
                            placeholder="..."/>
@@ -47,7 +48,7 @@ const BlockMark = props =>{
             </div>
             {props.criterionEvaluation===true&&(
                 <div className="col-sm-4  pt-1">
-                    <button type="btn" className="btn btn-sm btn-secondary " onClick={(event)=>{event.preventDefault();props.onClick()}}>Spočitat</button>
+                    <button type="button" className="btn btn-sm btn-secondary " onClick={(event)=>{props.onClick()}}>Spočitat</button>
                 </div>
             )}
         </div>

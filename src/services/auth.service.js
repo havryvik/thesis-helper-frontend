@@ -22,9 +22,6 @@ const login = (data) => {
         });
 };
 
-const logout = () => {
-    localStorage.removeItem("user");
-};
 
 const getCurrentUserFromLocalStorage = () => {
     return JSON.parse(localStorage.getItem("user"));
@@ -46,7 +43,6 @@ const updateProfile = (accountDto) => {
 const authService = {
     signup,
     login,
-    logout,
     getCurrentUserFromLocalStorage,
     getCurrentUser,
     updateProfile

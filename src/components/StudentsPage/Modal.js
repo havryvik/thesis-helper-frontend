@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import SupervisorService from "../services/supervisor.service";
+import SupervisorService from "../../services/supervisor.service";
 const Modal = props => {
 
     const [email, setEmail] = useState("");
@@ -23,7 +23,7 @@ const Modal = props => {
 
         <div className="modal-content" >
                 <div className="modal-header">
-                    <label htmlFor="addStudent"><h5>Uveďte školní email studenta:</h5></label>
+                    <label htmlFor="addStudent" className="h5">Uveďte školní email studenta:</label>
                 </div>
                 <div className="modal-body">
                     <input className="form-control" type="text" placeholder="Student@fel.cvut.cz" id="addStudent"

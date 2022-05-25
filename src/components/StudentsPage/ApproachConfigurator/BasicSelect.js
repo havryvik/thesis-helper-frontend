@@ -29,14 +29,6 @@ const BasicSelect = () => {
         else setSelected(node,2);
     }
 
-    function onCoefficientChange(target) {
-        setValid(target);
-    }
-
-    function onAutoChange(target) {
-        setValid(target);
-    }
-
     function setDisabled(node, index){
         node.childNodes.item(index).disabled = "true";
     }
@@ -98,7 +90,7 @@ const BasicSelect = () => {
                 <div className="p-3">
                     <p className="h6">4. Ovlivnění součtu bodů za 4 základní bloky koeficientem z průniku dvou bloků "Zadání" a "Splnění zadání":</p>
                     <div className="form-check form-check p-3">
-                        <select onChange={event => onCoefficientChange(event.target)} className="form-control form-select form-select" name="coefficient" id="coefficient">
+                        <select className="form-control form-select form-select" name="coefficient" id="coefficient">
                             <option hidden disabled selected value="null"> -- select an option -- </option>
                             <option value="true"   disabled={true}>S aplikací koeficientu</option>
                             <option value="false"   disabled={true}>Bez aplikací koeficientu</option>
@@ -111,7 +103,7 @@ const BasicSelect = () => {
                     <p>Tzn. body odečtené za nesplnění příslušných kritérií budou převedeny na procento od váhy bloků,
                         procento je pak odečteno z maxima 100 % za blok "Splnění zadání".</p>
                     <div className="form-check form-check p-3">
-                        <select onChange={event => onAutoChange(event.target)} className="form-control form-select form-select" name="autoFulfilment" id="autoFulfilment">
+                        <select className="form-control form-select form-select" name="autoFulfilment" id="autoFulfilment">
                             <option hidden disabled selected value="null"> -- select an option -- </option>
                             <option value="true"   disabled={true}>S automatickým vypočítáním</option>
                             <option value="false"   disabled={true}>Bez automatického vypočítání</option>

@@ -1,10 +1,9 @@
 import React, {useEffect, useState} from "react";
 import {Link, useParams} from "react-router-dom";
-import ApproachService from "../services/approach.service";
+import ApproachService from "../../services/approach.service";
 import {faTrashCan} from "@fortawesome/free-regular-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import RequirementService from "../services/requirement.service";
-import app from "../App";
+import RequirementService from "../../services/requirement.service";
 const Summary = () => {
 
     const {studentId, approachId} = useParams();
@@ -24,9 +23,7 @@ const Summary = () => {
                 if(approach.basicBlocksEvaluation!=="marks")
                     setColumnsAmount(3);
                 else setColumnsAmount(2);
-               // console.log(columnsAmount);
                 setApproachFulfilment(ApproachService.getFulfilmentDescription(approach.fulfilmentEvaluation));
-               // console.log(ApproachService.getFulfilmentDescription(approach.fulfilmentEvaluation));
                 setBasicBlocksFulfilment(ApproachService.getBlocksDescription(approach.basicBlocksEvaluation, approach.criterionEvaluation));
             },
             (error) => {
@@ -78,7 +75,7 @@ const Summary = () => {
 
     return (
         (studentApproach)&&(approachBasicBlocks)&&(approachFulfilment)&&(
-        <div className="myContainer pb-5">
+        <div className="myContainer pb-5 pt-3">
             <div className="container bg-white mg-3 pt-3 rounded">
             <div className="container text-center h5 rounded bg-light pt-3 pb-3">Shrnutí</div>
             <table className="table table-sm table-bordered bg-white ">
@@ -163,12 +160,12 @@ const Summary = () => {
                 <div className="container text-center pb-3">
                     <div className="d-inline-block mx-2">
                         <Link to={`/students/${studentId}/configurator`}>
-                            <button className="btn btn-secondary btnSummary" >Nakonfigurovat znovu</button>
+                            <span className="btn btn-secondary btnSummary" >Nakonfigurovat znovu</span>
                         </Link>
                     </div>
                     <div className="d-inline-block mx-2">
                         <Link to="/students">
-                            <button className="btn btn-primary btnSummary">Zpět k prohlížení studentů</button>
+                            <span className="btn btn-primary btnSummary">Zpět k prohlížení studentů</span>
                         </Link>
                     </div>
                 </div>

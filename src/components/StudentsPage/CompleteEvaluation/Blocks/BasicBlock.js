@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import PercentInput from "./PercentInput";
 import TextAreaComment from "./TextAreaComment";
 import BlockMark from "./BlockMark";
-import StupniceService from "../../../services/stupnice.service";
+import StupniceService from "../../../../services/stupnice.service";
 
 const BasicBlock = props => {
 
@@ -21,8 +21,11 @@ const BasicBlock = props => {
         if(props.type==="points"){
             blockMark.value = StupniceService.getPointsForBlock(avg, props.fulfilmentEvaluation?(20):(25));
         }
-        if(props.type==="weights"){
+        if(props.type==="weight"){
+            console.log("blabl")
+            console.log(props.blockWeight);
             blockMark.value = StupniceService.getPointsForBlock(avg, props.blockWeight);
+            console.log(StupniceService.getPointsForBlock(avg, props.blockWeight))
         }
         if(props.type==="percent"){
             blockMark.value = avg;
@@ -98,9 +101,9 @@ const BasicBlock = props => {
                                 <li className="list-group-item"><strong>{"<50"}% </strong>odpovídá - {requirement.min}</li>
                                 </ul>
                                 {props.criterionEvaluation===true&&(
-                                    <div id={requirement.id} className="criterion">
-                                    <PercentInput elementId={props.description.name+requirement.id} />
-                                    <TextAreaComment elementId={props.description.name+requirement.id+"Comment"}/>
+                                    <div  className="criterion">
+                                    <PercentInput elementId={requirement.id} />
+                                    <TextAreaComment elementId={requirement.id+"Comment"}/>
                                     </div>
                                     )}
                             </div>
@@ -111,9 +114,9 @@ const BasicBlock = props => {
                                     <div>
                                         <label className="fw-bold">{index+props.description.defaultRequirements.length+". "+requirement.name} </label>
                                         {props.criterionEvaluation===true&&(
-                                            <div id={requirement.id} className="extra">
-                                                <PercentInput elementId={props.description.name+requirement.id} />
-                                                <TextAreaComment elementId={props.description.name+requirement.id+"Comment"}/>
+                                            <div className="extra">
+                                                <PercentInput elementId={requirement.id} />
+                                                <TextAreaComment elementId={requirement.id+"Comment"}/>
                                             </div>
                                         )}
                                     </div>

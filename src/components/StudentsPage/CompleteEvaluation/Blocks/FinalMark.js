@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import StupniceService from "../../../services/stupnice.service";
+import StupniceService from "../../../../services/stupnice.service";
 const FinalMark = props => {
 
     const [mark, setFinalMark] = useState(undefined);
@@ -89,7 +89,7 @@ const FinalMark = props => {
                             a "Splnění zadání" máte možnost použít následující increment pro navýšení známky:
                             <form className="pt-3 pb-3">
                                 <div className="custom-control custom-radio">
-                                    <input type="radio" id="1" name="customRadio"
+                                    <input type="radio" id="0" name="customRadio"
                                            className="custom-control-input" onChange={()=>{setFinalMark(prevMark)}}/>
                                     <label className="custom-control-label" htmlFor="1">Ponechat beze změn</label>
                                 </div>
