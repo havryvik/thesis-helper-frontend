@@ -12,7 +12,7 @@ Runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
 
-#Popis projektu
+# Popis projektu
 
 V rámci tohoto projektu jsem se zabývala vývojem aplikace, která by měla posloužit pro vedoucí bakalářských 
 prací a studenty ve finální fázi studia. Hlavním cílem bylo na základě zpětné vazby od vyučujících FEL SIT
@@ -29,7 +29,7 @@ Uživatelské role: Supervisor, Student (implementované pouze částečně)
 
 Pro přihlášení použijte následující údaje: login "pavel", heslo "pavel". Nebo vytvořte nový uživatelský profil.
 
-#Use-Cases:
+# Use-Cases:
 
 1. Registrace
 
