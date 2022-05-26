@@ -102,8 +102,8 @@ const Register = () => {
                     <div className="form-group">
                         <label htmlFor="email">Uveďte platný email:</label>
                         <input {...register("email", {
-                                    required: true
-                             //       pattern: /^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[A-Za-z]+$/
+                                    required: true,
+                                    pattern: /^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[A-Za-z]+$/
                         })}
                                type="text"
                                className={getInputClassName("email")}

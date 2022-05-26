@@ -33,37 +33,49 @@ const Profile = () => {
 
     function onSubmit(e){
         e.preventDefault();
-        const updatedProf = profile;
-        updatedProf.nameSurname = nameSurnameInput;
-        if (profile.role==='STUDENT'){
-            updatedProf.thesisField = thesisFieldInput;
-            updatedProf.thesisTheme = thesisThemeInput;
+        let isValid=true;
+        const div = document.querySelector(".exception");
+        const inputs = document.getElementsByClassName("editable");
+        console.log(inputs);
+        for (const input of inputs){
+            if (input.value === "") {
+                input.classList.add("is-invalid");
+                isValid=false;
+            } else if (input.classList.contains("is-invalid")) input.classList.remove("is-invalid");
         }
-        console.log(updatedProf);
-        AuthService.updateProfile(updatedProf).then(
-            (response)=>{
-                console.log(response.status);
-                window.location.reload();
-            },
-            (error) => {
-                console.log("Private page", error);
-                // Invalid token
-                // if (error.response && error.response.status === 403) {
-                //     AuthService.logout();
-                //     navigate("/login");
-                //     window.location.reload();
-                // }
+
+        if (isValid){
+            div.style.display = "none";
+            const updatedProf = profile;
+            updatedProf.nameSurname = nameSurnameInput;
+            if (profile.role==='STUDENT'){
+                updatedProf.thesisField = thesisFieldInput;
+                updatedProf.thesisTheme = thesisThemeInput;
             }
-        )
+            AuthService.updateProfile(updatedProf).then(
+                (response)=>{
+                    window.location.reload();
+                },
+                (error) => {
+                    console.log("Private page", error);
+                    // Invalid token
+                    // if (error.response && error.response.status === 403) {
+                    //     AuthService.logout();
+                    //     navigate("/login");
+                    //     window.location.reload();
+                    // }
+                }
+            )
+        } else {console.log(div);div.style.display = "block"};
     }
 
     function getClassName(){
-        return editable?"form-control":"form-control-plaintext";
+        return editable?"form-control editable":"form-control-plaintext";
     }
 
     return(
-        <div className="container bg-white rounded profileContainer" >
-            <div className="modal-header"><h3 className="modal-title w-100 text-center">Váš profil</h3></div>
+        <section className="container bg-white rounded profileContainer" >
+            <header className="modal-header"><h3 className="modal-title w-100 text-center">Váš profil</h3></header>
             <form className="pb-2 px-3 pt-3" onSubmit={(e)=>onSubmit(e)}>
                 {profile&&(
                     <div>
@@ -99,13 +111,21 @@ const Profile = () => {
                     </div>
                     </div>
                 )}
-                <div className="modal-footer">
+                <div className="exception ">
+                    Editable fields cannot be empty!
+                </div>
+                <footer className="modal-footer">
                     {!editable&&(
                     <button type="button" className="btn btn-secondary" onClick={()=>setEditable(true)} >Upravit profil</button>)}
-                    {editable&&(<button type="submit" className="btn btn-primary" >Uložit změny</button>)}
-                </div>
+                    {editable&&(
+                        <div>
+                            <button type="button" className="btn btn-secondary mx-3" onClick={()=>setEditable(false)} >Zavřit</button>
+                            <button type="submit" className="btn btn-success" >Uložit změny</button>
+                        </div>
+                    )}
+                </footer>
             </form>
-        </div>
+        </section>
     )
 }
 export default Profile;

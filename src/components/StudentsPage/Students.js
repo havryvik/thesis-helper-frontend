@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faTrashCan, faIdCard, faPenToSquare, faSquarePlus, faEye } from '@fortawesome/free-regular-svg-icons'
+import { faTrashCan } from '@fortawesome/free-regular-svg-icons'
 import SupervisorService from "../../services/supervisor.service";
 import Modal from "./Modal";
 import Profile from "../Profile";
 import {Link, useNavigate} from "react-router-dom";
-import ApproachService from "../../services/approach.service";
 import StudentService from "../../services/student.service";
+
+
+//Private Component that contains supervisor Profile info and a table with students that he supervises
 
 const Students = () => {
     const [students, setStudents] = useState([]);
@@ -61,8 +63,8 @@ const Students = () => {
         <div className="Students-container p-3 container">
             <Profile/>
             <Modal onClose={()=>setShow(false)} show={show}/>
-            <div className='container pb-3 pt-3'>
-                <button className="btn btn-primary Button-with-icon" onClick={()=>{setShow(true);}}>
+            <div className='container pb-3 pt-3 mx-0'>
+                <button className="btn btn-primary Button-with-icon " onClick={()=>{setShow(true);}}>
                     <span className="px-2">Přidat nového studenta</span>
                     <svg  width="15px" height="15px" x="0px" y="0px"
                           viewBox="0 0 258.75 258.75" fill="white" >
@@ -73,7 +75,7 @@ const Students = () => {
                     </svg>
                 </button>
             </div>
-            <table className="table bg-white ">
+            <table className="table bg-white  ">
                 <thead className="text-center bg-secondary text-white">
                 <tr>
                     <th scope="col" className="width-5" >#</th>

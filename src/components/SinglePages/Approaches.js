@@ -1,6 +1,12 @@
 import React from "react";
 
+
+//Component that consists of 4 collapsed sections that describes how the student`s thesis can be evaluated
+
 const Approaches = () => {
+
+    //adds or removes "collapse" classname of a section that is sent into function as an event target
+    //allows to show of hide section info
 
     function showCollapse(event){
         const className = event.target.id;

@@ -1,8 +1,14 @@
 import React from "react";
 import {Link, useNavigate} from "react-router-dom";
+
+//Main Welcome page that is displayed when web is opened
+
 const WelcomePage = () => {
 
+    //hook that allows to navigate within web`s url
     const navigate = useNavigate();
+
+    //navigates user to Model component
     function goToModel(event){
         event.preventDefault();
         navigate("/model");

@@ -19,6 +19,9 @@ const App = () => {
 
         return (
 
+            //Main div container that contains a Header component, a Footer component and a Router that redirects
+            // and renders components based on a path variable in app url
+
             <div className="background">
                 <AppMainHeader/>
                 <Routes>

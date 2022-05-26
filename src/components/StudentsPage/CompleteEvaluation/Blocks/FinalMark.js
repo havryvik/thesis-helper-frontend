@@ -86,7 +86,7 @@ const FinalMark = props => {
                                 </div>
                         ):(<div className="container">
                             Na základě zvoleného Vámi přístupu hodnocení a dosažených studentem výsledků za bloky "Zadání"
-                            a "Splnění zadání" máte možnost použít následující increment pro navýšení známky:
+                            a "Splnění zadání" máte možnost použít následující increment pro úpravu známky:
                             <form className="pt-3 pb-3">
                                 <div className="custom-control custom-radio">
                                     <input type="radio" id="0" name="customRadio"

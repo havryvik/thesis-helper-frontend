@@ -17,10 +17,6 @@
   background-size: 300% 300%;
 }
 
-/*.navbar{*/
-/*  display: none;*/
-/*}*/
-
 .welcomeText{
   margin-top: 5%;
   display: flex;
@@ -212,6 +208,10 @@
   width:12%
 }
 
+.width-80{
+  width:80%
+}
+
 .custom-link:hover{
   text-decoration: underline;
 }
@@ -227,6 +227,7 @@
   flex-direction: column;
   align-self: flex-start;
   min-height: 800px;
+  min-width: 90%;
 }
 
 .Footer{
@@ -240,7 +241,7 @@
 }
 
 .profileContainer{
-  max-width: 55%;
+  max-width: 40%;
 }
 
 .deleteBtn {
@@ -279,6 +280,12 @@
 .navbar-header{
   display: none;
 }
+
+.navbar-header button{
+  background: #282c34;
+  border: #404454;
+}
+
 @media only screen and (max-width : 768px) {
   .navbar{
     display: flex;
@@ -308,3 +315,14 @@
   }
 }
 
+.exception, .exceptionModal{
+  display: none;
+  color: red;
+  min-width: 100%;
+}
+
+@media only screen and (min-width : 768px){
+  .navbar > ul{
+    display: flex;
+  }
+}

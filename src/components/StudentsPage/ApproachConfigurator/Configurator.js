@@ -5,9 +5,7 @@ import Weights from "./Weights";
 import {useNavigate, useParams} from "react-router-dom";
 import ApproachService from "../../../services/approach.service";
 import EvaluationService from "../../../services/evaluation.service";
-import SupervisorService from "../../../services/supervisor.service";
 import StudentService from "../../../services/student.service";
-import fulfilment from "../CompleteEvaluation/Blocks/Fulfilment";
 
 
 const Configurator = () => {

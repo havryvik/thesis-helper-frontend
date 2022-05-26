@@ -1,5 +1,7 @@
 import React from "react";
 
+//Static Component with information about evaluation Model
+
 const Model = () => {
     return (
         <article className="container shadow mt-4 mb-5 bg-light rounded">

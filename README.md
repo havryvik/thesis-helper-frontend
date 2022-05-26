@@ -11,60 +11,46 @@ In the project directory, you can run:
 Runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
 
-### `npm test`
+#Popis projektu
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+V rámci tohoto projektu jsem se zabývala vývojem aplikace, která by měla posloužit pro vedoucí bakalářských 
+prací a studenty ve finální fázi studia. Hlavním cílem bylo na základě zpětné vazby od vyučujících FEL SIT
+navrhnout rozpad aktuálně používaného modelu posudku na další dílčí důležitá kritéria a prozkoumat možnosti 
+přístupu k ohodnocení prací. Úvahy definované v průběhu výzkumu i staly základem aplikace. Musím naznačit, že 
+kvůli rozsáhlosti funkcionality aplikace, velkému počtu alternativních cest ohodnocení práce a spojení projektu 
+s moji bakalářskou práci odevyzdani které se plánuje v podzimním termínu tato aplikace není kompletně dokončenou
+ale je dostačující pro daný semestrální projekt. Přesný seznam implementovaných use-casu je vyjmenován níže. 
+Projekt kromě frontendove části obsahuje taky Java backend vyvinutý na základě frameworku Sring Boot (odkaz na gitlab - 
+https://gitlab.fel.cvut.cz/havryvik/thesis-helper). Všechna 
+data (informace o uživatelích, detaily přístupů, hodnocení) se ukládají do databází PostgresSQL.
 
-### `npm run build`
+Uživatelské role: Supervisor, Student (implementované pouze částečně)
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Pro přihlášení použijte následující údaje: login "pavel", heslo "pavel". Nebo vytvořte nový uživatelský profil.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+#Use-Cases:
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+1. Registrace
 
-### `npm run eject`
+2. Přihlášení
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+3. Úprava informace profilu
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+4. Zobrazení seznamu studentů, u kterých je vyučujícím
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+5. Přidání nového studenta pomocí emailu
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+6. Zobrazení modelu
 
-## Learn More
+7. Zobrazení seznamu přístupů k ohodnocení dílčích částí posudku
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+8. Defaultně vytvářet prvotní přístup ohodnocení práce odpovídající aktuálně používanému přístupu z posudku
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+9. Možnost specifikovat přístup (nakonfigurovat) hodnocení závěrečné práci pro konkrétního studenta
 
-### Code Splitting
+10. Prohlížení zvoleného přístupu hodncoeni
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+11. Změnit již nakonfiguroavny přístup
 
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+12. Provést hodnocení práce na základě zvoleného přístupu (castnecne implementováno, zatím se neukládá do db)
