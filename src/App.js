@@ -25,7 +25,7 @@ const App = () => {
             <div className="background">
                 <AppMainHeader/>
                 <Routes>
-                    <Route path="/thesis-helper/" element={<WelcomePage />} />
+                    <Route path="/thesis-helper" element={<WelcomePage />} />
                     <Route path="/model" element={<Model />} />
                     <Route path="/approaches" element={<Approaches />} />
                     <Route path="/students" element={<Students />} />

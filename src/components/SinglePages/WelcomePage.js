@@ -18,7 +18,7 @@ const WelcomePage = () => {
     return (
         <section className="App-header">
             <div className="logoSection">
-                <img src={process.env.PUBLIC_URL + "images/logo1.png"} className="App-logo" alt="logo" />
+                <img src={process.env.PUBLIC_URL + "logo1.png"} className="App-logo" alt="logo" />
                 <p className="logoName">ThesisHelper</p>
             </div>
             <div className="welcomeText">
