@@ -1,18 +1,18 @@
 {
   "files": {
     "main.css": "/thesis-helper/static/css/main.23784c4b.css",
-    "main.js": "/thesis-helper/static/js/main.4416b684.js",
+    "main.js": "/thesis-helper/static/js/main.555cfc42.js",
     "static/js/787.2e30f5b0.chunk.js": "/thesis-helper/static/js/787.2e30f5b0.chunk.js",
     "static/media/background.png": "/thesis-helper/static/media/background.43e1e1288b6dfecba8df.png",
     "static/media/logo1.png": "/thesis-helper/static/media/logo1.5beab8fe101fb13d1194.png",
     "index.html": "/thesis-helper/index.html",
     "static/media/auth-header": "/thesis-helper/static/media/auth-header.e4852e3c8cd4f2a567fd",
     "main.23784c4b.css.map": "/thesis-helper/static/css/main.23784c4b.css.map",
-    "main.4416b684.js.map": "/thesis-helper/static/js/main.4416b684.js.map",
+    "main.555cfc42.js.map": "/thesis-helper/static/js/main.555cfc42.js.map",
     "787.2e30f5b0.chunk.js.map": "/thesis-helper/static/js/787.2e30f5b0.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.23784c4b.css",
-    "static/js/main.4416b684.js"
+    "static/js/main.555cfc42.js"
   ]
 }
