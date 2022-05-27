@@ -1,5 +1,6 @@
 import React from "react";
 import {Link, useNavigate} from "react-router-dom";
+import logo1 from "./logo1.png";
 
 //Main Welcome page that is displayed when web is opened
 
@@ -18,7 +19,7 @@ const WelcomePage = () => {
     return (
         <section className="App-header">
             <div className="logoSection">
-                <img src="/src/logo1.png" className="App-logo" alt="logo" />
+                <img src={logo1} className="App-logo" alt="logo" />
                 <p className="logoName">ThesisHelper</p>
             </div>
             <div className="welcomeText">

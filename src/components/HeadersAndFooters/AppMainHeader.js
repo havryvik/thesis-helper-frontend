@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from "react";
 import {Link} from "react-router-dom";
 import AuthService from "../../services/auth.service";
+import logo1 from"./logo1.png";
 const AppMainHeader = () => {
 
     //hook for keeping a currently logged user, state of active navbar item, state ov navbar list to be properly
@@ -34,7 +35,7 @@ const AppMainHeader = () => {
 
     //correctly display navbar depending on url path
     function getDisplay(){
-            if(window.location.pathname==="/thesis-helper/")
+            if(window.location.pathname==="/thesis-helper")
                 return "none";
             return "flex";
     }
@@ -61,7 +62,7 @@ const AppMainHeader = () => {
             <nav className="navbar sticky-top navbar-expand navbar-dark bg-dark" style={{display:getDisplay()}}>
                 <div className="nav-head">
                 <span className="navbar-brand" >
-                    <img src = "/src/logo1.png"
+                    <img src = {logo1}
                          className="d-inline-block align-top Logo-img" alt="logo" />
                     Thesis helper
                 </span>
