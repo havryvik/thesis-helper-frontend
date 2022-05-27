@@ -34,7 +34,7 @@ const AppMainHeader = () => {
 
     //correctly display navbar depending on url path
     function getDisplay(){
-            if(window.location.pathname==="/")
+            if(window.location.pathname==="/thesis-helper/")
                 return "none";
             return "flex";
     }
@@ -61,7 +61,7 @@ const AppMainHeader = () => {
             <nav className="navbar sticky-top navbar-expand navbar-dark bg-dark" style={{display:getDisplay()}}>
                 <div className="nav-head">
                 <span className="navbar-brand" >
-                    <img src = {process.env.PUBLIC_URL + "logo1.png"}
+                    <img src = "/src/logo1.png"
                          className="d-inline-block align-top Logo-img" alt="logo" />
                     Thesis helper
                 </span>
