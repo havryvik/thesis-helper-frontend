@@ -31,7 +31,7 @@ const WelcomePage = () => {
                     <Link
                         to={"/model"}
                         className="App-link"
-                        onClick={event=>goToModel(event)}
+                       // onClick={event=>goToModel(event)}
                     >Go to evaluation model</Link>
                 </div>
             </div>
