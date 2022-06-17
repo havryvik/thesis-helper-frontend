@@ -153,22 +153,17 @@
   }
 }
 
-.background {
-  background-image: url("background.png");
-  background-repeat: no-repeat;
-  background-size: 100% 100%;
-  background-attachment: fixed;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
+
 
 .Button-with-icon{
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: center;
+}
+
+.Button-custom{
+  box-shadow: 3px 3px 3px 2px rgba(0, 0, 0, 0.17);
 }
 
 .custom-link{
@@ -180,6 +175,9 @@
   height: 30px;
 }
 
+.width-100{
+  min-width:100%
+}
 .width-25{
   width:25%
 }
@@ -216,10 +214,28 @@
   text-decoration: underline;
 }
 
+.background {
+  background-image: url("background.png");
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  background-attachment: fixed;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
 .myContainer {
   min-height: 100%;
   display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
   align-items: center;
+  flex-grow: 1;
+}
+
+#accordion {
+  display:block;
+  width:100%;
 }
 
 .Students-container {
@@ -228,11 +244,13 @@
   align-self: flex-start;
   min-height: 800px;
   min-width: 90%;
+  flex-grow: 1;
 }
 
-.Footer{
-  justify-self: flex-end;
-}
+/*.Footer{*/
+/*  justify-self: flex-end;*/
+/*  ord*/
+/*}*/
 .registerContainer {
   max-width: 40%;
 }
@@ -242,6 +260,8 @@
 
 .profileContainer{
   max-width: 40%;
+  box-shadow: 3px 3px 3px 2px rgba(0, 0, 0, 0.17);
+
 }
 
 .deleteBtn {

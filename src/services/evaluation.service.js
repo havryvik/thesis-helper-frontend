@@ -30,8 +30,13 @@ const getEvaluation = (evaluationId) => {
             user?{"Authorization": `Bearer_${user.token}`}:{}});
 }
 
+const getEvaluationOverview = (evaluationId) => {
+    return axios.get(API_URL+`/${evaluationId}/overview`, {headers:
+            user?{"Authorization": `Bearer_${user.token}`}:{}});
+}
+
 const updateBlockEvaluation = (evaluationId, evalPerBlockDto) =>{
-    return axios.put(API_URL+`/${evaluationId}/block/${evalPerBlockDto.number}`, evalPerBlockDto, {headers:
+    return axios.put(API_URL+`/${evaluationId}/block/${evalPerBlockDto.blockNumber}`, evalPerBlockDto, {headers:
             user?{"Authorization": `Bearer_${user.token}`}:{}});
 }
 
@@ -41,7 +46,8 @@ const evaluationService = {
     getBlockEvaluation,
     getEvaluation,
     updateBlockEvaluation,
-    updateRequirements
+    updateRequirements,
+    getEvaluationOverview
 };
 
 export default evaluationService;

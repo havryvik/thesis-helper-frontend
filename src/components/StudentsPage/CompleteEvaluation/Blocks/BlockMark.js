@@ -20,22 +20,28 @@ const BlockMark = props =>{
 
                 )}
                 {props.evalType==="points"&&(
-                    <input type="number"
-                           min="0"
-                           max={props.fulfilmentPoints?(20):(25)}
-                           className={props.criterionEvaluation?("d-inline-block form-control-plaintext"):("d-inline-block form-control")}
-                           id="blockMark"
-                           placeholder="..."/>
+                    <div>
+                        <input type="number"
+                               min="0"
+                               max={props.fulfilmentPoints?(20):(25)}
+                               className={props.criterionEvaluation?("d-inline-block form-control-plaintext"):("d-inline-block form-control")}
+                               id="blockMark"
+                               placeholder="..."/>
+                        <p>{`Maximum: ${props.fulfilmentPoints?(20):(25)}`}</p>
+                    </div>
                 )}
                 {props.evalType==="weight"&&(
-                    <input type="number"
-                           min="0"
-                           max={props.blockWeight}
-                           step=".01"
-                           className={props.criterionEvaluation?("d-inline-block form-control-plaintext"):("d-inline-block form-control")}
-                           id="blockMark"
-                           placeholder="..."/>
-                )}
+                    <div className="text-danger">
+                        <input type="number"
+                               min="0"
+                               max={props.blockWeight}
+                               step=".01"
+                               className={props.criterionEvaluation?("d-inline-block form-control-plaintext"):("d-inline-block form-control")}
+                               id="blockMark"
+                               placeholder="..."/>
+                        <p>{`Max: ${props.blockWeight}`}</p>
+                    </div>
+                    )}
                 {props.evalType==="percent"&&(
                     <input type="number"
                            min="0"

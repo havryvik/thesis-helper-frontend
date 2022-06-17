@@ -24,7 +24,7 @@ const Profile = () => {
                 console.log("Private page", error);
                 if (error.response && error.response.status === 403) {
                     localStorage.clear();
-                    window.location.reload();
+                    //window.location.reload();
                     navigate("/login");
                 }
             }

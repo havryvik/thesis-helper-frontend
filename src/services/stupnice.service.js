@@ -1,4 +1,5 @@
 import basicBlocksService from "./basicBlocks.service";
+import assignment from "../components/StudentsPage/CompleteEvaluation/Blocks/Assignment";
 
 const getSelectValueByPercent=(percent)=>{
     if(percent<=100&&percent>=90)
@@ -21,6 +22,20 @@ const getPointsForBlock = (percent, maxForBlock) => {
 }
 
 const getIncr = (assignment, fulfilment) => {
+    return fulfilment===undefined?ap(assignment):increment(assignment,fulfilment);
+}
+
+const ap = (assignment) => {
+    if(assignment==="extremelyHard")
+        return {token: "+", max: 10, min: 6};
+    if(assignment==="hard")
+        return {token: "+", max: 5, min: 1};
+    if(assignment==="easy")
+        return {token: "-", max: 5, min: 1};
+    else return null;
+}
+
+const increment = (assignment, fulfilment) => {
     const fulfilmentTmp = convertFulfilmentPercentToWords(fulfilment);
     if (fulfilmentTmp!==undefined)
         fulfilment = fulfilmentTmp;
@@ -36,8 +51,6 @@ const getIncr = (assignment, fulfilment) => {
         return null;
     return {token: "-", step: 1};
 }
-
-
 
 const convertFulfilmentPercentToWords = (percent) => {
     if (percent>=90) return "done";
@@ -80,13 +93,119 @@ const convertValueToMark = (value) => {
     }
 }
 
+const getFinalFulfillment=(evalType, value)=>{
+    if (evalType==="points"){
+        return fulfilmentPointsToWords(parseInt(value));
+    } else {
+        return fulfilmentPercentToWords(value);
+    }
+}
+
+const fulfilmentPointsToWords = (points)=>{
+    if (points<=20&&points>17) return "Splněno";
+    if (points<=17&&points>13) return "Splněno s menšími výhradami";
+    if (points<=13&&points>9) return "Splněno s většími výhradami";
+    return "Nesplněno";
+}
+
+const fulfilmentPercentToWords = (percent)=>{
+    switch(percent){
+        case (percent<=100&&percent>89): return "Splněno";
+        case (percent<=89&&percent>69): return "Splněno s menšími výhradami";
+        case (percent<=69&&percent>49): return "Splněno s většími výhradami";
+        default: return "Nesplněno";
+    }
+}
+
+const getFinalBlockMark = (blocksEvaluation, value, max) => {
+    console.log(blocksEvaluation)
+    console.log(value)
+    console.log(max);
+    if (blocksEvaluation==="marks")
+        return convertValueToMark(value);
+    if (blocksEvaluation==="percent")
+        return convertValueToMark(getSelectValueByPercent(value))
+    else {
+        return convertValueToMark(getSelectValueByPercent(Math.round(value*100/max)))
+    }
+}
+
+const getFulfilmentMax = (fulfilmentEvaluation) => {
+    if(fulfilmentEvaluation==="percent")
+        return "100%";
+    else return 20;
+}
+
+const getFinalMark = (finalMarkPattern, value) => {
+    if(finalMarkPattern==="avgIncr")
+        return convertValueToMark(value);
+    else
+        return convertValueToMark(getSelectValueByPercent(value));
+}
+
+const getMaxIncr = (assignment, fulfilment) => {
+    switch(assignment){
+        case "extremelyHard": {
+            if (fulfilment==="done") return 8;
+            if (fulfilment==="fewerReservations") return 4;
+            if (fulfilment==="moreReservations") return 0;
+            return null;
+        }
+        case "hard":{
+            if (fulfilment==="done") return 6;
+            if (fulfilment==="fewerReservations") return 2;
+            if (fulfilment==="moreReservations") return (-2);
+            return null;
+        }
+        case "medium":{
+            if (fulfilment==="done") return 0;
+            if (fulfilment==="fewerReservations") return (-2);
+            if (fulfilment==="moreReservations") return (-6);
+            return null;
+        }
+        case "easy":{
+            if (fulfilment==="done") return (-2);
+            if (fulfilment==="fewerReservations") return (-4);
+            if (fulfilment==="moreReservations") return (-8);
+            return null;
+        }
+        default: return null;
+    }
+}
+
+const getCoefficient = (fulfilment, assignment, mark) => {
+    console.log(fulfilment+assignment+mark)
+    const incr = getMaxIncr(assignment, fulfilment);
+    console.log("INCR "+incr)
+    const max = (Math.trunc(mark/10))*10+9;
+    console.log("MAX "+max)
+    const min = (Math.trunc(mark/10))*10;
+    console.log("MIN "+min)
+    return (incr/max+incr/min)/2+1;
+}
+
+const getFulfilmentByEvalApproach = (blockValue, fulfilmentEvaluation, autoFulfilment) => {
+    if (fulfilmentEvaluation === "words")
+        return getFulfilmentDescription(blockValue, autoFulfilment);
+    if (fulfilmentEvaluation === "points")
+        return getFulfilmentDescription(fulfilmentPointsToWords(blockValue))
+}
+
+
+
 const StupniceService ={
     getSelectValueByPercent,
     getPointsForBlock,
     getIncr,
     getAssignmentDescription,
     getFulfilmentDescription,
-    convertValueToMark
+    convertValueToMark,
+    getFinalFulfillment,
+    getFinalBlockMark,
+    getFulfilmentMax,
+    getFinalMark,
+    getFulfilmentByEvalApproach,
+    getCoefficient
 }
 
 export default StupniceService;

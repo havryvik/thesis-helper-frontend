@@ -20,9 +20,12 @@ const Summary = () => {
             (response) => {
                 const approach = response.data;
                 setStudentApproach(approach);
-                if(approach.basicBlocksEvaluation!=="marks")
+                if(approach.basicBlocksEvaluation!=="marks"){
                     setColumnsAmount(3);
+                    console.log(3);
+                }
                 else setColumnsAmount(2);
+
                 setApproachFulfilment(ApproachService.getFulfilmentDescription(approach.fulfilmentEvaluation));
                 setBasicBlocksFulfilment(ApproachService.getBlocksDescription(approach.basicBlocksEvaluation, approach.criterionEvaluation));
             },
@@ -88,10 +91,10 @@ const Summary = () => {
                 <tr className="bg-light text-center">
                     <th scope="col">Blok</th>
                     <th scope="col">Způsob hodnocení</th>
-                    {studentApproach&&studentApproach.fulfilmentEvaluation==="points"&&(
-                        <th scope="col">Maximální počet bodů</th>
-                    )}
-                    {studentApproach&&studentApproach.fulfilmentEvaluation==="percent"&&(
+                    {studentApproach&&
+                        (studentApproach.fulfilmentEvaluation==="percent"||
+                            studentApproach.basicBlocksEvaluation==="weight"||
+                            studentApproach.basicBlocksEvaluation==="points")&&(
                         <th scope="col">Maximum</th>
                     )}
                 </tr>
@@ -101,15 +104,18 @@ const Summary = () => {
                 </tr>
                 <tr><td><strong>2. Splnění zadání</strong></td><td>{approachFulfilment.text}</td>
                     {approachFulfilment.max!==""&&(<td>{approachFulfilment.max}</td>)}
+                    {approachFulfilment.max===""&&columnsAmount===3&&(<td/>)}
                 </tr>
-                <tr><td><strong>3. Aktivita a samostatnost</strong><br/>	3.1. Dodržení domluvených termínů<br/>
+                <tr><td><strong>3. Aktivita a samostatnost</strong><br/>3.1. Dodržení domluvených termínů<br/>
                         3.2. Přípravenost k setkáním<br/>
                         3.3. Iniciativnost<br/>
                         3.4. Samostatnost<br/>
                         3.5. Pěčlivost</td>
                     <td>{approachBasicBlocks}</td>
                     {columnsAmount===3&&(
-                        weights?(<td>{weights.activity}</td>):(<td>{approachFulfilment.max}</td>)
+                        weights?(<td>{weights.activity}</td>):(
+                            <td>{studentApproach.fulfilmentEvaluation==="points"?20:25}</td>
+                        )
                     )}
                 </tr>
                 <tr><td><strong>4. Odborná úroveň</strong><br/>4.1. Použitelnost, aplikovatelnost v praxi<br/>
@@ -127,7 +133,9 @@ const Summary = () => {
                     </td>
                     <td>{approachBasicBlocks}</td>
                     {columnsAmount===3&&(
-                        weights?(<td>{weights.professionalLevel}</td>):(<td>{approachFulfilment.max}</td>)
+                        weights?(<td>{weights.professionalLevel}</td>):(
+                            <td>{studentApproach.fulfilmentEvaluation==="points"?20:25}</td>
+                        )
                     )}
                 </tr>
                 <tr><td><strong>5. Formální a jazyková úroveň, rozsah práce</strong><br/>	5.1. Adekvatnost rozsáhu<br/>
@@ -139,7 +147,9 @@ const Summary = () => {
                     5.7. Reference v textu</td>
                     <td>{approachBasicBlocks}</td>
                     {columnsAmount===3&&(
-                        weights?(<td>{weights.languageLevel}</td>):(<td>{approachFulfilment.max}</td>)
+                        weights?(<td>{weights.languageLevel}</td>):(
+                            <td>{studentApproach.fulfilmentEvaluation==="points"?20:25}</td>
+                        )
                     )}
                 </tr>
                 <tr><td><strong>6. Výběr zdrojů, korektnost citace</strong><br/>	6.1. Dodržování konvenci<br/>
@@ -147,7 +157,9 @@ const Summary = () => {
                     6.3. Kvalita zdrojů</td>
                     <td>{approachBasicBlocks}</td>
                     {columnsAmount===3&&(
-                        weights?(<td>{weights.citation}</td>):(<td>{approachFulfilment.max}</td>)
+                        weights?(<td>{weights.citation}</td>):(
+                            <td>{studentApproach.fulfilmentEvaluation==="points"?20:25}</td>
+                        )
                     )}
                 </tr>
                 </tbody>

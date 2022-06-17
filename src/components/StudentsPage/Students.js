@@ -51,20 +51,20 @@ const Students = () => {
         )
     }
 
-    function goToSummary(event,studentId){
-        event.preventDefault();
-        StudentService.getApproachByStudent(studentId).then(
-            (response)=>{navigate(`${studentId}/summary/${response.data.id}`)},
-            (error)=>{console.log(error)}
-        )
-    }
+    // function goToSummary(event,studentId){
+    //     event.preventDefault();
+    //     StudentService.getApproachByStudent(studentId).then(
+    //         (response)=>{navigate(`${studentId}/summary/${response.data.id}`)},
+    //         (error)=>{console.log(error)}
+    //     )
+    // }
 
     return (
-        <div className="Students-container p-3 container">
+        <div className="Students-container px-3 pt-4 pb-4 mt-3 mb-3 container rounded">
             <Profile/>
             <Modal onClose={()=>setShow(false)} show={show}/>
             <div className='container pb-3 pt-3 mx-0'>
-                <button className="btn btn-primary Button-with-icon " onClick={()=>{setShow(true);}}>
+                <button className="btn btn-primary Button-custom  Button-with-icon " onClick={()=>{setShow(true);}}>
                     <span className="px-2">Přidat nového studenta</span>
                     <svg  width="15px" height="15px" x="0px" y="0px"
                           viewBox="0 0 258.75 258.75" fill="white" >
@@ -75,7 +75,7 @@ const Students = () => {
                     </svg>
                 </button>
             </div>
-            <table className="table bg-white  ">
+            <table className="table bg-white shadow ">
                 <thead className="text-center bg-secondary text-white">
                 <tr>
                     <th scope="col" className="width-5" >#</th>
@@ -84,7 +84,7 @@ const Students = () => {
                     <th scope="col" className="width-15">Zaměření</th>
                     <th scope="col" className="width-20" >Téma</th>
                     <th scope="col" className="width-15">Přístup</th>
-                    <th scope="col" className="width-12">Hodnocení</th>
+                    <th scope="col" className="width-15">Hodnocení</th>
                     <th scope="col" className="width-5">-</th>
                 </tr>
                 </thead>
@@ -112,7 +112,7 @@ const Students = () => {
                             </svg>
                             <span className="px-1">Upravit</span>
                         </Link>
-                        <Link className="text-dark Button-with-icon px-1 custom-link" to={`/`} onClick={event=>{goToSummary(event,student.id)}}>
+                        <Link className="text-dark Button-with-icon px-1 custom-link" to={`${student.id}/summary/${student.approachId}`} >
                             <svg width="20px" height="20px" viewBox="0 0 24 24" >
                                 <g  stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
                                     <g  fill="#212121" fillRule="nonzero">
@@ -125,6 +125,7 @@ const Students = () => {
                         </div>
                     </td>
                     <td >
+                        <div className="Button-with-icon">
                         <Link className="text-dark Button-with-icon px-1 custom-link" to={`/students/${student.id}/evaluation`}>
                             <svg width="15px" height="15px" x="0px" y="0px"
                                  viewBox="0 0 512 512" fill="#212121">
@@ -139,6 +140,17 @@ const Students = () => {
                             </svg>
                             <span className="px-1">Ohodnotit</span>
                         </Link>
+                        <Link className="text-dark Button-with-icon px-1 custom-link" to={`/evaluation-overview/${student.evaluationId}`} >
+                            <svg width="20px" height="20px" viewBox="0 0 24 24" >
+                                <g  stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
+                                    <g  fill="#212121" fillRule="nonzero">
+                                        <path d="M12,9.0046246 C14.209139,9.0046246 16,10.7954856 16,13.0046246 C16,15.2137636 14.209139,17.0046246 12,17.0046246 C9.790861,17.0046246 8,15.2137636 8,13.0046246 C8,10.7954856 9.790861,9.0046246 12,9.0046246 Z M12,10.5046246 C10.6192881,10.5046246 9.5,11.6239127 9.5,13.0046246 C9.5,14.3853365 10.6192881,15.5046246 12,15.5046246 C13.3807119,15.5046246 14.5,14.3853365 14.5,13.0046246 C14.5,11.6239127 13.3807119,10.5046246 12,10.5046246 Z M12,5.5 C16.613512,5.5 20.5960869,8.65000641 21.7011157,13.0643865 C21.8017,13.4662019 21.557504,13.8734775 21.1556885,13.9740618 C20.7538731,14.0746462 20.3465976,13.8304502 20.2460132,13.4286347 C19.3071259,9.67795854 15.9213644,7 12,7 C8.07693257,7 4.69009765,9.68026417 3.75285786,13.4331499 C3.65249525,13.8350208 3.24535455,14.0794416 2.84348365,13.979079 C2.44161275,13.8787164 2.19719198,13.4715757 2.29755459,13.0697048 C3.4006459,8.65271806 7.38448293,5.5 12,5.5 Z" />
+                                    </g>
+                                </g>
+                            </svg>
+                            <span className="px-1">Ukazat</span>
+                        </Link>
+                        </div>
                     </td>
                     <td><FontAwesomeIcon icon={faTrashCan} className='btn' onClick={()=>removeStudent(student)}/></td>
                 </tr>

@@ -14,6 +14,7 @@ import Register from "./components/SinglePages/Register";
 import Summary from "./components/StudentsPage/Summary";
 import WelcomePage from "./components/SinglePages/WelcomePage";
 import Footer from "./components/HeadersAndFooters/Footer";
+import EvaluationOverview from "./components/StudentsPage/EvaluationOverview/EvaluationOverview";
 
 const App = () => {
 
@@ -35,6 +36,7 @@ const App = () => {
                     <Route path="/login" element={<Login />} />
                     <Route path="/register" element={<Register />} />
                     <Route path="/students/:studentId/summary/:approachId" element={<Summary />} />
+                    <Route path="/evaluation-overview/:evaluationId" element={<EvaluationOverview/>} />
                 </Routes>
                 <Footer/>
             </div>

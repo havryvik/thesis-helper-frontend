@@ -89,15 +89,15 @@ const getFinalMark=(finalMark)=>{
             break;
         }
         case "sumC":{
-            approach = "Sum*K, kde Sum - součet dosažených studentem bodů za základní bloky a K - koeficient umožňující navýšení známky, vypočítaný pomocí matematického vzorce s respektováním dosažených bodů za základní bloky a průniku Splnění zadání a Náročnosti zadání. V případě zvolení jiného než slovního hodnocení bloku \"Splnění zadání\", jeho hodnocení bude převedeno do slovního hodnocení dle Stupnice. Vedoucí vždy má možnost upravit výslednou známku přidáním komentáře s odůvodněním.";
+            approach = "Sum*K, kde Sum - součet dosažených studentem bodů za základní bloky a K - koeficient umožňující navýšení známky, vypočítaný pomocí matematického vzorce s respektováním dosažených bodů za základní bloky a průniku Splnění zadání a Náročnosti zadání. Vedoucí vždy má možnost upravit výslednou známku přidáním komentáře s odůvodněním.";
             break;
         }
         case "sumIncr":{
-            approach = "Sum+Incr, kde Sum - součet dosažených studentem bodů za základní bloky a Incr - možnost navýšení známky. V případě zvolení jiného než slovního hodnocení bloku \"Splnění zadání\", jeho hodnocení bude převedeno do slovního hodnocení dle Stupnice ";
+            approach = "Sum+Incr, kde Sum - součet dosažených studentem bodů za základní bloky a Incr - možnost navýšení známky.";
             break;
         }
         default: {
-            approach = "Avg+Incr, kde Avg - průměr hodnocení základních bloků a Incr - možnost navýšení známky. V případě zvolení jiného než slovního hodnocení bloku \"Splnění zadání\", jeho hodnocení bude převedeno do slovního hodnocení dle Stupnice";
+            approach = "Avg+Incr, kde Avg - průměr hodnocení základních bloků a Incr - možnost navýšení známky.";
             break;
         }
     }

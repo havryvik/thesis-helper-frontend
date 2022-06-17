@@ -16,17 +16,28 @@ const BasicSelect = () => {
     function onBlocksChange(target){
         setValid(target);
         const node = document.getElementById("coefficient");
-        if(target.value==="points"||target.value==="weight")
-            setSelected(node,1);
-        else setSelected(node,2);
+        if(target.value==="points"||target.value==="weight"){
+            const node1 = document.getElementById("fulfilmentEvaluation");
+            if (node1.value==="words"){
+                setAllEnabled(node);
+            }
+            if (node1.value === "points"){
+                setSelected(node,2);
+                setDisabled(node, 1);
+            }
+        }
+        else {
+            setSelected(node,2);
+            setDisabled(node, 1);
+        }
     }
 
     function onCriterionChange(target){
         setValid(target);
         const node = document.getElementById("autoFulfilment");
-        if(target.value==="true")
-            setSelected(node,1);
-        else setSelected(node,2);
+        if(target.value==="false"){
+            setSelected(node,2);
+        }
     }
 
     function setDisabled(node, index){

@@ -39,7 +39,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/components/HeadersAndFooters" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../backend/thesis-helper" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="nodejs_interpreter_path" value="node" />
@@ -106,7 +106,12 @@
       <workItem from="1653499228478" duration="12800000" />
       <workItem from="1653557334472" duration="11905000" />
       <workItem from="1653654589365" duration="2224000" />
-      <workItem from="1653657111100" duration="4606000" />
+      <workItem from="1653657111100" duration="5706000" />
+      <workItem from="1654017159687" duration="207000" />
+      <workItem from="1654682392285" duration="19512000" />
+      <workItem from="1654765161947" duration="20316000" />
+      <workItem from="1654848348450" duration="825000" />
+      <workItem from="1655365633534" duration="25257000" />
     </task>
     <servers />
   </component>

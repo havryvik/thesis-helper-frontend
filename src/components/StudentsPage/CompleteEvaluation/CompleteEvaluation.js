@@ -1,5 +1,5 @@
 import React, {useDeferredValue, useEffect, useState} from "react";
-import {useParams} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import StudentService from "../../../services/student.service";
 import Assignment from "./Blocks/Assignment";
 import Fulfilment from "./Blocks/Fulfilment";
@@ -29,7 +29,7 @@ const CompleteEvaluation = () => {
     const [finalMark, setFinalMark] = useState(undefined);
     const [extraReq, setExtraReq] = useState(undefined);
 
-
+    const navigate = useNavigate();
 
     useEffect(()=>{
         StudentService.getApproachByStudent(studentIdParam).then(
@@ -52,7 +52,7 @@ const CompleteEvaluation = () => {
         )
 
         StudentService.getStudentEvaluation(studentIdParam).then(
-            (response)=>{setEvaluationId(response.data.studentId)},
+            (response)=>{setEvaluationId(response.data.evaluationId)},
             (error)=>{console.log(error)}
         )
     },[])
@@ -93,8 +93,9 @@ const CompleteEvaluation = () => {
         return Math.round(100-(notObtained/crArray.length));
     }
 
-    function saveEvaluation(){
-        EvaluationService.updateEvaluation(evaluationId, finalMark).then(
+    function saveEvaluation(finalMarkValue){
+        console.log(finalMark);
+        EvaluationService.updateEvaluation(evaluationId, finalMarkValue).then(
             (response)=>{console.log(response.status)},
             (error)=>{console.log(error)}
         )
@@ -105,10 +106,17 @@ const CompleteEvaluation = () => {
                 (error)=>{console.log(error)}
             )
         }
-        EvaluationService.updateRequirements(evaluationId, extraReq).then(
-            (response)=>{console.log(response.status)},
-            (error)=>{console.log(error)}
-        )
+        if (extraReq!==undefined) {
+            EvaluationService.updateRequirements(evaluationId, extraReq).then(
+                (response) => {
+                    console.log(response.status)
+                },
+                (error) => {
+                    console.log(error)
+                }
+            )
+        }
+        navigate(`/evaluation-overview/${evaluationId}`);
     }
 
     return(
@@ -117,7 +125,7 @@ const CompleteEvaluation = () => {
                 {currentFrame==="assignment"&&(<Assignment onSubmit={(selectedItem, comment)=>{
                     const result = {
                         value: selectedItem,
-                        number: 1,
+                        blockNumber: 1,
                         comment: comment
                     }
                     setAssignment(result);
@@ -127,7 +135,7 @@ const CompleteEvaluation = () => {
                     onSubmit={(selectedItem, comment)=>{
                     const result = {
                         value: selectedItem,
-                        number: 2,
+                        blockNumber: 2,
                         comment: comment
                     }
                     setFulfilment(result);
@@ -165,11 +173,12 @@ const CompleteEvaluation = () => {
                         professionalLevelMark={professionalLevel.value}
                         languageLevelMark={languageLevel.value}
                         citationMark={citation.value}
+                        weights={weights}
 
                         saveEvaluation={(finalMarkValue)=>{
                             finalMarkValue.studentId = studentIdParam;
                             setFinalMark(finalMarkValue);
-                            saveEvaluation();
+                            saveEvaluation(finalMarkValue);
                         }
                     }
                     />

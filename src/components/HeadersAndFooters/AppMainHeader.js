@@ -35,9 +35,10 @@ const AppMainHeader = () => {
 
     //correctly display navbar depending on url path
     function getDisplay(){
-            if(window.location.pathname==="/thesis-helper")
-                return "none";
-            return "flex";
+            //if(window.location.pathname==="/thesis-helper")
+        if(window.location.pathname==="/")
+            return "none";
+        return "flex";
     }
 
     //show navbar items on small devices

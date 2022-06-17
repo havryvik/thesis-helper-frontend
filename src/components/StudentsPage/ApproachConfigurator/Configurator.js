@@ -41,36 +41,38 @@ const Configurator = () => {
         ApproachService.updateApproach(approach.id, approachDto).then(
             (response)=>{
                 console.log(response.status);
+                //addWeights(approachId, weights) if not null
+                if (weights!==undefined){
+                    ApproachService.addWeights(approach.id,weights).then(
+                        (response)=>{
+                            console.log(response.status);
+                        },
+                        (error)=>{
+                            console.log(error);
+                        }
+                    )
+                }
+                console.log(requirements);
+                //addRequirements(approachId, requirements) if not null
+                if (requirements.length!==0){
+                    EvaluationService.addRequirements(requirements,approach.id).then(
+                        (response)=>{
+                            console.log(response.status);
+                        },
+                        (error)=>{
+                            console.log(error);
+                        }
+                    )
+                }
             },
             (error)=>{
                 console.log(error);
             }
         )
         console.log(weights);
-        //addWeights(approachId, weights) if not null
-        if (weights!==undefined){
-            ApproachService.addWeights(approach.id,weights).then(
-                (response)=>{
-                    console.log(response.status);
-                },
-                (error)=>{
-                    console.log(error);
-                }
-            )
-        }
-        console.log(requirements);
-        //addRequirements(approachId, requirements) if not null
-        if (requirements.length!==0){
-            EvaluationService.addRequirements(requirements,approach.id).then(
-                (response)=>{
-                    console.log(response.status);
-                },
-                (error)=>{
-                    console.log(error);
-                }
-            )
-        }
-        navigate(`/students/${studentId}/summary/${approach.id}`);
+
+        navigate(`/students/${studentId}/summary/${approach.id}`)
+        window.location.reload();
     }
 
     function handleSubmitAfterSelect(event){
@@ -184,7 +186,7 @@ const Configurator = () => {
     }
 
     return (
-        <div className="pb-3 pt-3 ">
+        <div className="pb-3 pt-3 myContainer">
             <div className="container bg-white p-3 rounded">
                 <div className="card-header text-center">
                     {showButton()}

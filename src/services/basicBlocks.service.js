@@ -69,9 +69,30 @@ const getCitation = () => {
     };
 }
 
+const getBlockName = (blockNumber) => {
+    switch (blockNumber){
+        case 1: return "Zadání";
+        case 2: return "Splnění zadání";
+        case 3: return "Aktivita a samostatnost";
+        case 4: return "Odborná úroveň";
+        case 5: return "Formální a jazyková úroveň, rozsah práce";
+        default: return "Výběr zdrojů, korektnost citace";
+    }
+}
+
+const getBlockDescriptionByBlockNumber = (blockNumber, criterionNumber) => {
+    switch (blockNumber){
+        case 3: return getActivity().defaultRequirements[criterionNumber];
+        case 4: return getProfessionalLevel().defaultRequirements[criterionNumber];
+        case 5: return getLanguageLevel().defaultRequirements[criterionNumber];
+        default: return getCitation().defaultRequirements[criterionNumber];
+    }
+}
 
 const BasicBlocksService = {
     getBlockDescription,
+    getBlockName,
+    getBlockDescriptionByBlockNumber
 };
 
 export default BasicBlocksService;
