@@ -94,19 +94,21 @@ const CompleteEvaluation = () => {
     }
 
     function saveEvaluation(finalMarkValue){
-        console.log(finalMark);
+        console.log(finalMarkValue);
         EvaluationService.updateEvaluation(evaluationId, finalMarkValue).then(
             (response)=>{console.log(response.status)},
             (error)=>{console.log(error)}
         )
         const blocks = [assignment, fulfilment, activity, professionalLevel, languageLevel, citation];
         for (const block of blocks){
+            console.log(block)
             EvaluationService.updateBlockEvaluation(evaluationId, block).then(
                 (response)=>{console.log(response.status)},
                 (error)=>{console.log(error)}
             )
         }
         if (extraReq!==undefined) {
+            console.log(extraReq)
             EvaluationService.updateRequirements(evaluationId, extraReq).then(
                 (response) => {
                     console.log(response.status)

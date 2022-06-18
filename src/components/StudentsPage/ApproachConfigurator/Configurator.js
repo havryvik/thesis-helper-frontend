@@ -146,6 +146,7 @@ const Configurator = () => {
         for(const input of inputs){
            requirementTmp.push({ name: input.innerHTML});
         }
+        console.log(requirementTmp);
         setRequirements(requirements.concat(requirementTmp));
     }
 

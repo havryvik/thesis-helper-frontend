@@ -10,9 +10,11 @@ const EvaluationOverview = () => {
     const {evaluationId} = useParams();
     const [evaluation, setEvaluation] = useState();
     const [approach, setApproach] = useState();
+    const [requirements, setRequirements] = useState(undefined);
     const [currentBlock, setCurrentBlock] = useState(3);
     const [currentBlockDescription, setBlockDescription] = useState(BasicBlocksService.getBlockDescriptionByBlockNumber(3));
     const [weights, setWeights] = useState();
+    const [counter, setCounter] = useState(0);
 
     useEffect(()=>{
         if(evaluation===undefined) {
@@ -26,6 +28,9 @@ const EvaluationOverview = () => {
                              return -1;
                          return 0;
                      })
+                     for(const block of response.data.blockDtos){
+                         sortArray(block.criterionDtos);
+                     }
                      setEvaluation(response.data);
                      StudentService.getApproachByStudent(response.data.studentId).then(
                          (response)=>{
@@ -33,7 +38,14 @@ const EvaluationOverview = () => {
                              ApproachService.getWeights(response.data.id).then(
                                  (response)=>{setWeights(response.data)},
                                 (error)=>{console.log(error)}
-                             )
+                             );
+                             ApproachService.getExtraRequirements(response.data.id).then(
+                                 (response)=>{
+                                     if(response.data!=null)
+                                         setRequirements(response.data);
+                                 },
+                                 (error)=>{console.log(error)}
+                             );
                          },
                          (error)=>{console.log(error)}
                      )
@@ -60,18 +72,42 @@ const EvaluationOverview = () => {
             case 2:
                 return StupniceService.getFulfilmentByEvalApproach(blockValue, approach.fulfilmentEvaluation, approach.autoFulfilment);
             default:{
-                if (weights.activity!==undefined){
+                if (weights!==undefined&&weights.activity!==undefined){
                     return StupniceService.getFinalBlockMark(approach.basicBlocksEvaluation, blockValue, getCorrectWeight(blockNumber));
                 }
-                else return StupniceService.getFinalBlockMark(approach.basicBlocksEvaluation, blockValue, approach.fulfilmentEvaluation==="points"?(20):(25))
+                else {
+                    return StupniceService.getFinalBlockMark(approach.basicBlocksEvaluation, blockValue, approach.fulfilmentEvaluation==="points"?(20):(25))
+                }
             }
         }
     }
 
+    function sortArray(array){
+        array.sort(function(a, b){
+            if(a.number > b.number)
+                return 1;
+            if(a.number < b.number)
+                return -1;
+            return 0;
+        })
+    }
+
+    function getFulfilmentMax(){
+        return approach.fullfilmentEvaluation==="percent"?"":20;
+    }
+
+    function getBasicBlockMax(blockNumber){
+        let max = "";
+        if (approach.basicBlocksEvaluation==="weight")
+            max = getCorrectWeight(blockNumber);
+        if (approach.basicBlocksEvaluation==="points")
+            max = approach.fullfilmentEvaluation==="points"?20:25;
+        return max;
+    }
+
     return (
 
-            <div className="myContainer">
-
+            <div className="myContainer pb-3">
                 {evaluation&&approach&&(
                     <div className="container bg-white rounded mt-5 p-3">
                     <div >
@@ -86,36 +122,84 @@ const EvaluationOverview = () => {
                                 <th scope="col" className="width-5" >#</th>
                                 <th scope="col" className="width-20">Název</th>
                                 <th scope="col" className="width-15">Výsledek</th>
+                                {(approach.basicBlocksEvaluation==="points"||approach.basicBlocksEvaluation==="weight")&&
+                                    (<th scope="col" className="width-20">Dosážené body (Max)</th>)}
+                                {(approach.basicBlocksEvaluation==="percent")&&
+                                    (<th scope="col" className="width-15">Dosážená procenta</th>)}
                                 <th scope="col" className="width-60">Komentář</th>
                             </tr>
                             </thead>
-                            <tbody>
-                            {evaluation.blockDtos.map((block) => (
-                                    <tr>
-                                        <td className="text-center"><strong>{block.blockNumber}</strong></td>
-                                        <td>{BasicBlocksService.getBlockName(block.blockNumber)}</td>
-                                        <td className="text-center"><strong>{getBlockValue(block.blockNumber, block.value)}</strong></td>
-                                        <td>{block.comment}</td>
-                                        {block.criterionDtos.map((criterion, index)=>(
-                                            <tr>
-                                                <td className="text-center">{`${block.blockNumber}.${criterion.number}`}</td>
-                                                <td>{currentBlockDescription.defaultRequirements[index].name}</td>
-                                                <td className=" text-center">{`${criterion.value}%`}</td>
-                                                <td>{block.comment}</td>
-                                            </tr>
-                                        ))}
-                                        {block.blockNumber===4&&block.criterionDtos.map((requirement, index)=>(
-                                            <tr>
-                                                <td>{`${block.blockNumber}.${block.criterionDtos.length+index}`}</td>
-                                                <td>{requirement.name}</td>
-                                                <td>{`${requirement.value}%`}</td>
-                                                <td>{block.comment}</td>
-                                            </tr>
-                                        ))}
-                                    </tr>
-                            ))}
-                            </tbody>
                         </table>
+
+                            {evaluation.blockDtos.map((block) => (
+                                <table className="table table-bordered mt-3">
+                                    <tbody>
+                                    <tr id = {block.blockNumber}>
+                                        <td className="text-center width-5"><strong>{block.blockNumber}</strong></td>
+                                        <td className="width-20"><strong>{BasicBlocksService.getBlockName(block.blockNumber)}</strong></td>
+                                        <td className="text-center width-15"><strong>{getBlockValue(block.blockNumber, block.value)}</strong></td>
+                                        {block.blockNumber===1&&(
+                                            (approach.basicBlockEvaluation!=="marks"&&(<td className="width-20"/>))
+                                        )}
+                                        {block.blockNumber===2&&(
+                                            (approach.fulfilmentEvaluation!=="words"&&(<td className="text-center width-20">{`${block.value} (${getFulfilmentMax()})`}</td>))||
+                                            (approach.basicBlocksEvaluation!=="marks"&&(<td className="width-20"/>))
+                                        )}
+                                        {block.blockNumber!==1&&block.blockNumber!==2&&(
+                                            (approach.basicBlocksEvaluation!=="marks"?(<td className="text-center width-20">{`${block.value} (${getBasicBlockMax(block.blockNumber)})`}</td>):
+                                                (approach.fulfilmentEvaluation!=="words")&&(<td className="width-15"/>))
+                                        )}
+                                        <td className="text-center width-60">{block.comment}</td>
+                                    </tr>
+                                    {block.criterionDtos.map((criterion)=>(
+                                        <tr>
+                                            <td>{block.blockNumber}.{criterion.number}</td>
+                                            <td>{BasicBlocksService.getBlockDescriptionByBlockNumber(block.blockNumber, criterion.number-1).name}</td>
+                                            {(approach.basicBlocksEvaluation==="points"||approach.basicBlocksEvaluation==="weight")&&
+                                                (<td/>)}
+                                            <td>{criterion.value}%</td>
+                                            <td>{criterion.comment}</td>
+                                        </tr>
+                                    ))}
+                                    {block.blockNumber===4&&requirements!==undefined&&requirements.map((requirement, index)=>(
+                                        <tr>
+                                            <td>{`${block.blockNumber}.${block.criterionDtos.length+index+1}`}</td>
+                                            <td>{requirement.name}</td>
+                                            {(approach.basicBlocksEvaluation==="points"||approach.basicBlocksEvaluation==="weight")&&
+                                                (<td/>)}
+                                            <td>{`${requirement.value}%`}</td>
+                                            <td>{block.comment}</td>
+                                        </tr>
+                                    ))}
+                                    </tbody>
+                                </table>
+
+                            ))}
+
+                        <div className="container pt-3 pb-3">
+                            <ul className="list-inline">
+                                {approach.finalMarkPattern==="sumC"&&(
+                                    <li className="row">
+                                        <div className="col-5"><strong>Použitý koeficient:</strong></div>
+                                        <div className="col-7">{evaluation.coefficient}</div>
+                                    </li>
+                                )}
+                                <li className="row">
+                                    <div className="col-5"><strong>Faktické hodnocení:</strong></div>
+                                    <div className="col-7">{approach.basicBlocksEvaluation==="marks"?StupniceService.convertValueToMark(evaluation.actualMark):evaluation.actualMark}</div>
+                                </li>
+                                {approach.basicBlocksEvaluation!=="marks"&&(
+                                    <li className="row">
+                                        <div className="col-5"><strong>Příslušná známka:</strong></div>
+                                        <div className="col-7">{StupniceService.convertValueToMark(StupniceService.getFinalMark(approach.finalMarkPattern, evaluation.actualMark))}</div>
+                                    </li>
+                                )}
+                                <li className="row">
+                                    <div className="col-5"><strong>Aplikovaný vedoucím increment:</strong></div>
+                                    <div className="col-7">{StupniceService.getIncrementDescription(approach.finalMarkPattern, evaluation.increment)}</div>
+                                </li>
+                            </ul>
+                        </div>
 
                         <div className="modal-footer">
                             <div className="container row">

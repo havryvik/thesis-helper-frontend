@@ -37,6 +37,8 @@ const BasicSelect = () => {
         const node = document.getElementById("autoFulfilment");
         if(target.value==="false"){
             setSelected(node,2);
+        }else{
+            setAllEnabled(node);
         }
     }
 

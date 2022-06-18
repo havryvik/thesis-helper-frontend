@@ -2,7 +2,7 @@ import React from "react";
 
 const TextAreaInput = props => {
    return (
-       <div className="form-check ">
+       <div className="form-check pb-3">
            <label className="fw-bold" htmlFor={props.elementId}>
                Do textového pole uveďte komentář s odůvodněním zvoleného hodnocení:
            </label>

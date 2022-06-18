@@ -118,9 +118,6 @@ const fulfilmentPercentToWords = (percent)=>{
 }
 
 const getFinalBlockMark = (blocksEvaluation, value, max) => {
-    console.log(blocksEvaluation)
-    console.log(value)
-    console.log(max);
     if (blocksEvaluation==="marks")
         return convertValueToMark(value);
     if (blocksEvaluation==="percent")
@@ -138,9 +135,9 @@ const getFulfilmentMax = (fulfilmentEvaluation) => {
 
 const getFinalMark = (finalMarkPattern, value) => {
     if(finalMarkPattern==="avgIncr")
-        return convertValueToMark(value);
+        return value;
     else
-        return convertValueToMark(getSelectValueByPercent(value));
+        return getSelectValueByPercent(value);
 }
 
 const getMaxIncr = (assignment, fulfilment) => {
@@ -191,7 +188,14 @@ const getFulfilmentByEvalApproach = (blockValue, fulfilmentEvaluation, autoFulfi
         return getFulfilmentDescription(fulfilmentPointsToWords(blockValue))
 }
 
-
+const getIncrementDescription = (finalMarkPattern, increment) => {
+    console.log(finalMarkPattern)
+    if (increment<0)
+        return (finalMarkPattern==="sumAp"||finalMarkPattern==="sumC"||finalMarkPattern==="sumIncr")?`Ponížení výsledné známky o ${increment*(-1)} stupeň(-ně)`:`Ponížení faktického dosáženého hodnocení o ${increment*(-1)} bodů(y)`
+    if (increment>0)
+        return (finalMarkPattern==="sumAp"||finalMarkPattern==="sumC"||finalMarkPattern==="sumIncr")?`Povýšení výsledné známky o ${increment} stupeň(-ně)`:`Povýšení faktického dosáženého hodnocení o ${increment} bodů(y)`
+    else return `Beze změn`
+}
 
 const StupniceService ={
     getSelectValueByPercent,
@@ -205,7 +209,8 @@ const StupniceService ={
     getFulfilmentMax,
     getFinalMark,
     getFulfilmentByEvalApproach,
-    getCoefficient
+    getCoefficient,
+    getIncrementDescription
 }
 
 export default StupniceService;

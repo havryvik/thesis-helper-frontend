@@ -7,15 +7,15 @@ const FinalMark = props => {
     const [prevMark, setPrevMark] = useState(undefined);
     const [increment, setIncrement] = useState(undefined);
     const [maxPerBlock, setMaxPerBlock] = useState(undefined);
-    const [coefficient, setCoefficient] = useState(undefined);
+    const [coefficient, setCoefficient] = useState(null);
+    const [actualMark, setActualMark] = useState(undefined);
+    const [actualIncrement, setActualIncrement] = useState(0);
 
     useEffect(()=>{
         if (props.blocksEvaluation==="marks"&&mark===undefined){
             const tmp = (parseInt(props.activityMark)+parseInt(props.professionalLevelMark)
                 +parseInt(props.languageLevelMark)+parseInt(props.citationMark))/4;
-            console.log(tmp);
-            setFinalMark(Math.round(tmp));
-            setPrevMark(Math.round(tmp));
+            convertAndSetMark(Math.round(tmp));
         }
         if (props.blocksEvaluation==="percent"&&mark===undefined){
             let tmp = (parseInt(props.activityMark)+parseInt(props.professionalLevelMark)
@@ -23,8 +23,7 @@ const FinalMark = props => {
             if(props.fulfilmentEvaluation==="percent")
                 tmp = (tmp+props.fulfilmentMark)/5
             else tmp = tmp/4;
-            setFinalMark(Math.round(tmp));
-            setPrevMark(Math.round(tmp));
+            convertAndSetMark(Math.round(tmp));
         }
 
         if ((props.blocksEvaluation==="weight"|| props.blocksEvaluation==="points")&&mark===undefined){
@@ -36,17 +35,17 @@ const FinalMark = props => {
             }else{
                 setMaxPerBlock(25);
             }
-            console.log(tmp)
-            setFinalMark(tmp);
-            setPrevMark(tmp);
-            if(props.finalMarkPattern==="sumC"&&coefficient===undefined){
+            convertAndSetMark(tmp)
+            if(props.finalMarkPattern==="sumC"&&coefficient===null){
                 const coef = StupniceService.getCoefficient(props.fulfilmentMark, props.assignmentMark, tmp);
+                console.log(coef);
                 setCoefficient(coef);
-                setFinalMark(tmp*coef);
+                convertAndSetMark(tmp*coef);
             }
         }
         if ((props.finalMarkPattern==="avgIncr"||props.finalMarkPattern==="sumIncr")&&increment===undefined){
             setIncrement(StupniceService.getIncr(props.assignmentMark, props.fulfilmentMark));
+            console.log(increment);
         }
         if(props.finalMarkPattern==="sumAp"&&increment===undefined){
             setIncrement(StupniceService.getIncr(props.assignmentMark));
@@ -56,26 +55,34 @@ const FinalMark = props => {
     }, [props.blocksEvaluation, props.activityMark, props.professionalLevelMark, props.languageLevelMark, props.citationMark, mark, coefficient])
 
 
-    function increaseMark(event){
-        if(event.target.id==="1"){
-            setFinalMark(increment.token==="+"?(prevMark-1):(prevMark+1));
-        }
-        if(event.target.id==="2"){
-            setFinalMark(increment.token==="+"?(prevMark-2):(prevMark+2));
-        }
+    function convertAndSetMark(tmpMark){
+        setActualMark(tmpMark);
+        tmpMark = StupniceService.getFinalMark(props.finalMarkPattern, tmpMark);
+        setFinalMark(tmpMark);
+        setPrevMark(tmpMark);
+    }
+
+    function increaseMark(value){
+        setActualIncrement(value);
+        setFinalMark(prevMark-value);
     }
 
     function increaseMarkWithAp(event){
-        if(event.target.value === "")
+        if(event.target.value === "") {
             setFinalMark(prevMark);
-        else setFinalMark(increment.token==="+"?(prevMark+parseInt(event.target.value)):(prevMark-parseInt(event.target.value)));
+            setActualIncrement(0);
+        }
+        else {
+            const tmp = increment.token==="+"?(actualMark+parseInt(event.target.value)):(actualMark-parseInt(event.target.value))
+            setFinalMark(StupniceService.convertValueToMark(tmp));
+        }
     }
 
     return (
         <div className="container bg-white rounded">
             <div className="modal-header row ">
                 <div className="col-3"><h5>Výsledná známka - </h5></div>
-                <div className="col-9 pt-2 pb-2"><span className="border rounded p-3 h4 text-danger finalMark">{StupniceService.getFinalMark(props.finalMarkPattern, mark)}</span></div>
+                <div className="col-9 pt-2 pb-2"><span className="border rounded p-3 h4 text-danger finalMark">{StupniceService.convertValueToMark(mark)}</span></div>
             </div>
             <div className="modal-body">
                 <table className="table-sm table-bordered border-light width-100 mb-4">
@@ -163,7 +170,7 @@ const FinalMark = props => {
                 {(props.finalMarkPattern==="avgIncr"||props.finalMarkPattern==="sumIncr")&&(
                     <div className="container">
                         <div className="container pt-3 h5">Možnost navýšení známky</div>
-                        {increment===null?(
+                        {increment===undefined?(
                                 <div className="container">Na základě zvoleného Vámi hodnocení a dosažených studentem
                                     výsledků za bloky "Zadání" a "Splnění zadání" nemáte možnost použít increment pro navýšení známky.
                                 </div>
@@ -173,35 +180,56 @@ const FinalMark = props => {
                             <form className="pt-3 pb-3">
                                 <div className="custom-control custom-radio">
                                     <input type="radio" id="0" name="customRadio"
-                                           className="custom-control-input" onChange={()=>{setFinalMark(prevMark)}}/>
+                                           className="custom-control-input" onChange={()=>{increaseMark(0)}}/>
                                     <label className="custom-control-label" htmlFor="1">Ponechat beze změn</label>
                                 </div>
                                     <div className="custom-control custom-radio">
                                         <input type="radio" id="1" name="customRadio"
-                                               className="custom-control-input" onChange={(event)=>{increaseMark(event)}}/>
+                                               className="custom-control-input" onChange={()=>{increaseMark(increment.token==="+"?1:(-1))}}/>
                                             <label className="custom-control-label" htmlFor="1">
                                                 {(increment&&increment.token==="+")?(" Navýšení "):(" Ponížení ")} známky o 1 stupeň
                                             </label>
                                     </div>
-                                    {increment&&increment.step===2&&(
-                                        <div className="custom-control custom-radio">
-                                            <input type="radio" id="2" name="customRadio"
-                                                   className="custom-control-input" onChange={(event)=>{increaseMark(event)}}/>
-                                            <label className="custom-control-label" htmlFor="2">
-                                                  {increment.token==="+"?(" Navýšení "):(" Ponížení ")} známky o 2 stupňů
-                                            </label>
-                                        </div>
-                                    )}
+                                {increment.step === 2&&(
+                                    <div className="custom-control custom-radio">
+                                        <input type="radio" id="2" name="customRadio"
+                                               className="custom-control-input" onChange={()=>{increaseMark(increment.token==="+"?2:(-2))}}/>
+                                        <label className="custom-control-label" htmlFor="2">
+                                            {increment.token==="+"?(" Navýšení "):(" Ponížení ")} známky o 2 stupňů
+                                        </label>
+                                    </div>
+                                )}
                             </form>
                         </div>)}
                     </div>
                 )}
-                {props.finalMarkPattern==="sumC"&&(
+                {props.finalMarkPattern==="sumC"&&coefficient!==null&&(
                     <div className="container">
                         <div className="container">Na základě zvoleného Vámi hodnocení a dosažených studentem
                             výsledků za bloky "Zadání" a "Splnění zadání" byl použit koeficient <span><strong>{`${coefficient.toFixed(4)}`}</strong></span>, kterým byl
                             vynásoben součet bodů za základní bloky.
                         </div>
+                        <form className="pt-3 pb-3">
+                            <div className="custom-control custom-radio">
+                                <input type="radio" id="1" name="customRadio"
+                                       className="custom-control-input" onChange={()=>{increaseMark(-1)}}/>
+                                <label className="custom-control-label" htmlFor="1">
+                                    Ponížení známky o 1 stupeň
+                                </label>
+                            </div>
+                            <div className="custom-control custom-radio">
+                                <input type="radio" id="0" name="customRadio"
+                                       className="custom-control-input" onChange={()=>{increaseMark(0)}}/>
+                                <label className="custom-control-label" htmlFor="1">Ponechat beze změn</label>
+                            </div>
+                            <div className="custom-control custom-radio">
+                                <input type="radio" id="2" name="customRadio"
+                                       className="custom-control-input" onChange={()=>{increaseMark(1)}}/>
+                                <label className="custom-control-label" htmlFor="2">
+                                    Navýšení známky o 1 stupeň
+                                </label>
+                            </div>
+                        </form>
                     </div>
                 )}
                 {props.finalMarkPattern==="sumAp"&&(
@@ -230,8 +258,13 @@ const FinalMark = props => {
                         const finalMarkValue = {
                             studentId: null,
                             finalMark: mark,
-                            finalComment: document.getElementById("finalMarkComment").value
+                            actualMark: Math.round(actualMark),
+                            finalComment: document.getElementById("finalMarkComment").value,
+                            increment: actualIncrement===undefined?0:actualIncrement,
+                            coefficient: coefficient===null?null:coefficient.toFixed(4)
                         }
+                        console.log(finalMarkValue)
+                        console.log(coefficient)
                         props.saveEvaluation(finalMarkValue);
                     }}>Uložit hodnocení</button>
                 </div>
