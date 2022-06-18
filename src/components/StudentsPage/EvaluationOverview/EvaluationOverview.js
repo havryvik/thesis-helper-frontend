@@ -93,15 +93,15 @@ const EvaluationOverview = () => {
     }
 
     function getFulfilmentMax(){
-        return approach.fullfilmentEvaluation==="percent"?"":20;
+        return `(${approach.fullfilmentEvaluation==="percent"?"":20})`;
     }
 
     function getBasicBlockMax(blockNumber){
         let max = "";
         if (approach.basicBlocksEvaluation==="weight")
-            max = getCorrectWeight(blockNumber);
+            max = `(${getCorrectWeight(blockNumber)})`;
         if (approach.basicBlocksEvaluation==="points")
-            max = approach.fullfilmentEvaluation==="points"?20:25;
+            max = `(${approach.fullfilmentEvaluation==="points"?20:25})`;
         return max;
     }
 
@@ -125,7 +125,7 @@ const EvaluationOverview = () => {
                                 {(approach.basicBlocksEvaluation==="points"||approach.basicBlocksEvaluation==="weight")&&
                                     (<th scope="col" className="width-20">Dosážené body (Max)</th>)}
                                 {(approach.basicBlocksEvaluation==="percent")&&
-                                    (<th scope="col" className="width-15">Dosážená procenta</th>)}
+                                    (<th scope="col" className="width-20">Dosážená procenta</th>)}
                                 <th scope="col" className="width-60">Komentář</th>
                             </tr>
                             </thead>
@@ -142,11 +142,11 @@ const EvaluationOverview = () => {
                                             (approach.basicBlockEvaluation!=="marks"&&(<td className="width-20"/>))
                                         )}
                                         {block.blockNumber===2&&(
-                                            (approach.fulfilmentEvaluation!=="words"&&(<td className="text-center width-20">{`${block.value} (${getFulfilmentMax()})`}</td>))||
+                                            (approach.fulfilmentEvaluation!=="words"&&(<td className="text-center width-20">{`${block.value} ${getFulfilmentMax()}`}</td>))||
                                             (approach.basicBlocksEvaluation!=="marks"&&(<td className="width-20"/>))
                                         )}
                                         {block.blockNumber!==1&&block.blockNumber!==2&&(
-                                            (approach.basicBlocksEvaluation!=="marks"?(<td className="text-center width-20">{`${block.value} (${getBasicBlockMax(block.blockNumber)})`}</td>):
+                                            (approach.basicBlocksEvaluation!=="marks"?(<td className="text-center width-20">{`${block.value} ${getBasicBlockMax(block.blockNumber)}`}</td>):
                                                 (approach.fulfilmentEvaluation!=="words")&&(<td className="width-15"/>))
                                         )}
                                         <td className="text-center width-60">{block.comment}</td>
@@ -155,7 +155,7 @@ const EvaluationOverview = () => {
                                         <tr>
                                             <td>{block.blockNumber}.{criterion.number}</td>
                                             <td>{BasicBlocksService.getBlockDescriptionByBlockNumber(block.blockNumber, criterion.number-1).name}</td>
-                                            {(approach.basicBlocksEvaluation==="points"||approach.basicBlocksEvaluation==="weight")&&
+                                            {(approach.basicBlocksEvaluation==="points"||approach.basicBlocksEvaluation==="weight"||approach.basicBlocksEvaluation==="percent")&&
                                                 (<td/>)}
                                             <td>{criterion.value}%</td>
                                             <td>{criterion.comment}</td>
@@ -165,7 +165,7 @@ const EvaluationOverview = () => {
                                         <tr>
                                             <td>{`${block.blockNumber}.${block.criterionDtos.length+index+1}`}</td>
                                             <td>{requirement.name}</td>
-                                            {(approach.basicBlocksEvaluation==="points"||approach.basicBlocksEvaluation==="weight")&&
+                                            {(approach.basicBlocksEvaluation==="points"||approach.basicBlocksEvaluation==="weight"||approach.basicBlocksEvaluation==="percent")&&
                                                 (<td/>)}
                                             <td>{`${requirement.value}%`}</td>
                                             <td>{block.comment}</td>

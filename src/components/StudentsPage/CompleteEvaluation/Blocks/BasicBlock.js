@@ -17,7 +17,7 @@ const BasicBlock = props => {
         const avg = (sum/criterionPercents.length) || 0;
 
         if(props.type==="marks")
-            blockMark.value = StupniceService.getSelectValueByPercent(avg);
+            blockMark.value = StupniceService.getSelectValueByPercent(Math.round(avg));
         if(props.type==="points"){
             blockMark.value = Math.round(StupniceService.getPointsForBlock(avg, props.fulfilmentEvaluation==="points"?(20):(25)));
         }
@@ -25,7 +25,7 @@ const BasicBlock = props => {
             blockMark.value = Math.round(StupniceService.getPointsForBlock(avg, props.blockWeight));
         }
         if(props.type==="percent"){
-            blockMark.value = avg;
+            blockMark.value = Math.round(avg);
         }
 
     }

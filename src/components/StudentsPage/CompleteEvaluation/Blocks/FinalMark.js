@@ -18,12 +18,16 @@ const FinalMark = props => {
             convertAndSetMark(Math.round(tmp));
         }
         if (props.blocksEvaluation==="percent"&&mark===undefined){
+            console.log("ZZZZZZZZ")
             let tmp = (parseInt(props.activityMark)+parseInt(props.professionalLevelMark)
                 +parseInt(props.languageLevelMark)+parseInt(props.citationMark));
             if(props.fulfilmentEvaluation==="percent")
-                tmp = (tmp+props.fulfilmentMark)/5
+                tmp = (tmp+parseInt(props.fulfilmentMark))/5
             else tmp = tmp/4;
-            convertAndSetMark(Math.round(tmp));
+            setActualMark(tmp);
+            tmp = StupniceService.getSelectValueByPercent(tmp);
+            setFinalMark(tmp);
+            setPrevMark(tmp);
         }
 
         if ((props.blocksEvaluation==="weight"|| props.blocksEvaluation==="points")&&mark===undefined){
@@ -74,7 +78,8 @@ const FinalMark = props => {
         }
         else {
             const tmp = increment.token==="+"?(actualMark+parseInt(event.target.value)):(actualMark-parseInt(event.target.value))
-            setFinalMark(StupniceService.convertValueToMark(tmp));
+            setFinalMark(StupniceService.getSelectValueByPercent(tmp));
+            setActualIncrement(increment.token==="+"?parseInt(event.target.value):parseInt(event.target.value)*(-1));
         }
     }
 
@@ -90,7 +95,7 @@ const FinalMark = props => {
                         <tr className="text-center">
                             <th colSpan="column">Blok</th>
                             <th colSpan="column">Váše hodnocení</th>
-                            {(props.fulfilmentEvaluation!=="words"||props.blocksEvaluation!=="marks")
+                            {(props.fulfilmentEvaluation!=="words"&&props.blocksEvaluation!=="marks"&&props.blocksEvaluation!=="percent")
                                 &&(<th colSpan="column">Maximum</th>)}
                             {(props.fulfilmentEvaluation!=="words"||props.blocksEvaluation!=="marks")
                                 &&(<th colSpan="column">Příslušná známka v posudku</th>)}
@@ -100,7 +105,7 @@ const FinalMark = props => {
                         <tr>
                             <td>1. Zadání</td>
                             <td className="text-center">{StupniceService.getAssignmentDescription(props.assignmentMark)}</td>
-                            {(props.fulfilmentEvaluation!=="words"||props.blocksEvaluation!=="marks")&&(<td/>)}
+                            {(props.fulfilmentEvaluation!=="words"&&props.blocksEvaluation!=="marks"&&props.blocksEvaluation!=="percent")&&(<td/>)}
                             {(props.fulfilmentEvaluation!=="words"||props.blocksEvaluation!=="marks")&&(<td/>)}
                         </tr>
                         <tr>
@@ -108,11 +113,11 @@ const FinalMark = props => {
                             <td className="text-center">
                                 {props.fulfilmentEvaluation==="words"
                                     &&(StupniceService.getFulfilmentDescription(props.fulfilmentMark, props.autoFulfilment))}
-                                {props.fulfilmentEvaluation==="percent"&&(`${props.fulfilmentMark}%`)}
+                                {props.fulfilmentEvaluation==="percent"&&(props.fulfilmentMark)}
                                 {props.fulfilmentEvaluation==="points"&&(props.fulfilmentMark)}
                             </td>
-                            {(props.fulfilmentEvaluation!=="words")&&(<td>{StupniceService.getFulfilmentMax(props.fulfilmentEvaluation)}</td>)}
-                            {(props.blocksEvaluation!=="marks"&&props.fulfilmentEvaluation!=="points")&&(<td/>)}
+                            {(props.fulfilmentEvaluation!=="words"&&props.fulfilmentEvaluation!=="percent")&&(<td>{StupniceService.getFulfilmentMax(props.fulfilmentEvaluation)}</td>)}
+                            {(props.blocksEvaluation!=="marks"&&props.fulfilmentEvaluation!=="points"&&props.blocksEvaluation!=="percent")&&(<td/>)}
                             {props.fulfilmentEvaluation!=="words"
                                 &&(<td>{StupniceService.getFinalFulfillment(props.fulfilmentEvaluation, props.fulfilmentMark)}</td>)}
                             {(props.blocksEvaluation!=="marks")&&(<td/>)}
@@ -123,7 +128,7 @@ const FinalMark = props => {
                                 {props.blocksEvaluation==="marks"?(StupniceService.convertValueToMark(props.activityMark)):(props.activityMark)}</td>
                             {props.blocksEvaluation==="points"&&(<td>{maxPerBlock}</td>)}
                             {props.blocksEvaluation==="weight"&&(<td>{props.weights.activity}</td>)}
-                            {props.fulfilmentEvaluation!=="words"&&(props.blocksEvaluation!=="points"&&props.blocksEvaluation!=="weight")&&(<td/>)}
+                            {props.fulfilmentEvaluation!=="words"&&props.fulfilmentEvaluation!=="percent"&&(props.blocksEvaluation!=="points"&&props.blocksEvaluation!=="weight")&&(<td/>)}
                             {(props.blocksEvaluation!=="marks")&&(<td>{StupniceService.getFinalBlockMark(
                                 props.blocksEvaluation,
                                 props.activityMark,
@@ -135,7 +140,7 @@ const FinalMark = props => {
                                 {props.blocksEvaluation==="marks"?(StupniceService.convertValueToMark(props.professionalLevelMark)):(props.professionalLevelMark)}</td>
                             {props.blocksEvaluation==="points"&&(<td>{maxPerBlock}</td>)}
                             {props.blocksEvaluation==="weight"&&(<td>{props.weights.professionalLevel}</td>)}
-                            {props.fulfilmentEvaluation!=="words"&&(props.blocksEvaluation!=="points"&&props.blocksEvaluation!=="weight")&&(<td/>)}
+                            {props.fulfilmentEvaluation!=="words"&&props.fulfilmentEvaluation!=="percent"&&(props.blocksEvaluation!=="points"&&props.blocksEvaluation!=="weight")&&(<td/>)}
                             {(props.blocksEvaluation!=="marks")&&(<td>{StupniceService.getFinalBlockMark(
                                 props.blocksEvaluation,
                                 props.professionalLevelMark,
@@ -147,7 +152,7 @@ const FinalMark = props => {
                                 {props.blocksEvaluation==="marks"?(StupniceService.convertValueToMark(props.languageLevelMark)):(props.languageLevelMark)}</td>
                             {props.blocksEvaluation==="points"&&(<td>{maxPerBlock}</td>)}
                             {props.blocksEvaluation==="weight"&&(<td>{props.weights.languageLevel}</td>)}
-                            {props.fulfilmentEvaluation!=="words"&&(props.blocksEvaluation!=="points"&&props.blocksEvaluation!=="weight")&&(<td/>)}
+                            {props.fulfilmentEvaluation!=="words"&&props.fulfilmentEvaluation!=="percent"&&(props.blocksEvaluation!=="points"&&props.blocksEvaluation!=="weight")&&(<td/>)}
                             {(props.blocksEvaluation!=="marks")&&(<td>{StupniceService.getFinalBlockMark(
                                 props.blocksEvaluation,
                                 props.languageLevelMark,
@@ -159,7 +164,7 @@ const FinalMark = props => {
                                 {props.blocksEvaluation==="marks"?(StupniceService.convertValueToMark(props.citationMark)):(props.citationMark)}</td>
                             {props.blocksEvaluation==="points"&&(<td>{maxPerBlock}</td>)}
                             {props.blocksEvaluation==="weight"&&(<td>{props.weights.citation}</td>)}
-                            {props.fulfilmentEvaluation!=="words"&&(props.blocksEvaluation!=="points"&&props.blocksEvaluation!=="weight")&&(<td/>)}
+                            {props.fulfilmentEvaluation!=="words"&&props.fulfilmentEvaluation!=="percent"&&(props.blocksEvaluation!=="points"&&props.blocksEvaluation!=="weight")&&(<td/>)}
                             {(props.blocksEvaluation!=="marks")&&(<td>{StupniceService.getFinalBlockMark(
                                 props.blocksEvaluation,
                                 props.citationMark,
@@ -170,8 +175,8 @@ const FinalMark = props => {
                 {(props.finalMarkPattern==="avgIncr"||props.finalMarkPattern==="sumIncr")&&(
                     <div className="container">
                         <div className="container pt-3 h5">Možnost navýšení známky</div>
-                        {increment===undefined?(
-                                <div className="container">Na základě zvoleného Vámi hodnocení a dosažených studentem
+                        {(increment===undefined||increment===null)?(
+                                <div className="container pb-3">Na základě zvoleného Vámi hodnocení a dosažených studentem
                                     výsledků za bloky "Zadání" a "Splnění zadání" nemáte možnost použít increment pro navýšení známky.
                                 </div>
                         ):(<div className="container">
@@ -195,7 +200,7 @@ const FinalMark = props => {
                                         <input type="radio" id="2" name="customRadio"
                                                className="custom-control-input" onChange={()=>{increaseMark(increment.token==="+"?2:(-2))}}/>
                                         <label className="custom-control-label" htmlFor="2">
-                                            {increment.token==="+"?(" Navýšení "):(" Ponížení ")} známky o 2 stupňů
+                                            {increment.token==="+"?(" Navýšení "):(" Ponížení ")} známky o 2 stupňě
                                         </label>
                                     </div>
                                 )}
@@ -235,7 +240,7 @@ const FinalMark = props => {
                 {props.finalMarkPattern==="sumAp"&&(
                     <div className="container p-3">
                         <div className="container pt-3 h5">Možnost navýšení známky</div>
-                        {increment===null?(
+                        {(increment===null||increment===undefined)?(
                             <div className="container">Na základě zvoleného Vámi hodnocení a dosažených studentem
                                 výsledků za bloky "Zadání" a "Splnění zadání" nemáte možnost použít increment pro navýšení známky.
                             </div>
@@ -243,7 +248,7 @@ const FinalMark = props => {
                             <label className="custom-control-label" htmlFor="1">
                                 {(increment&&increment.token==="+")?(" Navýšení "):(" Ponížení ")}{`známky o maximalně ${increment.max} bodů(body). Minimálně lze přičíst ${increment.token}${increment.min}.`}
                             </label>
-                            <input className="form-control" id="1" type="number" min = {increment.min} max={increment.max} placeholder="Uveďte číslo" onInput={event => increaseMarkWithAp(event)}/>
+                            <input className="form-control" id="1" type="number"  placeholder="Uveďte číslo" onInput={event => increaseMarkWithAp(event)}/>
                         </div>)}
                     </div>
                 )}

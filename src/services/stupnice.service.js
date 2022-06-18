@@ -16,8 +16,6 @@ const getSelectValueByPercent=(percent)=>{
 }
 
 const getPointsForBlock = (percent, maxForBlock) => {
-    console.log(percent);
-    console.log(maxForBlock);
     return maxForBlock*percent/100;
 }
 
@@ -97,7 +95,7 @@ const getFinalFulfillment=(evalType, value)=>{
     if (evalType==="points"){
         return fulfilmentPointsToWords(parseInt(value));
     } else {
-        return fulfilmentPercentToWords(value);
+        return fulfilmentPercentToWords(parseInt(value));
     }
 }
 

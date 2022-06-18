@@ -66,7 +66,7 @@ const getBlocksDescription=(blocksEvaluation, criterionEvaluation)=>{
             approach = "Procento";
             break;
         }
-        case "weights":{
+        case "weight":{
             approach = "Nástavitelné váhy";
             break;
         }

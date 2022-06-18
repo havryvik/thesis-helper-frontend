@@ -113,9 +113,10 @@ const Summary = () => {
                         3.5. Pěčlivost</td>
                     <td>{approachBasicBlocks}</td>
                     {columnsAmount===3&&(
-                        weights?(<td>{weights.activity}</td>):(
-                            <td>{studentApproach.fulfilmentEvaluation==="points"?20:25}</td>
-                        )
+                        ((studentApproach.basicBlocksEvaluation==="percent")&&(<td>100%</td>))||
+                        (weights?(<td>{weights.activity}</td>):(
+                                    <td>{studentApproach.fulfilmentEvaluation==="points"?20:25}</td>))
+
                     )}
                 </tr>
                 <tr><td><strong>4. Odborná úroveň</strong><br/>4.1. Použitelnost, aplikovatelnost v praxi<br/>
@@ -133,9 +134,9 @@ const Summary = () => {
                     </td>
                     <td>{approachBasicBlocks}</td>
                     {columnsAmount===3&&(
-                        weights?(<td>{weights.professionalLevel}</td>):(
-                            <td>{studentApproach.fulfilmentEvaluation==="points"?20:25}</td>
-                        )
+                        ((studentApproach.basicBlocksEvaluation==="percent")&&(<td>100%</td>))||
+                        (weights?(<td>{weights.professionalLevel}</td>):(
+                            <td>{studentApproach.fulfilmentEvaluation==="points"?20:25}</td>))
                     )}
                 </tr>
                 <tr><td><strong>5. Formální a jazyková úroveň, rozsah práce</strong><br/>	5.1. Adekvatnost rozsáhu<br/>
@@ -147,9 +148,9 @@ const Summary = () => {
                     5.7. Reference v textu</td>
                     <td>{approachBasicBlocks}</td>
                     {columnsAmount===3&&(
-                        weights?(<td>{weights.languageLevel}</td>):(
-                            <td>{studentApproach.fulfilmentEvaluation==="points"?20:25}</td>
-                        )
+                        ((studentApproach.basicBlocksEvaluation==="percent")&&(<td>100%</td>))||
+                        (weights?(<td>{weights.languageLevel}</td>):(
+                            <td>{studentApproach.fulfilmentEvaluation==="points"?20:25}</td>))
                     )}
                 </tr>
                 <tr><td><strong>6. Výběr zdrojů, korektnost citace</strong><br/>	6.1. Dodržování konvenci<br/>
@@ -157,9 +158,9 @@ const Summary = () => {
                     6.3. Kvalita zdrojů</td>
                     <td>{approachBasicBlocks}</td>
                     {columnsAmount===3&&(
-                        weights?(<td>{weights.citation}</td>):(
-                            <td>{studentApproach.fulfilmentEvaluation==="points"?20:25}</td>
-                        )
+                        ((studentApproach.basicBlocksEvaluation==="percent")&&(<td>100%</td>))||
+                        (weights?(<td>{weights.citation}</td>):(
+                            <td>{studentApproach.fulfilmentEvaluation==="points"?20:25}</td>))
                     )}
                 </tr>
                 </tbody>
