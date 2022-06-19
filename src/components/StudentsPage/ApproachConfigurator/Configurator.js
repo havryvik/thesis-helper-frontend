@@ -22,7 +22,7 @@ const Configurator = () => {
         console.log(currentForm);
         if(currentForm==='basicSelect') return (<BasicSelect/>)
         if (currentForm === 'requirements') return (<Requirements/>)
-        if (currentForm === 'weights') return (<Weights fulfilmentEvaluation={approach.fulfilmentEvaluation}/>)
+        if (currentForm === 'weights') return (<Weights fulfilmentEvaluation={approachDto.fulfilmentEvaluation}/>)
     }
 
     function handleSubmit(event){

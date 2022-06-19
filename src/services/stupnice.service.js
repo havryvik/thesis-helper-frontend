@@ -58,6 +58,10 @@ const convertFulfilmentPercentToWords = (percent) => {
     return undefined;
 }
 
+const convertFulfilmentPercentToPoints = (percent)=>{
+    return Math.round(20*percent/100);
+}
+
 const getAssignmentDescription = (value) => {
     switch (value){
         case "extremelyHard": return "Mimořádně náročné";
@@ -68,9 +72,19 @@ const getAssignmentDescription = (value) => {
     }
 }
 
-const getFulfilmentDescription = (value, autoFulfilment) => {
-    if(autoFulfilment)
-        value = convertFulfilmentPercentToWords(value);
+// const getFulfilmentDescription = (value, autoFulfilment) => {
+//     if(autoFulfilment)
+//         value = convertFulfilmentPercentToWords(value);
+//     switch (value){
+//         case "done": return "Splněno";
+//         case "fewerReservations": return "Splněno s menšími výhradami";
+//         case "moreReservations": return "Splněno s většími výhradami";
+//         default: return "Nesplněno";
+//     }
+// }
+
+const getFulfilmentDescription = (value) => {
+    console.log("getFulfilmentDescription "+value)
     switch (value){
         case "done": return "Splněno";
         case "fewerReservations": return "Splněno s menšími výhradami";
@@ -78,7 +92,6 @@ const getFulfilmentDescription = (value, autoFulfilment) => {
         default: return "Nesplněno";
     }
 }
-
 
 const convertValueToMark = (value) => {
     switch (parseInt(value)){
@@ -95,6 +108,7 @@ const getFinalFulfillment=(evalType, value)=>{
     if (evalType==="points"){
         return fulfilmentPointsToWords(parseInt(value));
     } else {
+        console.log(value)
         return fulfilmentPercentToWords(parseInt(value));
     }
 }
@@ -107,12 +121,10 @@ const fulfilmentPointsToWords = (points)=>{
 }
 
 const fulfilmentPercentToWords = (percent)=>{
-    switch(percent){
-        case (percent<=100&&percent>89): return "Splněno";
-        case (percent<=89&&percent>69): return "Splněno s menšími výhradami";
-        case (percent<=69&&percent>49): return "Splněno s většími výhradami";
-        default: return "Nesplněno";
-    }
+    if (percent<=100&&percent>89) return "Splněno";
+    if (percent<=89&&percent>69) return "Splněno s menšími výhradami";
+    if (percent<=69&&percent>49) return "Splněno s většími výhradami";
+    return "Nesplněno";
 }
 
 const getFinalBlockMark = (blocksEvaluation, value, max) => {
@@ -184,14 +196,25 @@ const getFulfilmentByEvalApproach = (blockValue, fulfilmentEvaluation, autoFulfi
         return getFulfilmentDescription(blockValue, autoFulfilment);
     if (fulfilmentEvaluation === "points")
         return getFulfilmentDescription(fulfilmentPointsToWords(blockValue))
+    if (fulfilmentEvaluation === "percent")
+        return fulfilmentPercentToWords(blockValue);
+}
+
+const getFulfilmentResultForAutoFulfilment = (percent, fulfilmentEvaluation) => {
+    if (fulfilmentEvaluation === "words")
+        return convertFulfilmentPercentToWords(percent);
+    if (fulfilmentEvaluation === "points")
+        return convertFulfilmentPercentToPoints(percent)
+    if (fulfilmentEvaluation === "percent")
+        return percent;
 }
 
 const getIncrementDescription = (finalMarkPattern, increment) => {
     console.log(finalMarkPattern)
     if (increment<0)
-        return (finalMarkPattern==="sumAp"||finalMarkPattern==="sumC"||finalMarkPattern==="sumIncr")?`Ponížení výsledné známky o ${increment*(-1)} stupeň(-ně)`:`Ponížení faktického dosáženého hodnocení o ${increment*(-1)} bodů(y)`
+        return (finalMarkPattern==="sumC"||finalMarkPattern==="sumIncr"||finalMarkPattern==="avgIncr")?`Ponížení výsledné známky o ${increment*(-1)} stupeň(-ně)`:`Ponížení faktického dosáženého hodnocení o ${increment*(-1)} bodů(y)`
     if (increment>0)
-        return (finalMarkPattern==="sumAp"||finalMarkPattern==="sumC"||finalMarkPattern==="sumIncr")?`Povýšení výsledné známky o ${increment} stupeň(-ně)`:`Povýšení faktického dosáženého hodnocení o ${increment} bodů(y)`
+        return (finalMarkPattern==="sumC"||finalMarkPattern==="sumIncr"||finalMarkPattern==="avgIncr")?`Povýšení výsledné známky o ${increment} stupeň(-ně)`:`Povýšení faktického dosáženého hodnocení o ${increment} bodů(y)`
     else return `Beze změn`
 }
 
@@ -208,7 +231,8 @@ const StupniceService ={
     getFinalMark,
     getFulfilmentByEvalApproach,
     getCoefficient,
-    getIncrementDescription
+    getIncrementDescription,
+    getFulfilmentResultForAutoFulfilment
 }
 
 export default StupniceService;

@@ -57,11 +57,19 @@ const EvaluationOverview = () => {
     })
 
     function getCorrectWeight(blockNumber){
-        switch (blockNumber){
-            case 3: return weights.activity;
-            case 4: return weights.professionalLevel;
-            case 5: return weights.languageLevel;
-            default: return weights.citation;
+        if(weights!==undefined) {
+            switch (blockNumber) {
+                case 3:
+                    return weights.activity;
+                case 4:
+                    return weights.professionalLevel;
+                case 5:
+                    return weights.languageLevel;
+                case 6:
+                    return weights.citation;
+                default:
+                    return;
+            }
         }
     }
 

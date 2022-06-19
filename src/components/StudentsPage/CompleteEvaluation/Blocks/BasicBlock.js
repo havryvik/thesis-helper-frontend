@@ -97,7 +97,6 @@ const BasicBlock = props => {
                                 <label className="fw-bold">{requirement.id+". "+requirement.name} </label>
                                 <ul className="list-inline ">
                                 <li className="list-group-item"><strong>100% </strong>odpovídá - {requirement.max}</li>
-                                <li className="list-group-item"><strong>{"<50"}% </strong>odpovídá - {requirement.min}</li>
                                 </ul>
                                 {props.criterionEvaluation===true&&(
                                     <div  className="criterion" id={requirement.id}>

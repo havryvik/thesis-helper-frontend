@@ -4,6 +4,7 @@ const Weights = props => {
     function getMaxWeight() {
      //   const fulfilmentEvaluation = localStorage.getItem('fulfilmentEvaluation');
       //  if (fulfilmentEvaluation==='fulfilmentPoints') return 80;
+        console.log(props.fulfilmentEvaluation)
         if (props.fulfilmentEvaluation==='points') return 80;
         else return 100;
     }

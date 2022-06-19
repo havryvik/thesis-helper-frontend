@@ -95,7 +95,7 @@ const FinalMark = props => {
                         <tr className="text-center">
                             <th colSpan="column">Blok</th>
                             <th colSpan="column">Váše hodnocení</th>
-                            {(props.fulfilmentEvaluation!=="words"&&props.blocksEvaluation!=="marks"&&props.blocksEvaluation!=="percent")
+                            {(props.fulfilmentEvaluation==="points"||props.blocksEvaluation==="points"||props.blocksEvaluation==="weight")
                                 &&(<th colSpan="column">Maximum</th>)}
                             {(props.fulfilmentEvaluation!=="words"||props.blocksEvaluation!=="marks")
                                 &&(<th colSpan="column">Příslušná známka v posudku</th>)}
@@ -105,14 +105,14 @@ const FinalMark = props => {
                         <tr>
                             <td>1. Zadání</td>
                             <td className="text-center">{StupniceService.getAssignmentDescription(props.assignmentMark)}</td>
-                            {(props.fulfilmentEvaluation!=="words"&&props.blocksEvaluation!=="marks"&&props.blocksEvaluation!=="percent")&&(<td/>)}
+                            {((props.fulfilmentEvaluation==="points"||props.blocksEvaluation==="points"||props.blocksEvaluation==="weight"))&&(<td/>)}
                             {(props.fulfilmentEvaluation!=="words"||props.blocksEvaluation!=="marks")&&(<td/>)}
                         </tr>
                         <tr>
                             <td>2. Splnění zadání</td>
                             <td className="text-center">
                                 {props.fulfilmentEvaluation==="words"
-                                    &&(StupniceService.getFulfilmentDescription(props.fulfilmentMark, props.autoFulfilment))}
+                                    &&(StupniceService.getFulfilmentDescription(props.fulfilmentMark))}
                                 {props.fulfilmentEvaluation==="percent"&&(props.fulfilmentMark)}
                                 {props.fulfilmentEvaluation==="points"&&(props.fulfilmentMark)}
                             </td>

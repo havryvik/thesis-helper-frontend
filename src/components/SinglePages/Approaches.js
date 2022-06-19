@@ -155,7 +155,9 @@ const Approaches = () => {
                             <div className="container p-3">
                                 <ul  className="list-inline">
                                     <li className="list-group-item"><strong>Možnost automatického vypočítání:</strong> body odebrané za
-                                        za kriteria spadající do průníku se převádějí na procento od definované váhy bloku, ten
+                                        za kriteria spadající do průníku (viz.
+                                        <a onClick={(event)=>showCollapseBySectionId(event,'collapseOne')}
+                                           href="/approach#assignment"> Slovníček pojmů </a>) se převádějí na procento od definované váhy bloku, ten
                                         je pak odečten od 100% za splněnost zadání. Veduoci ale může zvolit pohodlný pro
                                         něho způsob zobrazení hodnocení bloku, do kterého pak bude převedeno vypočítané
                                         procento dle stupnice výše.</li>
@@ -195,6 +197,14 @@ const Approaches = () => {
                                                 <br/> <small><span className="text-danger "><strong> ! IMPORTANT </strong></span></small>
                                                 Váha za každý blok nesmí být menší než 10% a větší než 40% od součtu vah za všechny základní bloky
                                             </td>
+                                        </tr>
+                                        <tr>
+                                            <td className="width-15"><strong>Průník</strong></td>
+                                            <td>průnikem se označují kritéria modelu, která přímo ovlivňují blok "Splnění
+                                                zadání" a používají se pro jeho automatické vypočítání. Po diskuzi s vyučujícími
+                                                do průniku byla zařazena kritéria spadající do bloku "Odborná úroveň" a to: 1. Použitelnost,
+                                                aplikovatelnost v praxi, 3. Systematičnost analýzy a všechna Volitelná kritéria dodatečně
+                                                přidána vedoucím prací.</td>
                                         </tr>
                                         </tbody>
                                     </table>
@@ -280,7 +290,7 @@ const Approaches = () => {
                                 <tr>
                                     <th scope="row" rowSpan="4" className="bg-light">Splnění zadání</th>
                                     <td><strong>Slovní</strong></td><td>1.</td><td>2. nebo 3.</td>
-                                    <td>2. nebo 3.</td><td>1.</td><td>1. nebo 3.</td>
+                                    <td>2. nebo 3.</td><td>1.</td><td>1., 2. nebo 3.</td>
                                 </tr>
                                 <tr>
                                     <td><strong>Body</strong></td><td>-</td><td>4.</td><td>4.</td><td>-</td><td>4.</td>

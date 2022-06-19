@@ -9,6 +9,7 @@ import BasicBlocksService from "../../../services/basicBlocks.service";
 import SupervisorService from "../../../services/supervisor.service";
 import FinalMark from "./Blocks/FinalMark";
 import EvaluationService from "../../../services/evaluation.service";
+import StupniceService from "../../../services/stupnice.service";
 const CompleteEvaluation = () => {
 
     const {studentIdParam} = useParams();
@@ -83,14 +84,37 @@ const CompleteEvaluation = () => {
     }
 
     function calculateFulfilment(){
+        console.log("calculateFulfilment")
         const crArray = professionalLevel.criterionDtos;
         let sum = 0;
+        console.log(crArray);
         for (const criterion of crArray){
-            if (criterion.id==="1"||criterion.id==="3"||parseInt(criterion.id)>=5)
+            if (criterion.number==="1"||criterion.number==="3"){
                 sum += parseInt(criterion.value);
+                console.log("SUM AFTER ID "+criterion.id+" IS: "+sum)
+            }
         }
-        const notObtained = 100*(crArray.length-2)-sum;
-        return Math.round(100-(notObtained/crArray.length));
+        if (requirements!==undefined){
+            for (const req of requirements){
+                sum+=parseInt(req.value);
+                console.log("SUM AFTER REQ "+req.value+" IS: "+sum)
+            }
+        }
+        const length = requirements===undefined?2:2+requirements.length;
+        console.log("LENGTH "+length);
+        const notObtained = 100*(length)-sum;
+        console.log("notObtained "+notObtained);
+        const percent = Math.round(100-(notObtained/(length+2)));
+        console.log("percent "+percent);
+        const result = {
+            value: StupniceService.getFulfilmentResultForAutoFulfilment(percent, studentApproach.fulfilmentEvaluation),
+            blockNumber: 2,
+            comment: null
+        }
+        console.log("result.value "+result.value);
+
+        setFulfilment(result);
+        return result.value;
     }
 
     function saveEvaluation(finalMarkValue){
@@ -170,7 +194,7 @@ const CompleteEvaluation = () => {
                         autoFulfilment={studentApproach.autoFulfilment}
                         assignmentMark={assignment.value}
                         fulfilmentEvaluation={studentApproach.fulfilmentEvaluation}
-                        fulfilmentMark={fulfilment?(fulfilment.value):(calculateFulfilment())}
+                        fulfilmentMark={fulfilment!==undefined?(fulfilment.value):(calculateFulfilment())}
                         activityMark={activity.value}
                         professionalLevelMark={professionalLevel.value}
                         languageLevelMark={languageLevel.value}
