@@ -19,23 +19,22 @@ const Assignment = props => {
                                 práce přijímané do soutěží nebo konferencí, práci rozpracované v rámci vědeckých skupin
                                 fakulty za využití speciálních metod a dat, které vyžadují speciální přístup.</li>
                             <li className="list-group-item"><strong>Náročné</strong> - využití v řešení dříve nepoužívaných
-                                a neznámých pro řešitele technologií, postupů, metodik, řešení komplexnější problematiky.
-                                Nebo - rozšíření, modermizace existujících řešení, které vyžaduje větší nastudování kódu.
-                                Řešení studenta pak zajistí zlepšení, zefektivnění za podmínky zachování stávající
-                                funkcionality a zároveň přidání nové. Nebo - pro výzkumně zaměřené práce: provedení rozsáhlejší
-                                a časově náročné analýzy (dotazníky, průzkumy cílových skupin), které následuje kvalitním
-                                zhodnocením dat.</li>
+                                a neznámých pro řešitele technologií, postupů, metodik.
+                                Rozšíření, modernizace existujících řešení.
+                                Řešení studenta zajistí zlepšení, zefektivnění za podmínky zachování stávající
+                                funkcionality a zároveň přidání nové. Pro výzkumně zaměřené práce: provedení rozsáhlé
+                                a časově náročné analýzy (dotazníky, průzkum cílových skupin), která následuje kvalitním
+                                vyhodnocením dat.</li>
                             <li className="list-group-item"><strong>Průměrně náročné</strong> - nevyžaduje další nastudování
-                                materiálů. Student během řešení využívá znalosti získané během studia dle náplní předmětu
-                                studijního programu. Jako příklad se může jednat o implementaci standardních web aplikací
+                                materiálů. Student během řešení využívá znalosti získané během studia dle náplní předmětu. Jako příklad se může jednat o implementaci standardních web aplikací
                                 s předcházejícími analýzou a návrhem.</li>
                             <li className="list-group-item"><strong>Lehké</strong> - zadání nevyžadující kompletní řešení,
                                 které standardně se začíná rešerší pokračuje analýzou, návrhem a končí implementaci.
-                                Některé části mohou být vynechané nebo výrazně oblehcene, což nebylo způsobené nadprůměrnou
+                                Některé části mohou být vynechané nebo výrazně zjednodušené, což nebylo způsobené nadprůměrnou
                                 složitosti zbývajících částí. Jako příklad se může jednat o implementaci kusu aplikace s
                                 předem danou specifikaci.</li>
-                            <li className="list-group-item"><strong>Nedosatecne náročné</strong> - požadavky na práci
-                                spadající do zadání jsou nedostatečnými a i při jejich kompletní realizaci nejsou schopné
+                            <li className="list-group-item"><strong>Nedostatečně náročné</strong> - požadavky na práci
+                                spadající do zadání nejsou dostatečnými, i při jejich kompletní realizaci nejsou schopné
                                 uspokojit požadavky stanovené oborem studia a prokázat nabyté studentem znalostí.</li>
                         </ul>
                         <div className="form-check form-check p-3">
@@ -44,7 +43,7 @@ const Assignment = props => {
                                 <option value="hard">Náročné</option>
                                 <option value="medium">Průměrně náročné</option>
                                 <option value="easy">Lehké</option>
-                                <option value="insufficient">Nedosatecne náročné</option>
+                                <option value="insufficient">Nedostatečně náročné</option>
                             </select>
                         </div>
                     </div>

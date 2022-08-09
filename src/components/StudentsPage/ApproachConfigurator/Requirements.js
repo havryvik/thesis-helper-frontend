@@ -19,7 +19,7 @@ const Requirements = () => {
             return(
                 <div className="container p-3">
                     <p className="h6">Přidaná Vámi kritéria:</p>
-                    <p>Již přidána kritéria můžete odstranit přes přehled přístupů nebo hodnocení v tabulce se studenty, zde přidávejte pouze nová kritéria.</p>
+                    <p>Již přidána kritéria můžete odstranit přes přehled přístupu v tabulce se studenty. Zde přidávejte pouze nová kritéria.</p>
                     <ul className="list-group">
                         {extraRequirements.map((element, index)=>(
                             <li className="list-group-item" key={index}>
@@ -39,7 +39,7 @@ const Requirements = () => {
         <div>
                 <div className="p-3">
                     <p className="h5">Chcete-li přidat specifická kritéria vzhledem ke zaměření prací do bloku "Odborná
-                        úroveň", jeden za druhým uveďte je do textového pole níže.</p>
+                        úroveň", uveďte je do textového pole níže.</p>
                     {showInputRequirements()}
                     <div className="mb-3">
                         <input className="form-control" type="text" name="inlineRadioOptions" id="newRequirement"/>

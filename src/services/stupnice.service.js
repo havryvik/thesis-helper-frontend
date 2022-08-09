@@ -68,7 +68,7 @@ const getAssignmentDescription = (value) => {
         case "hard": return "Náročné";
         case "medium": return "Průměrně náročné";
         case "easy": return "Lehké";
-        default: return "Nedosatecne náročné";
+        default: return "Nedostatečně náročné";
     }
 }
 
@@ -114,6 +114,7 @@ const getFinalFulfillment=(evalType, value)=>{
 }
 
 const fulfilmentPointsToWords = (points)=>{
+    console.log(points);
     if (points<=20&&points>17) return "Splněno";
     if (points<=17&&points>13) return "Splněno s menšími výhradami";
     if (points<=13&&points>9) return "Splněno s většími výhradami";
@@ -195,7 +196,7 @@ const getFulfilmentByEvalApproach = (blockValue, fulfilmentEvaluation, autoFulfi
     if (fulfilmentEvaluation === "words")
         return getFulfilmentDescription(blockValue, autoFulfilment);
     if (fulfilmentEvaluation === "points")
-        return getFulfilmentDescription(fulfilmentPointsToWords(blockValue))
+        return fulfilmentPointsToWords(blockValue)
     if (fulfilmentEvaluation === "percent")
         return fulfilmentPercentToWords(blockValue);
 }

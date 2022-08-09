@@ -43,7 +43,7 @@ const getFulfilmentDescription=(fulfilmentEvaluation)=>{
             break;
         }
         case "percent":{
-            approach.text = "Procento";
+            approach.text = "Procenta";
             approach.max = "100%";
             break;
         }
@@ -63,7 +63,7 @@ const getBlocksDescription=(blocksEvaluation, criterionEvaluation)=>{
             break;
         }
         case "percent":{
-            approach = "Procento";
+            approach = "Procenta";
             break;
         }
         case "weight":{

@@ -74,7 +74,7 @@ const BasicSelect = () => {
                             <option hidden disabled selected value="null"> -- select an option -- </option>
                             <option value="words">Slovně: "Splněno (s menšími / většími výhradami)", "Nesplněno"</option>
                             <option value="points">Body: 0 až 20</option>
-                            <option value="percent">Procento: 0% až 100%</option>
+                            <option value="percent">Procenta: 0% až 100%</option>
                         </select>
                     </div>
                 </div>
@@ -84,9 +84,9 @@ const BasicSelect = () => {
                         <select onChange={event => onBlocksChange(event.target)} className="form-control form-select form-select" name="basicBlocksEvaluation" id="basicBlocksEvaluation">
                             <option hidden disabled selected value="null"> -- select an option -- </option>
                             <option value="marks"  disabled={true}>Známka: A-F</option>
-                            <option value="points"  disabled={true}>Body: 0 až 25 (nebo 20 za podmínky bodového hodnocení bloku "Splnění zadání")</option>
-                            <option value="weight"  disabled={true}>Nastavitelné váhy, kde součet za všechny bloky nesmí překročit 100 (nebo 80 za podmínky bodového hodnocení bloku "Splnění zadání")</option>
-                            <option value="percent"  disabled={true}>Procento: 0% až 100%</option>
+                            <option value="points"  disabled={true}>Body: 0 až 25 (nebo 20)</option>
+                            <option value="weight"  disabled={true}>Nastavitelné váhy</option>
+                            <option value="percent"  disabled={true}>Procenta: 0% až 100%</option>
                         </select>
                     </div>
                 </div>
@@ -96,12 +96,12 @@ const BasicSelect = () => {
                         <select onChange={event => onCriterionChange(event.target)} className="form-control form-select form-select" name="criterionEvaluation" id="criterionEvaluation">
                             <option hidden disabled selected value="null"> -- select an option -- </option>
                             <option value="false" >Nehodnotí se</option>
-                            <option value="true" >Procento: 0% až 100%</option>
+                            <option value="true" >Procenta: 0% až 100%</option>
                         </select>
                     </div>
                 </div>
                 <div className="p-3">
-                    <p className="h6">4. Ovlivnění součtu bodů za 4 základní bloky koeficientem z průniku dvou bloků "Zadání" a "Splnění zadání":</p>
+                    <p className="h6">4. Aplikace koeficientu:</p>
                     <div className="form-check form-check p-3">
                         <select className="form-control form-select form-select" name="coefficient" id="coefficient">
                             <option hidden disabled selected value="null"> -- select an option -- </option>
@@ -111,10 +111,7 @@ const BasicSelect = () => {
                     </div>
                 </div>
                 <div className="p-3">
-                    <p className="h6">5. Splnění zadání se bude vypočítávat automaticky vzhledem ke splnění kritérií z
-                        bloku "Odborná úroveň" a případně kritérií z dalších bloků, které budou předem označené vedoucím.</p>
-                    <p>Tzn. body odečtené za nesplnění příslušných kritérií budou převedeny na procento od váhy bloků,
-                        procento je pak odečteno z maxima 100 % za blok "Splnění zadání".</p>
+                    <p className="h6">5. Automatické vypočítání bloku "Splnění zadání":</p>
                     <div className="form-check form-check p-3">
                         <select className="form-control form-select form-select" name="autoFulfilment" id="autoFulfilment">
                             <option hidden disabled selected value="null"> -- select an option -- </option>

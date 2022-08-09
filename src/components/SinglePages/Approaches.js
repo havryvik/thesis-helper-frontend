@@ -57,7 +57,7 @@ const Approaches = () => {
                                 <tr><td>Náročné</td><td>od +5 do +1</td></tr>
                                 <tr><td>Průměrně náročné</td><td>0</td></tr>
                                 <tr><td>Lehké</td><td>od -1 do -5</td></tr>
-                                <tr><td>Nedosatecne náročné</td><td> (F) </td></tr>
+                                <tr><td>Nedostatečně náročné</td><td> (F) </td></tr>
                                 </tbody>
                             </table>
                             <div className="container pb-3">
@@ -80,7 +80,7 @@ const Approaches = () => {
                                     <th scope="col" className="width-16">Náročné</th>
                                     <th scope="col" className="width-16">Průměrně náročné</th>
                                     <th scope="col" className="width-16">Lehké</th>
-                                    <th scope="col" className="width-16">Nedosatecne náročné</th>
+                                    <th scope="col" className="width-16">Nedostatečně náročné</th>
                                 </tr>
                                 <tr>
                                     <th scope="col" className="bg-light width-16">Splněno</th>
@@ -121,8 +121,8 @@ const Approaches = () => {
                         <div className="card-body">
                             <div className="container">
                                 <ul  className="list-inline">
-                                    <li className="list-group-item"> <u>Několik</u> možností hodnocení: <strong>Slovní, Body, Procento</strong> </li>
-                                    <li className="list-group-item"> V tabulce s výsledným hodnocením se body a procento
+                                    <li className="list-group-item"> <u>Několik</u> možností hodnocení: <strong>Slovní, Body, Procenta</strong> </li>
+                                    <li className="list-group-item"> V tabulce s výsledným hodnocením se body a procenta
                                         automaticky převádí do slovního hodnocení dle stupnice níže</li>
                                 </ul>
                             </div>
@@ -136,7 +136,7 @@ const Approaches = () => {
                                 <tr className="bg-light text-center">
                                     <th scope="col" className="width-33"> Slovní hodnocení</th>
                                     <th scope="col" className="width-33">Bodové hodnocení </th>
-                                    <th scope="col" className="width-33">Procento </th>
+                                    <th scope="col" className="width-33">Procenta </th>
                                 </tr>
                                 <tr><td>Splněno</td><td>od 20 do 18 </td><td>100-90%</td></tr>
                                 <tr><td>Splněno s menšími výhradami</td><td>od 17 do 14</td><td>89-70%</td></tr>
@@ -149,17 +149,16 @@ const Approaches = () => {
                                     vylučuje možnost volby jiného než stejného způsobu v části hodnocení
                                     <a onClick={(event)=>showCollapseBySectionId(event,'collapseThree')}
                                        href="/approach#basicBlocks"> Základních bloků </a>
-                                    (tj. pokud je část "Splnění zadání" hodnocena bodově, pak jsou nutně základní bloky
-                                    hodnoceny taky bodově).</small>
+                                    (tj. pokud je část "Splnění zadání" hodnocená bodově, pak jsou nutně základní bloky
+                                    hodnocené taky bodově).</small>
                             </div>
                             <div className="container p-3">
                                 <ul  className="list-inline">
-                                    <li className="list-group-item"><strong>Možnost automatického vypočítání:</strong> body odebrané za
-                                        za kriteria spadající do průníku (viz.
+                                    <li className="list-group-item"><strong>Možnost automatického vypočítání:</strong> body odebrané                                         za kritéria spadající do průníku (viz.
                                         <a onClick={(event)=>showCollapseBySectionId(event,'collapseOne')}
-                                           href="/approach#assignment"> Slovníček pojmů </a>) se převádějí na procento od definované váhy bloku, ten
-                                        je pak odečten od 100% za splněnost zadání. Veduoci ale může zvolit pohodlný pro
-                                        něho způsob zobrazení hodnocení bloku, do kterého pak bude převedeno vypočítané
+                                           href="/approach#assignment"> Slovníček pojmů </a>) se převádějí na procenta od definované váhy bloku, ten
+                                        je pak odečten od 100% za splněnost zadání. Vedoucí ale může zvolit pohodlný pro
+                                        něho způsob zobrazení hodnocení bloků, do kterého pak bude převedeno vypočítané
                                         procento dle stupnice výše.</li>
                                 </ul>
                             </div>
@@ -183,19 +182,19 @@ const Approaches = () => {
                                         <tbody>
                                         <tr>
                                             <td className="width-15"><strong>Základní bloky</strong></td>
-                                            <td>koncept definující sjednocené označení pro čtyři samostatné bloky:
+                                            <td>sjednocené označení pro čtyři samostatné bloky:
                                                 "Aktivita a samostatnost", "Odborná úroveň", "Formální a jazyková úroveň,
-                                                rozsah práce", "Výběr zdrojů, korektnost citace"</td>
+                                                rozsah práce", "Výběr zdrojů, korektnost citace".</td>
                                         </tr>
                                         <tr>
                                             <td><strong>Váhy</strong></td>
-                                            <td>pojem definující počet bodů vyhrazeny vedoucím pro každý
-                                                ze zakladnych bloku. <br/> <small><span className="text-danger "><strong> ! IMPORTANT </strong></span></small>Součet bodů za všechny bloky nesmí ve finále překročit
-                                                <strong> 100 (80)</strong> bodů v případech <strong>slovního (bodového)</strong> hodnocení bloku
+                                            <td>pojem definující počet bodů vyhrazený vedoucím pro každý
+                                                ze základních bloků. <br/> <small><span className="text-danger "><strong> ! IMPORTANT </strong></span></small>Součet bodů za všechny bloky nesmí ve finále překročit
+                                                <strong> 100 (80)</strong> bodů v případech <strong>slovního (bodového)</strong> hodnocení bloku{" "}
                                                 <a onClick={(event)=>showCollapseBySectionId(event,'collapseTwo')}
-                                                   href="/approach#fulfilment">"Splnění zadání"</a>
+                                                   href="/approach#fulfilment">"Splnění zadání"</a>.
                                                 <br/> <small><span className="text-danger "><strong> ! IMPORTANT </strong></span></small>
-                                                Váha za každý blok nesmí být menší než 10% a větší než 40% od součtu vah za všechny základní bloky
+                                                Váha za každý blok nesmí být menší než 10% a větší než 40% od součtu vah za všechny základní bloky.
                                             </td>
                                         </tr>
                                         <tr>
@@ -212,8 +211,8 @@ const Approaches = () => {
                             </div>
                             <div className="container p-3">
                                 <ul  className="list-inline">
-                                    <li className="list-group-item"> <u>Několik</u> možností hodnocení: <strong>Známka, Body (Fixní, Váhy), Procento</strong> </li>
-                                    <li className="list-group-item"> V tabulce s výsledným hodnocením se body a procento
+                                    <li className="list-group-item"> <u>Několik</u> možností hodnocení: <strong>Známka, Body (Fixní, Váhy), Procenta</strong> </li>
+                                    <li className="list-group-item"> V tabulce s výsledným hodnocením se body a procenta
                                         automaticky převádí do známkového hodnocení dle stupnice níže</li>
                                 </ul>
                             </div>
@@ -228,7 +227,7 @@ const Approaches = () => {
                                     <th scope="col" className="width-25">Známka</th>
                                     <th scope="col" className="width-25">Fixní bodové hodnocení</th>
                                     <th scope="col" className="width-25">Nástavitelné váhy</th>
-                                    <th scope="col" className="width-25">Procento</th>
+                                    <th scope="col" className="width-25">Procenta</th>
                                 </tr>
                                 <tr><td>A</td><td>od 20 do 18 </td><td rowSpan="6">Dle vzorce<span className="text-danger ">**</span>: <br/>
                                     od (max * upperPercent / 100) do (max * lowerPercent / 100)</td><td>100-90%</td></tr>
@@ -245,17 +244,17 @@ const Approaches = () => {
                                     vylučuje možnost volby jiného než stejného způsobu v části hodnocení
                                     <a onClick={(event)=>showCollapseBySectionId(event,'collapseTwo')}
                                        href="/approach#fulfilment"> Splnění zadání </a>
-                                    (tj. pokud je část "Základní bloky" hodnocena bodově, pak je nutně splnění zadání
-                                    hodnoceno taky bodově).<br/>
+                                    (tj. pokud je část "Základní bloky" hodnocena bodově, pak je nutně "Splnění zadání"
+                                    hodnotit taky bodově).<br/>
                                 <span className="text-danger ">**</span>max - maximum bodů za příslušný blok,
-                                    upperPercent - horní hranice sloupce Procento příslušného řádku stupnice,
-                                    lowerPercent - dolní hranice sloupce Procento příslušného řádku stupnice</small>
+                                    upperPercent - horní hranice sloupce "Procenta" příslušného řádku stupnice,
+                                    lowerPercent - dolní hranice sloupce "Procenta" příslušného řádku stupnice.</small>
                             </div>
                             <div className="container p-3">
                                 <ul  className="list-inline">
                                     <li className="list-group-item"><strong>Možnost automatického vypočítání:</strong> vedoucí
                                         v procentech hodnotí dílčí kritéria. Splnenost bloku se pak dopočítává automaticky
-                                        dle průměru. Veduoci ale může zvolit pohodlný pro něho způsob zobrazení hodnocení
+                                        dle průměru. Vedoucí ale může zvolit pohodlný pro něho způsob zobrazení hodnocení
                                         bloku, do kterého pak bude převedeno vypočítané procento dle stupnice výše.</li>
                                 </ul>
                             </div>
@@ -285,7 +284,7 @@ const Approaches = () => {
                                 <tr>
                                     <td className="bg-light">  </td><td>  </td><td><strong>Známka</strong></td>
                                     <td><strong>Fixní</strong></td><td><strong>Váhy</strong></td>
-                                    <td><strong>Procento</strong></td><td><strong>Automaticky</strong></td>
+                                    <td><strong>Procenta</strong></td><td><strong>Automaticky</strong></td>
                                 </tr>
                                 <tr>
                                     <th scope="row" rowSpan="4" className="bg-light">Splnění zadání</th>
@@ -296,7 +295,7 @@ const Approaches = () => {
                                     <td><strong>Body</strong></td><td>-</td><td>4.</td><td>4.</td><td>-</td><td>4.</td>
                                 </tr>
                                 <tr>
-                                    <td><strong>Procento</strong></td><td>-</td><td>-</td><td>-</td><td>1.</td><td>1.</td>
+                                    <td><strong>Procenta</strong></td><td>-</td><td>-</td><td>-</td><td>1.</td><td>1.</td>
                                 </tr>
                                 <tr>
                                     <td><strong>Automaticky</strong></td><td>-</td><td>-</td><td>-</td><td>-</td><td>Záleží na zvolené možnosti hodnocení<span className="text-danger ">*</span></td>
@@ -311,16 +310,16 @@ const Approaches = () => {
                                 <p><strong>3. dle vzorce (Sum*K)</strong>, kde Sum - součet dosažených studentem bodů
                                     za základní bloky a K - koeficient umožňující navýšení známky, vypočítaný pomocí
                                     matematického vzorce s respektováním dosažených bodů za základní bloky a průniku
-                                    Splnění zadání a Náročnosti zadání. Vedoucí vždy má možnost upravit výslednou známku
+                                    "Splnění zadání" a "Náročnosti zadání". Vedoucí vždy má možnost upravit výslednou známku
                                     přidáním komentáře s odůvodněním.</p>
                                 <p><strong>4. dle vzorce (Sum+AP)</strong>, kde Sum - součet dosažených studentem bodů
                                     za základní bloky a AP - počet bodů za náročnost zadání dle stupnice (viz.
                                     <a onClick={(event)=>showCollapseBySectionId(event,'collapseOne')}
-                                       href="/approach#assignment"> Základních bloků </a>)</p>
-                                <p><span className="text-danger ">*</span>jedná se pouze o možnost oblehceni provedení
-                                    hodnocení pomocí automatického vypočítání hodnocení některých bloků. Vzorec pro
-                                    vypočítání výsledné známky je dán stejnou tabulkou (bez ohledu n aposledni sloupec a
-                                    řádek) po zvolení vhodného pro vedoucího přístupu k hodnocení Splnění zadání a Základních bloků</p>
+                                       href="/approach#assignment"> Základních bloků</a>).</p>
+                                <p><span className="text-danger ">*</span>jedná se pouze o možnost zjednodušení
+                                    hodnocení pomocí automatického vypočítání známek v jednotlivých blocích. Vzorec pro
+                                    vypočítání výsledné známky je dán stejnou tabulkou (bez ohledu na poslední sloupec a
+                                    řádek) po zvolení vhodného pro vedoucího přístupu k hodnocení "Splnění zadání" a "Základních bloků".</p>
                             </div>
                         </div>
                     </div>

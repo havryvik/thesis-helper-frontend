@@ -15,14 +15,14 @@ const Fulfilment = props => {
                         <label className="fw-bold">Ohodnoťte splnění studentem zadání bakalářské práce studenta, kde dle stupnice</label>
                         <ul className="list-inline ">
                             <li className="list-group-item"><strong>Splněno</strong> nebo <strong>100-90%</strong> nebo <strong>20-18 bodů</strong> -
-                                odevzdaná práce naplnije zadání v plném rozsahu nebo rozšířeno a další části.</li>
+                                odevzdaná práce naplňuje zadání v plném rozsahu nebo rozšířeno na další části.</li>
                             <li className="list-group-item"><strong>Splněno s menšími výhradami</strong> nebo <strong>89-70%</strong> nebo <strong>17-14 bodů</strong> -
-                                práce může obsahovat menší množství nepřesností, nedostatku ve výpočtech, textu nebo zobrazení dat,
+                                práce může obsahovat menší množství nepřesností, nedostatků ve výpočtech, textu nebo zobrazení dat,
                                 což ale nemá velký vliv na kvalitu práce. Tyhle vady jsou většinou způsobené nezkušeností studenta a mohou být
                                 lehce a rychle odstraněné.</li>
                             <li className="list-group-item"><strong>Splněno s většími výhradami</strong> nebo <strong>69-50%</strong> nebo <strong>13-10 bodů</strong> -
                                 student záměrně vynechal bez náležitého odůvodnění důležitou kapitolu nebo část aplikace,
-                                která byla popsána v potvzenem zadání.</li>
+                                která byla popsána v potvrzeném zadání.</li>
                             <li className="list-group-item"><strong>Nesplněno</strong> nebo <strong>{"<"}50%</strong> nebo <strong>{"<"}10 bodů </strong> -
                                 odstoupení od zadání, výsledek nesplňuje stanovené předem požadavky a cíle práce.</li>
                         </ul>

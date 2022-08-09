@@ -99,7 +99,7 @@ const Summary = () => {
                     )}
                 </tr>
                 <tr><td><strong>1. Zadání</strong></td>
-                    <td>Slovní hodnocení. Možností: Mimořádně náročné, Náročné, Průměrně náročné, Lehké, Nedosatecne náročné</td>
+                    <td>Slovní hodnocení. Možností: Mimořádně náročné, Náročné, Průměrně náročné, Lehké, Nedostatečně náročné</td>
                     {columnsAmount===3&&(<td/>)}
                 </tr>
                 <tr><td><strong>2. Splnění zadání</strong></td><td>{approachFulfilment.text}</td>
@@ -108,7 +108,7 @@ const Summary = () => {
                 </tr>
                 <tr><td><strong>3. Aktivita a samostatnost</strong><br/>3.1. Dodržení domluvených termínů<br/>
                         3.2. Přípravenost k setkáním<br/>
-                        3.3. Iniciativnost<br/>
+                        3.3. Iniciativa<br/>
                         3.4. Samostatnost<br/>
                         3.5. Pěčlivost</td>
                     <td>{approachBasicBlocks}</td>
@@ -139,9 +139,9 @@ const Summary = () => {
                             <td>{studentApproach.fulfilmentEvaluation==="points"?20:25}</td>))
                     )}
                 </tr>
-                <tr><td><strong>5. Formální a jazyková úroveň, rozsah práce</strong><br/>	5.1. Adekvatnost rozsáhu<br/>
+                <tr><td><strong>5. Formální a jazyková úroveň, rozsah práce</strong><br/>	5.1. Adekvatnost rozsahu<br/>
                     5.2. Formatování<br/>
-                    5.3. Gramatické chyby, punktuace, překlepy<br/>
+                    5.3. Gramatické chyby, interpunkce, překlepy<br/>
                     5.4. Souvislost, konzistence textu<br/>
                     5.5. Čitelnost<br/>
                     5.6. Použití odborného jazyku<br/>

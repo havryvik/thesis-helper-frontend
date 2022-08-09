@@ -143,6 +143,7 @@ const CompleteEvaluation = () => {
             )
         }
         navigate(`/evaluation-overview/${evaluationId}`);
+        window.location.reload();
     }
 
     return(

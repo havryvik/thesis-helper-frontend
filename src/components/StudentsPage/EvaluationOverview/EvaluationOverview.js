@@ -203,7 +203,7 @@ const EvaluationOverview = () => {
                                     </li>
                                 )}
                                 <li className="row">
-                                    <div className="col-5"><strong>Aplikovaný vedoucím increment:</strong></div>
+                                    <div className="col-5"><strong>Korekce vedoucím:</strong></div>
                                     <div className="col-7">{StupniceService.getIncrementDescription(approach.finalMarkPattern, evaluation.increment)}</div>
                                 </li>
                             </ul>
