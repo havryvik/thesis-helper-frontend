@@ -1,56 +1,41 @@
-# Getting Started with Create React App
+# Thesis helper
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Backend aplikace je věřejně dostupný na adrese: https://gitlab.fel.cvut.cz/havryvik/thesis-helper
 
-## Available Scripts
+1. Příprava prostředí
 
-In the project directory, you can run:
+   Pro instalaci musíte mít nainstalovany Git, IDE (používala jsem IntelliJ).
 
-### `npm start`
+3. Naklonujte Git repositář a otevřete projekt ve svém IDE:
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+   $git clone https://gitlab.fel.cvut.cz/havryvik/thesis-helper.git
 
+4. PostgreSQL databáze
 
-# Popis projektu
+   4.1 Pro vývoj jsem používala lokální databází, proto je potřeba provést následující kroky pro instalaci Posrtge Databáze Serveru a pro správnou konfiguraci PostrgreSQL databází.
 
-V rámci tohoto projektu jsem se zabývala vývojem aplikace, která by měla posloužit pro vedoucí bakalářských 
-prací a studenty ve finální fázi studia. Hlavním cílem bylo na základě zpětné vazby od vyučujících FEL SIT
-navrhnout rozpad aktuálně používaného modelu posudku na další dílčí důležitá kritéria a prozkoumat možnosti 
-přístupu k ohodnocení prací. Úvahy definované v průběhu výzkumu i staly základem aplikace. Musím naznačit, že 
-kvůli rozsáhlosti funkcionality aplikace, velkému počtu alternativních cest ohodnocení práce a spojení projektu 
-s moji bakalářskou práci odevyzdani které se plánuje v podzimním termínu tato aplikace není kompletně dokončenou
-ale je dostačující pro daný semestrální projekt. Přesný seznam implementovaných use-casu je vyjmenován níže. 
-Projekt kromě frontendove části obsahuje taky Java backend vyvinutý na základě frameworku Sring Boot (odkaz na gitlab - 
-https://gitlab.fel.cvut.cz/havryvik/thesis-helper). Všechna 
-data (informace o uživatelích, detaily přístupů, hodnocení) se ukládají do databází PostgresSQL.
+   4.2 Nainstalujte si PostreSQL Server verze 13.2 na https://www.postgresql.org/download/. Při instalaci vyberte, že chcete instalovat i pgAdmin 4, což je gui pro Postgre. Port, kterém bude poslouchat server, můžete nechat defaultní (5432).
 
-Uživatelské role: Supervisor, Student (implementované pouze částečně)
+   4.3 Přejděte do pgAdmin, otevřete localhost server v Browseru a vytvořte si novou databázi se jménem "thesis_helper".
 
-Pro přihlášení použijte následující údaje: login "pavel", heslo "pavel". Nebo vytvořte nový uživatelský profil.
+   4.4 V application.properties souboru projektu (složka resources) nastavte následující data:
 
-# Use-Cases:
+   spring.datasource.url = jdbc:postgresql://localhost:5432/thesis_helper 	spring.datasource.username=/vami nastaveny username/ 	spring.datasource.password=/vami nastavene heslo/
 
-1. Registrace
+5. Zkontrolujte Run/Debug Spring Boot Configuration: použití Java SDK 13 a main class - cvut.fel.cz.thesis_helper.ThesisHelperApplication
 
-2. Přihlášení
+6. Tlačítkem "Run" spusťte aplikaci. Aplikace běží na adrese http://localhost:8080.
 
-3. Úprava informace profilu
+**-----Použité knihovny:-----**
 
-4. Zobrazení seznamu studentů, u kterých je vyučujícím
-
-5. Přidání nového studenta pomocí emailu
-
-6. Zobrazení modelu
-
-7. Zobrazení seznamu přístupů k ohodnocení dílčích částí posudku
-
-8. Defaultně vytvářet prvotní přístup ohodnocení práce odpovídající aktuálně používanému přístupu z posudku
-
-9. Možnost specifikovat přístup (nakonfigurovat) hodnocení závěrečné práci pro konkrétního studenta
-
-10. Prohlížení zvoleného přístupu hodncoeni
-
-11. Změnit již nakonfiguroavny přístup
-
-12. Provést hodnocení práce na základě zvoleného přístupu (castnecne implementováno, zatím se neukládá do db)
+	spring-boot-starter-parent: 2.6.5 
+	spring-boot-starter-data-jpa: (pokud není uvedená verze, je stejná jako u startového balíčku - 2.6.5)
+	spring-boot-starter-data-rest
+	spring-boot-starter-security
+	spring-boot-starter-web
+	spring-session-core
+	spring-boot-devtools
+	postgresql: 42.3.3
+	spring-boot-configuration-processor
+	lombok: 1.18.22
+	jjwt: 0.9.1
