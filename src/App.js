@@ -15,6 +15,7 @@ import Summary from "./components/StudentsPage/Summary";
 import WelcomePage from "./components/SinglePages/WelcomePage";
 import Footer from "./components/HeadersAndFooters/Footer";
 import EvaluationOverview from "./components/StudentsPage/EvaluationOverview/EvaluationOverview";
+import MyThesis from "./components/MyThesis/MyThesis";
 
 const App = () => {
 
@@ -30,12 +31,14 @@ const App = () => {
                     <Route path="/model" element={<Model />} />
                     <Route path="/approaches" element={<Approaches />} />
                     <Route path="/students" element={<Students />} />
+                    <Route path="/my-thesis" element={<MyThesis/>}/>
                     <Route path="/students/:studentId/configurator" element={<Configurator  />} />
                     <Route path="/:studentId/evaluation" element={<CompleteEvaluation />} />
                     <Route path="/students/:studentIdParam/evaluation" element={<CompleteEvaluation />} />
                     <Route path="/login" element={<Login />} />
                     <Route path="/register" element={<Register />} />
                     <Route path="/students/:studentId/summary/:approachId" element={<Summary />} />
+                    <Route path="/my-thesis/:studentId/summary/:approachId" element={<Summary />} />
                     <Route path="/evaluation-overview/:evaluationId" element={<EvaluationOverview/>} />
                 </Routes>
                 <Footer/>

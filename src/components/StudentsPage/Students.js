@@ -5,7 +5,6 @@ import SupervisorService from "../../services/supervisor.service";
 import Modal from "./Modal";
 import Profile from "../Profile";
 import {Link, useNavigate} from "react-router-dom";
-import StudentService from "../../services/student.service";
 
 
 //Private Component that contains supervisor Profile info and a table with students that he supervises

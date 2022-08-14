@@ -105,8 +105,8 @@ const AppMainHeader = () => {
                     )}
                     {currentUser && currentUser.role==='STUDENT' && (
                         <li className={toggleActiveStyles('evaluation')} onClick={()=>setActiveNav('evaluation')}>
-                            <Link to={"/evaluation"} className="nav-link">
-                                Hodnocení
+                            <Link to={"/my-thesis"} className="nav-link">
+                                Moje práce
                             </Link>
                         </li>
                     )}

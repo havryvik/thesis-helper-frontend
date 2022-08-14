@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React from "react";
 import PercentInput from "./PercentInput";
 import TextAreaComment from "./TextAreaComment";
 import BlockMark from "./BlockMark";

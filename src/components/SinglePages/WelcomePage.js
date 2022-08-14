@@ -6,10 +6,8 @@ import logo1 from "./logo1.png";
 
 const WelcomePage = () => {
 
-    //hook that allows to navigate within web`s url
     const navigate = useNavigate();
 
-    //navigates user to Model component
     function goToModel(event){
         event.preventDefault();
         navigate("/model");
@@ -31,7 +29,7 @@ const WelcomePage = () => {
                     <Link
                         to={"/model"}
                         className="App-link"
-                       // onClick={event=>goToModel(event)}
+                        onClick={event=>goToModel(event)}
                     >Go to evaluation model</Link>
                 </div>
             </div>

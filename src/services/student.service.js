@@ -20,10 +20,16 @@ const getStudentEvaluation = (studentId) => {
             user?{"Authorization": `Bearer_${user.token}`}:{}});
 };
 
+const getSupervisor = (studentId) => {
+    return axios.get(`http://localhost:8080/thesis_helper/supervisor/${studentId}`, {headers:
+            user?{"Authorization": `Bearer_${user.token}`}:{}});
+}
+
 const StudentService = {
     getApproachByStudent,
     getRequirements,
-    getStudentEvaluation
+    getStudentEvaluation,
+    getSupervisor
 };
 
 export default StudentService;

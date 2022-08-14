@@ -128,7 +128,7 @@ const Configurator = () => {
         } else {
             updateApproach()
         }}
-    }, [requirements]);
+    }, [requirements, approach, approachDto, currentForm, studentId, updateApproach]);
 
 
     useEffect(() => {
@@ -136,7 +136,7 @@ const Configurator = () => {
         if(approachDto!==undefined&&requirements!==undefined&&currentForm==="weights"){
             updateApproach();
         }
-    }, [weights]);
+    }, [weights, approachDto, currentForm, requirements]);
 
     function handleSubmitAfterRequirements(event){
         //When DB will be connected send there a request to save an evaluation approach instead of saving to a local storage

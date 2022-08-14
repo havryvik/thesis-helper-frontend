@@ -1,7 +1,5 @@
-import basicBlocksService from "./basicBlocks.service";
-import assignment from "../components/StudentsPage/CompleteEvaluation/Blocks/Assignment";
-
 const getSelectValueByPercent=(percent)=>{
+    console.log("ZZZZZZZZZZZ -"+percent);
     if(percent<=100&&percent>=90)
         return 1;
     if(percent<90&&percent>=80)
@@ -219,6 +217,12 @@ const getIncrementDescription = (finalMarkPattern, increment) => {
     else return `Beze změn`
 }
 
+const getAppropriateMark=(basicBlockEvalPattern, value)=>{
+    if(basicBlockEvalPattern==="marks")
+        return convertValueToMark(value)
+    return convertValueToMark(getSelectValueByPercent(value))
+}
+
 const StupniceService ={
     getSelectValueByPercent,
     getPointsForBlock,
@@ -233,7 +237,8 @@ const StupniceService ={
     getFulfilmentByEvalApproach,
     getCoefficient,
     getIncrementDescription,
-    getFulfilmentResultForAutoFulfilment
+    getFulfilmentResultForAutoFulfilment,
+    getAppropriateMark
 }
 
 export default StupniceService;

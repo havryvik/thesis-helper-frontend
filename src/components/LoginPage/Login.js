@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { useNavigate } from "react-router-dom";
 import AuthService from "../../services/auth.service";
 import {useForm} from "react-hook-form";
@@ -16,7 +16,7 @@ const Login = () => {
                 () => {
                     if(AuthService.getCurrentUserFromLocalStorage().role==='SUPERVISOR')
                         navigate("/students");
-                    else navigate("/evaluation");
+                    else navigate("/my-thesis");
                     window.location.reload();
                 },
                 (error) => {

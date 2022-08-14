@@ -21,7 +21,6 @@ const login = (data) => {
         });
 };
 
-
 const getCurrentUserFromLocalStorage = () => {
     return JSON.parse(localStorage.getItem("user"));
 };

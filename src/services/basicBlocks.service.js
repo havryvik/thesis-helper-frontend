@@ -1,4 +1,3 @@
-import SupervisorService from "./supervisor.service";
 
 const getBlockDescription = (name) => {
     switch (name){

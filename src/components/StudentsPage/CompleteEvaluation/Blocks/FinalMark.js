@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from "react";
 import StupniceService from "../../../../services/stupnice.service";
-import weights from "../../ApproachConfigurator/Weights";
 const FinalMark = props => {
 
     const [mark, setFinalMark] = useState(undefined);
@@ -56,7 +55,8 @@ const FinalMark = props => {
         }
 
 
-    }, [props.blocksEvaluation, props.activityMark, props.professionalLevelMark, props.languageLevelMark, props.citationMark, mark, coefficient])
+    }, [props.blocksEvaluation, props.activityMark, props.professionalLevelMark, props.languageLevelMark,
+        props.citationMark, mark, coefficient, increment, props.assignmentMark, props.finalMarkPattern, props.fulfilmentEvaluation, props.fulfilmentMark])
 
 
     function convertAndSetMark(tmpMark){

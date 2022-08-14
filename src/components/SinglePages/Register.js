@@ -1,6 +1,5 @@
 import React, {useState} from "react";
 import {useForm} from "react-hook-form";
-import axios from "axios";
 import AuthService from "../../services/auth.service";
 import {useNavigate} from "react-router-dom";
 

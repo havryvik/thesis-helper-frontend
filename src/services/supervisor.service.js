@@ -1,5 +1,4 @@
 import axios from "axios";
-import AuthHeader from "./auth-header";
 import AuthService from "./auth.service";
 
 const API_URL = "http://localhost:8080/thesis_helper/students";

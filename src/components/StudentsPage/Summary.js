@@ -1,11 +1,13 @@
 import React, {useEffect, useState} from "react";
-import {Link, useParams} from "react-router-dom";
+import {Link, useNavigate, useParams} from "react-router-dom";
 import ApproachService from "../../services/approach.service";
 import {faTrashCan} from "@fortawesome/free-regular-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import RequirementService from "../../services/requirement.service";
+import AuthService from "../../services/auth.service";
 const Summary = () => {
 
+    const [currentUser, setCurrentUser] = useState(undefined)
     const {studentId, approachId} = useParams();
     const [studentApproach, setStudentApproach] = useState(undefined);
     const [columnsAmount, setColumnsAmount] = useState(undefined);
@@ -14,57 +16,41 @@ const Summary = () => {
     const [weights, setWeights] = useState(undefined);
     const [requirements, setRequirements] = useState(undefined);
     const [finalMark, setFinalMark] = useState(undefined);
+    const navigate = useNavigate();
 
     useEffect(() => {
-        ApproachService.getApproach(approachId).then(
-            (response) => {
+        setCurrentUser(AuthService.getCurrentUserFromLocalStorage());
+        ApproachService.getApproach(approachId)
+            .then(response => {
                 const approach = response.data;
                 setStudentApproach(approach);
-                if(approach.basicBlocksEvaluation!=="marks"){
+                if (approach.basicBlocksEvaluation !== "marks") {
                     setColumnsAmount(3);
                     console.log(3);
-                }
-                else setColumnsAmount(2);
+                } else setColumnsAmount(2);
 
                 setApproachFulfilment(ApproachService.getFulfilmentDescription(approach.fulfilmentEvaluation));
                 setBasicBlocksFulfilment(ApproachService.getBlocksDescription(approach.basicBlocksEvaluation, approach.criterionEvaluation));
-            },
-            (error) => {
-                console.log("Private page", error);
-                // Invalid token
-                // if (error.response && error.response.status === 403) {
-                //     AuthService.logout();
-                //     navigate("/login");
-                //     window.location.reload();
-                // }
-            }
-        );
-
-
-    }, []);
-
-    useEffect(()=>{
-        console.log(studentApproach);
-        if(studentApproach!==undefined){
-        if(studentApproach.basicBlocksEvaluation==="weight"||studentApproach.basicBlocksEvaluation==="points"){
-            ApproachService.getWeights(approachId).then(
-                (response)=>{
-                    setWeights(response.data);
-                    console.log(response.data)
-                },
-                (error) => {console.log(error)}
-            );
-        }
-        ApproachService.getExtraRequirements(approachId).then(
-            (response)=>{
-                if(response.data!=null)
-                    setRequirements(response.data);
-            },
-            (error)=>{console.log(error)}
-            );
-        setFinalMark(ApproachService.getFinalMark(studentApproach.finalMarkPattern));
-        }
-    },[studentApproach]);
+                if(approach.basicBlocksEvaluation==="weight"||approach.basicBlocksEvaluation==="points"){
+                    ApproachService.getWeights(approachId).then(
+                        response=>{setWeights(response.data);});
+                }
+                ApproachService.getExtraRequirements(approachId).then(
+                    response=>{
+                        if(response.data!=null)
+                            setRequirements(response.data);
+                    });
+                setFinalMark(ApproachService.getFinalMark(approach.finalMarkPattern));
+            })
+            .catch(error=>{
+                console.log(error.response);
+                if (error.response && error.response.status === 403) {
+                    localStorage.clear();
+                    navigate("/login");
+                    window.location.reload();
+                }
+            });
+    }, [approachId, navigate]);
 
     function removeRequirement(requirement){
         RequirementService.removeRequirement(requirement.id).then(
@@ -123,10 +109,9 @@ const Summary = () => {
                     4.2. Možnost dálšího rozvoje<br/>
                     4.3. Systematičnost analýzy<br/>
                     4.4. Replikovatelnost závěru<br/>
-                    4.5. Volitelná<br/>
                     {requirements&&(
                         requirements.map((requirement)=>(
-                            <span>4.{requirements.indexOf(requirement)+6} {requirement.name}
+                            <span>4.{requirements.indexOf(requirement)+5} {requirement.name}
                                 <FontAwesomeIcon icon={faTrashCan} className='btn' onClick={()=>removeRequirement(requirement)}/>
                                 <br/></span>
                         ))
@@ -170,18 +155,27 @@ const Summary = () => {
                     <li className="list-group-item"><strong>Výsledná známka - </strong> {finalMark}</li>
                 </ul>
             </div>
-                <div className="container text-center pb-3">
-                    <div className="d-inline-block mx-2">
-                        <Link to={`/students/${studentId}/configurator`}>
-                            <span className="btn btn-secondary btnSummary" >Nakonfigurovat znovu</span>
+                {currentUser.role==="SUPERVISOR"&&(
+                    <div className="container text-center pb-3">
+                        <div className="d-inline-block mx-2">
+                            <Link to={`/students/${studentId}/configurator`}>
+                                <span className="btn btn-secondary btnSummary" >Nakonfigurovat znovu</span>
+                            </Link>
+                        </div>
+                        <div className="d-inline-block mx-2">
+                            <Link to="/students">
+                                <span className="btn btn-primary btnSummary">Zpět k prohlížení studentů</span>
+                            </Link>
+                        </div>
+                    </div>
+                )}
+                {currentUser.role==="STUDENT"&&(
+                    <div className="container text-center pb-3">
+                        <Link class to="/my-thesis">
+                            <span className="btn btn-primary btnSummary">Zpět do profilu</span>
                         </Link>
                     </div>
-                    <div className="d-inline-block mx-2">
-                        <Link to="/students">
-                            <span className="btn btn-primary btnSummary">Zpět k prohlížení studentů</span>
-                        </Link>
-                    </div>
-                </div>
+                )}
             </div>
         </div>
         )

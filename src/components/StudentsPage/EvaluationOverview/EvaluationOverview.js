@@ -1,25 +1,27 @@
 import React, {useEffect, useState} from "react";
-import {Link, useParams} from "react-router-dom";
+import {Link, useNavigate, useParams} from "react-router-dom";
 import EvaluationService from "../../../services/evaluation.service";
 import StupniceService from "../../../services/stupnice.service";
 import StudentService from "../../../services/student.service";
 import BasicBlocksService from "../../../services/basicBlocks.service";
 import ApproachService from "../../../services/approach.service";
+import AuthService from "../../../services/auth.service";
 const EvaluationOverview = () => {
+    const [currentUser, setCurrentUser] = useState(undefined)
 
     const {evaluationId} = useParams();
     const [evaluation, setEvaluation] = useState();
     const [approach, setApproach] = useState();
     const [requirements, setRequirements] = useState(undefined);
-    const [currentBlock, setCurrentBlock] = useState(3);
-    const [currentBlockDescription, setBlockDescription] = useState(BasicBlocksService.getBlockDescriptionByBlockNumber(3));
     const [weights, setWeights] = useState();
-    const [counter, setCounter] = useState(0);
+    const navigate = useNavigate();
 
     useEffect(()=>{
+        setCurrentUser(AuthService.getCurrentUserFromLocalStorage());
+
         if(evaluation===undefined) {
-            EvaluationService.getEvaluationOverview(evaluationId).then(
-                 (response) => {
+            EvaluationService.getEvaluationOverview(evaluationId)
+                .then(response => {
                      console.log(response.data);
                      response.data.blockDtos.sort(function(a, b){
                          if(a.blockNumber > b.blockNumber)
@@ -32,29 +34,30 @@ const EvaluationOverview = () => {
                          sortArray(block.criterionDtos);
                      }
                      setEvaluation(response.data);
-                     StudentService.getApproachByStudent(response.data.studentId).then(
-                         (response)=>{
-                             setApproach(response.data);
-                             ApproachService.getWeights(response.data.id).then(
-                                 (response)=>{setWeights(response.data)},
-                                (error)=>{console.log(error)}
-                             );
-                             ApproachService.getExtraRequirements(response.data.id).then(
-                                 (response)=>{
-                                     if(response.data!=null)
-                                         setRequirements(response.data);
-                                 },
-                                 (error)=>{console.log(error)}
-                             );
-                         },
-                         (error)=>{console.log(error)}
-                     )
-
-                 },
-                 (error)=>{console.log(error)}
-             )
+                     return StudentService.getApproachByStudent(response.data.studentId);
+                 })
+                .then(response=>{
+                    setApproach(response.data);
+                    ApproachService.getExtraRequirements(response.data.id)
+                        .then(response=>{
+                            if(response.data!=null)
+                                setRequirements(response.data);
+                        });
+                    return ApproachService.getWeights(response.data.id);
+                })
+                .then(response=>{
+                    setWeights(response.data);
+                })
+                .catch(error=>{
+                    console.log(error.response);
+                    if (error.response && error.response.status === 403) {
+                            localStorage.clear();
+                            navigate("/login");
+                            window.location.reload();
+                        }
+                });
         }
-    })
+    }, [evaluation, evaluationId])
 
     function getCorrectWeight(blockNumber){
         if(weights!==undefined) {
@@ -199,7 +202,7 @@ const EvaluationOverview = () => {
                                 {approach.basicBlocksEvaluation!=="marks"&&(
                                     <li className="row">
                                         <div className="col-5"><strong>Příslušná známka:</strong></div>
-                                        <div className="col-7">{StupniceService.convertValueToMark(StupniceService.getFinalMark(approach.finalMarkPattern, evaluation.actualMark))}</div>
+                                        <div className="col-7">{StupniceService.getAppropriateMark(approach.basicBlocksEvaluation, evaluation.actualMark)}</div>
                                     </li>
                                 )}
                                 <li className="row">
@@ -216,18 +219,28 @@ const EvaluationOverview = () => {
                             </div>
                         </div>
                     </div>
-                    <div className="container text-center pb-3 pt-5">
-                        <div className="d-inline-block mx-2">
-                            <Link to={`/students/${evaluation.studentId}/evaluation`}>
-                                <span className="btn btn-secondary btnSummary" >Ohodnotit znovu</span>
-                            </Link>
+                        {currentUser.role==="SUPERVISOR"&&(
+                            <div className="container text-center pb-3 pt-5">
+                            <div className="d-inline-block mx-2">
+                                <Link to={`/students/${evaluation.studentId}/evaluation`}>
+                                    <span className="btn btn-secondary btnSummary" >Ohodnotit znovu</span>
+                                </Link>
+                            </div>
+                            <div className="d-inline-block mx-2">
+                                <Link to="/students">
+                                    <span className="btn btn-primary btnSummary">Zpět k prohlížení studentů</span>
+                                </Link>
+                            </div>
                         </div>
-                        <div className="d-inline-block mx-2">
-                            <Link to="/students">
-                                <span className="btn btn-primary btnSummary">Zpět k prohlížení studentů</span>
-                            </Link>
-                        </div>
-                    </div>
+                        )}
+
+                        {currentUser.role==="STUDENT"&&(
+                            <div className="container text-center pb-3">
+                                <Link class to="/my-thesis">
+                                    <span className="btn btn-primary btnSummary">Zpět do profilu</span>
+                                </Link>
+                            </div>
+                        )}
                     </div>
                 )}
 

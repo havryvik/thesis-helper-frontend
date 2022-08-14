@@ -1,4 +1,4 @@
-import React, {useDeferredValue, useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import {useNavigate, useParams} from "react-router-dom";
 import StudentService from "../../../services/student.service";
 import Assignment from "./Blocks/Assignment";
@@ -27,7 +27,6 @@ const CompleteEvaluation = () => {
     const [professionalLevel, setProfessionalLevel] = useState(undefined);
     const [languageLevel, setLanguageLevel] = useState(undefined);
     const [citation, setCitation] = useState(undefined);
-    const [finalMark, setFinalMark] = useState(undefined);
     const [extraReq, setExtraReq] = useState(undefined);
 
     const navigate = useNavigate();
@@ -51,12 +50,11 @@ const CompleteEvaluation = () => {
                 setRequirements(response.data)},
             (error)=>{console.log(error);}
         )
-
         StudentService.getStudentEvaluation(studentIdParam).then(
             (response)=>{setEvaluationId(response.data.evaluationId)},
             (error)=>{console.log(error)}
         )
-    },[])
+    },[studentIdParam])
 
 
     function getBlockWeight(){
@@ -157,6 +155,7 @@ const CompleteEvaluation = () => {
                     }
                     setAssignment(result);
                     setCurrentFrame(studentApproach.autoFulfilment?"activity":"fulfilment")
+                    window.scrollTo(0, 0)
                 }} />)}
                 {currentFrame==="fulfilment"&&(<Fulfilment type={studentApproach.fulfilmentEvaluation}
                     onSubmit={(selectedItem, comment)=>{
@@ -167,6 +166,7 @@ const CompleteEvaluation = () => {
                     }
                     setFulfilment(result);
                     setCurrentFrame("activity")
+                        window.scrollTo(0, 0)
                     }}
                 />)}
                 {currentFrame!=="assignment"&& currentFrame!=="fulfilment"&& currentFrame!=="finalMark"&&
@@ -186,6 +186,7 @@ const CompleteEvaluation = () => {
                            setCurrentFrame(description.nextFrame);
                            if (extraReq.length!==0)
                                setExtraReq(extraReq);
+                            window.scrollTo(0, 0)
                         }}
                     />)}
                 {currentFrame==="finalMark"&&(
@@ -204,7 +205,6 @@ const CompleteEvaluation = () => {
 
                         saveEvaluation={(finalMarkValue)=>{
                             finalMarkValue.studentId = studentIdParam;
-                            setFinalMark(finalMarkValue);
                             saveEvaluation(finalMarkValue);
                         }
                     }

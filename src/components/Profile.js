@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from "react";
 import AuthService from "../services/auth.service";
-import {useNavigate} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
+import StudentService from "../services/student.service";
 const Profile = () => {
     const [profile, setProfile] = useState(undefined);
     const [editable, setEditable] = useState(false);
@@ -8,6 +9,7 @@ const Profile = () => {
     const [nameSurnameInput, setNameSurname] = useState(undefined);
     const [thesisFieldInput, setThesisField] = useState(undefined);
     const [thesisThemeInput, setThesisTheme] = useState(undefined);
+    const [supervisor, setSupervisor] = useState(undefined);
 
     useEffect(() => {
         AuthService.getCurrentUser().then(
@@ -18,18 +20,21 @@ const Profile = () => {
                 if(user.role==='STUDENT'){
                     setThesisField(user.thesisField);
                     setThesisTheme(user.thesisTheme);
+                    StudentService.getSupervisor(user.id).then(
+                        response=>{setSupervisor(response.data)},
+                        error=>{console.log(error);}
+                    )
                 }
             },
             (error) => {
                 console.log("Private page", error);
                 if (error.response && error.response.status === 403) {
                     localStorage.clear();
-                    //window.location.reload();
                     navigate("/login");
                 }
             }
         );
-    }, []);
+    }, [navigate]);
 
     function onSubmit(e){
         e.preventDefault();
@@ -57,13 +62,12 @@ const Profile = () => {
                     window.location.reload();
                 },
                 (error) => {
-                    console.log("Private page", error);
-                    // Invalid token
-                    // if (error.response && error.response.status === 403) {
-                    //     AuthService.logout();
-                    //     navigate("/login");
-                    //     window.location.reload();
-                    // }
+                    console.log(error.response);
+                    if (error.response && error.response.status === 403) {
+                        localStorage.clear();
+                        navigate("/login");
+                        window.location.reload();
+                    }
                 }
             )
         } else {console.log(div);div.style.display = "block"};
@@ -95,20 +99,42 @@ const Profile = () => {
                     </div>)}
                 {profile&&profile.role==='STUDENT' && (
                     <div>
-                    <div className="mb-3 row">
-                        <label htmlFor="thesisField" className="col-sm-4 col-form-label"><strong>Zaměření:</strong></label>
-                        <div className="col-sm-8">
-                            <input type="text"  className={getClassName()} id="thesisField"
-                                   value={thesisFieldInput} onChange={(e)=>{ setThesisField(e.target.value)}}/>
+                        <div className="mb-3 row">
+                            <label htmlFor="thesisField" className="col-sm-4 col-form-label"><strong>Zaměření:</strong></label>
+                            <div className="col-sm-8">
+                                <input type="text"  className={getClassName()} id="thesisField"
+                                       value={thesisFieldInput} onChange={(e)=>{ setThesisField(e.target.value)}}/>
+                            </div>
                         </div>
-                    </div>
-                    <div className="mb-3 row">
-                        <label htmlFor="thesisTheme" className="col-sm-4 col-form-label"><strong>Téma práce:</strong></label>
-                        <div className="col-sm-8">
-                            <input type="text" className={getClassName()} id="thesisTheme" value={thesisThemeInput}
-                                   onChange={(e)=>{ setThesisTheme(e.target.value)}}/>
+                        <div className="mb-3 row">
+                            <label htmlFor="thesisTheme" className="col-sm-4 col-form-label"><strong>Téma práce:</strong></label>
+                            <div className="col-sm-8">
+                                <input type="text" className={getClassName()} id="thesisTheme" value={thesisThemeInput}
+                                       onChange={(e)=>{ setThesisTheme(e.target.value)}}/>
+                            </div>
                         </div>
-                    </div>
+                        <div className="mb-3 row">
+                            <label htmlFor="supervisor" className="col-sm-4 col-form-label"><strong>Vedoucí:</strong></label>
+                            <div className="col-sm-8" id="supervisor">
+                                {supervisor!==undefined?(supervisor.nameSurname+" ("+supervisor.email+")"):("nemáte přiřazeného vedoucího")}
+                            </div>
+                        </div>
+                        <div className="mb-3 row">
+                            <label htmlFor="approach" className="col-sm-4 col-form-label"><strong>Přístup vedoucího k hodnocení práce:</strong></label>
+                            <div className="col-sm-8">
+                                <Link className="btn-link" to={`${profile.id}/summary/${profile.approachId}`} id="approach">
+                                    ukázat přístup
+                                </Link>
+                            </div>
+                        </div>
+                        <div className="mb-3 row">
+                            <label htmlFor="evaluation" className="col-sm-4 col-form-label"><strong>Hodnocení práce:</strong></label>
+                            <div className="col-sm-8">
+                                <Link className="btn-link" to={`/evaluation-overview/${profile.evaluationId}`} id="evaluation" >
+                                    ukázat hodnocení
+                                </Link>
+                            </div>
+                        </div>
                     </div>
                 )}
                 <div className="exception ">
